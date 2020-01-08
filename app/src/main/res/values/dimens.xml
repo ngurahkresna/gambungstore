@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--MARGIN & PADDING-->
+    <dimen name="space_quarter">2dp</dimen>
+    <dimen name="space_half">4dp</dimen>
+    <dimen name="space">8dp</dimen>
+    <dimen name="space_double">16dp</dimen>
+    <dimen name="space_triple">24dp</dimen>
+    <dimen name="space_quadruple">32dp</dimen>
+    <dimen name="space_xtra">48dp</dimen>
+    <dimen name="space_xtra_minus">-48dp</dimen>
+
+    <!--FONT-->
+    <dimen name="font_tiny">10sp</dimen>
+    <dimen name="font_small">12sp</dimen>
+    <dimen name="font_reg">14sp</dimen>
+    <dimen name="font_medium">16sp</dimen>
+    <dimen name="font_big">20sp</dimen>
+    <dimen name="font_xbig">25sp</dimen>
+    <dimen name="font_xxbig">30sp</dimen>
+    <dimen name="customTitle">14sp</dimen>
+    <dimen name="customEntry">18sp</dimen>
+
+    <!--RADIUS-->
+    <dimen name="radius">8dp</dimen>
+    <dimen name="card_radius">6dp</dimen>
+    <dimen name="tooltip_max_width">230dp</dimen>
+    <dimen name="fab_normal_size_plus_margin_double">72dp</dimen>
+
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
+
+    <!--  Button  -->
+    <dimen name="button_width">120dp</dimen>
+    <dimen name="button_height">30dp</dimen>
+</resources>

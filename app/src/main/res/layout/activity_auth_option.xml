@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorLightBrown"
+    tools:context=".authOption">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="324dp"
+                android:layout_alignParentBottom="true"
+                android:background="@color/colorBrown" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/space_triple">
+
+                <TextView
+                    android:id="@+id/gambungStore"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space_triple"
+                    android:text="Gambung Store"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="32sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/subTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/gambungStore"
+                    android:layout_marginTop="@dimen/space"
+                    android:text="Menjual berbagai produk yang di produksi langsung oleh umkm pada desa Gambung, Ciwidey"
+                    android:textColor="@color/colorFont"
+                    android:textSize="16sp" />
+
+                <ImageView
+                    android:id="@+id/imageAuth"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/subTitle"
+                    android:layout_marginTop="93dp"
+                    android:background="@drawable/auth_option_pitcure" />
+
+                <Button
+                    android:id="@+id/loginButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_below="@+id/imageAuth"
+                    android:layout_marginTop="@dimen/space_xtra"
+                    android:background="@drawable/button_white_solid"
+                    android:text="Login"
+                    android:textAllCaps="false"
+                    android:textColor="@color/colorFont"
+                    android:textSize="16sp"
+                    android:textStyle="bold"></Button>
+
+                <Button
+                    android:id="@+id/regisButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_below="@+id/loginButton"
+                    android:layout_marginTop="@dimen/space_double"
+                    android:background="@drawable/button_white_stroke"
+                    android:text="Register"
+                    android:textAllCaps="false"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="16sp"
+                    android:textStyle="bold"></Button>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/regisButton"
+                    android:layout_marginTop="@dimen/space_double"
+                    android:text="Kembali"
+                    android:textAlignment="textEnd"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="16sp" />
+
+            </RelativeLayout>
+
+        </RelativeLayout>
+    </ScrollView>
+
+
+</RelativeLayout>

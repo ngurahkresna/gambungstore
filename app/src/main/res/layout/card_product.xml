@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_marginTop="@dimen/space_double"
+    android:layout_marginRight="@dimen/space"
+    android:padding="@dimen/space"
+    android:clipToPadding="false">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="100dp"
+        android:layout_height="120dp"
+        app:cardCornerRadius="4dp"
+        android:id="@+id/containerProduct">
+
+    <ImageView
+        android:id="@+id/productBackground"
+        android:layout_width="100dp"
+        android:layout_height="120dp"
+        android:scaleType="centerCrop"
+        android:background="@drawable/product_backgorund" />
+    </androidx.cardview.widget.CardView>
+
+    <TextView
+        android:id="@+id/productTitle"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/containerProduct"
+        android:ellipsize="end"
+        android:maxLines="2"
+        android:text="ini Title panjangggggggg"
+        android:textSize="14sp"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:id="@+id/productPrice"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/productTitle"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:text="20K"
+        android:textColor="@color/colorPrimary"
+        android:textStyle="bold"/>
+
+
+</RelativeLayout>
