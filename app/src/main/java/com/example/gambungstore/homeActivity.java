@@ -35,7 +35,7 @@ public class homeActivity extends AppCompatActivity {
                 break;
 
             case R.id.cart_menu:
-                fragment = new homeFragment();
+                fragment = new cartFragment();
                 break;
 
             case R.id.transaction_menu:
@@ -50,5 +50,6 @@ public class homeActivity extends AppCompatActivity {
         }
         return loadFragment(fragment);
     }
+
 }
 

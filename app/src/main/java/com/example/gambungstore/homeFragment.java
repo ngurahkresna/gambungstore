@@ -24,6 +24,7 @@ import android.widget.TextView;
 public class homeFragment extends Fragment {
 
     private TextView auth;
+    private TextView promos;
     private LinearLayout searchHome;
 
     private RecyclerView promo;
@@ -57,6 +58,7 @@ public class homeFragment extends Fragment {
         auth = view.findViewById(R.id.buttonAuth);
         searchHome = view.findViewById(R.id.homeSearch);
         promo = view.findViewById(R.id.promo);
+        promos = view.findViewById(R.id.allPromo);
         category = view.findViewById(R.id.category);
         product = view.findViewById(R.id.product);
         onViewPromo();
@@ -68,6 +70,13 @@ public class homeFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(getContext(), authOption.class));
+            }
+        });
+
+        promos.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getContext(), promoActivity.class));
             }
         });
 
