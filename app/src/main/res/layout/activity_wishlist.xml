@@ -4,7 +4,37 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".wishlistActivity">
+    tools:context=".wishlistActivity"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="120dp"
+            android:layout_height="70dp"
+            android:background="@drawable/back_background_shape"
+            android:padding="@dimen/space_double">
+
+            <ImageView
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_marginTop="@dimen/space_half"
+                android:src="@drawable/ic_arrow_back_black_24dp"
+                android:tint="@color/colorWhite" />
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="@dimen/space_xtra"
+            android:text="Wishlist"
+            android:textColor="@color/colorFont"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+    </LinearLayout>
 
     <ScrollView
         android:layout_width="match_parent"
@@ -14,37 +44,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <LinearLayout
-                    android:layout_width="120dp"
-                    android:layout_height="70dp"
-                    android:background="@drawable/back_background_shape"
-                    android:padding="@dimen/space_double">
-
-                    <ImageView
-                        android:layout_width="32dp"
-                        android:layout_height="32dp"
-                        android:layout_marginTop="@dimen/space_half"
-                        android:src="@drawable/ic_arrow_back_black_24dp"
-                        android:tint="@color/colorWhite" />
-                </LinearLayout>
-
-                <TextView
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginLeft="@dimen/space_xtra"
-                    android:text="Wishlist"
-                    android:textColor="@color/colorFont"
-                    android:textSize="24sp"
-                    android:textStyle="bold" />
-
-
-            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"

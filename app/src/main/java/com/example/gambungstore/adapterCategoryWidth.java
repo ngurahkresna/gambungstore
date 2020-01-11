@@ -1,17 +1,15 @@
 package com.example.gambungstore;
 
-import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-public class adapterCategory extends RecyclerView.Adapter<adapterCategory.MyViewHolder> {
+public class adapterCategoryWidth extends RecyclerView.Adapter<adapterCategoryWidth.MyViewHolder> {
     private String[] mDataset = {"Makanan", "Minuman", "Kerajinan", "Lihat Semua"};
 
     // Provide a reference to the views for each data item
@@ -23,22 +21,22 @@ public class adapterCategory extends RecyclerView.Adapter<adapterCategory.MyView
 
         public MyViewHolder(View v) {
             super(v);
-            textView = v.findViewById(R.id.categoryTitle);
+            textView = v.findViewById(R.id.categoryWidth);
         }
     }
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    public adapterCategory() {
+    public adapterCategoryWidth() {
 //        mDataset = myDataset;
     }
 
     // Create new views (invoked by the layout manager)
     @Override
-    public adapterCategory.MyViewHolder onCreateViewHolder(ViewGroup parent,
-                                                           int viewType) {
+    public adapterCategoryWidth.MyViewHolder onCreateViewHolder(ViewGroup parent,
+                                                                int viewType) {
         // create a new view
         View v = (View) LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.card_category, parent, false);
+                .inflate(R.layout.card_category_width, parent, false);
         MyViewHolder vh = new MyViewHolder(v);
         return vh;
     }

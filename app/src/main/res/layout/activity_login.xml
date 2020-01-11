@@ -16,7 +16,7 @@
         android:text="Login \nke Akun Kamu"
         android:textColor="@color/colorWhite"
         android:textSize="32sp"
-        android:textStyle="bold" />
+        android:textStyle="bold"/>
 
     <TextView
         android:id="@+id/errorMessage"
@@ -25,7 +25,8 @@
         android:layout_below="@+id/loginTitle"
         android:layout_marginTop="@dimen/space_quadruple"
         android:text="Error Message"
-        android:textColor="@color/colorAccent" />
+        android:textColor="@color/colorAccent"
+        android:visibility="gone"/>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/emailField"

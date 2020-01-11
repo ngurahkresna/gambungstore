@@ -25,6 +25,8 @@ public class homeFragment extends Fragment {
 
     private TextView auth;
     private TextView promos;
+    private TextView products;
+    private TextView categories;
     private LinearLayout searchHome;
 
     private RecyclerView promo;
@@ -60,7 +62,9 @@ public class homeFragment extends Fragment {
         promo = view.findViewById(R.id.promo);
         promos = view.findViewById(R.id.allPromo);
         category = view.findViewById(R.id.category);
+        categories = view.findViewById(R.id.allCategory);
         product = view.findViewById(R.id.product);
+        products = view.findViewById(R.id.allProduct);
         onViewPromo();
         onViewCategory();
         onViewProduct();
@@ -80,11 +84,25 @@ public class homeFragment extends Fragment {
             }
         });
 
+        categories.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getContext(), categoryActivity.class));
+            }
+        });
+
+        products.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getContext(), productActivity.class));
+            }
+        });
+
         searchHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                startActivity(new Intent(getContext(), SplashScreenActivity.class));
-                getActivity().onBackPressed();
+                startActivity(new Intent(getContext(), searchActivity.class));
+//                getActivity().onBackPressed();
             }
         });
     }
