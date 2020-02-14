@@ -86,10 +86,11 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/space_triple">
 
-                <!--                                <androidx.recyclerview.widget.RecyclerView-->
-                <!--                                    android:id="@+id/promo"-->
-                <!--                                    android:layout_width="match_parent"-->
-                <!--                                    android:layout_height="wrap_content" />-->
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/promo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"/>
             </LinearLayout>
 
             <ImageView

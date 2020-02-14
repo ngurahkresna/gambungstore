@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".sideBar">
+
+    <LinearLayout
+        android:id="@+id/headerSideBar"
+        android:layout_alignParentTop="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="120dp"
+            android:layout_height="70dp"
+            android:background="@drawable/back_background_shape"
+            android:padding="@dimen/space_double">
+
+            <ImageView
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_marginTop="@dimen/space_half"
+                android:src="@drawable/ic_arrow_back_black_24dp"
+                android:tint="@color/colorWhite" />
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="@dimen/space_xtra"
+            android:text="User Name"
+            android:textColor="@color/colorFont"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <ScrollView
+        android:id="@+id/scrollableSideBar"
+        android:layout_below="@+id/headerSideBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:id="@+id/editProfileMenu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:padding="@dimen/space_triple">
+
+                <ImageView
+                    android:layout_width="@dimen/space_triple"
+                    android:layout_height="@dimen/space_triple"
+                    android:src="@drawable/ic_profile_edit" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/space_quadruple"
+                    android:text="Edit Profile"
+                    android:textColor="@color/colorFont"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/changePasswordMenu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/editProfileMenu"
+                android:padding="@dimen/space_triple">
+
+                <ImageView
+                    android:layout_width="@dimen/space_triple"
+                    android:layout_height="@dimen/space_triple"
+                    android:src="@drawable/ic_change_password" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/space_quadruple"
+                    android:text="Ubah Password"
+                    android:textColor="@color/colorFont"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/notificationMenu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/changePasswordMenu"
+                android:padding="@dimen/space_triple">
+
+                <ImageView
+                    android:layout_width="@dimen/space_triple"
+                    android:layout_height="@dimen/space_triple"
+                    android:src="@drawable/ic_notification" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/space_quadruple"
+                    android:text="Notifikasi"
+                    android:textColor="@color/colorFont"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <Switch
+                    android:id="@+id/simpleSwitch"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/wishlistMenu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/notificationMenu"
+                android:padding="@dimen/space_triple">
+
+                <ImageView
+                    android:layout_width="@dimen/space_triple"
+                    android:layout_height="@dimen/space_triple"
+                    android:src="@drawable/ic_wishlist" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/space_quadruple"
+                    android:text="Wishlist"
+                    android:textColor="@color/colorFont"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+        </RelativeLayout>
+    </ScrollView>
+
+    <LinearLayout
+        android:id="@+id/logoutButton"
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/space_triple">
+
+        <ImageView
+            android:layout_width="@dimen/space_triple"
+            android:layout_height="@dimen/space_triple"
+            android:src="@drawable/ic_logout" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/space_quadruple"
+            android:text="Logout"
+            android:textColor="@color/colorFont"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+</RelativeLayout>
