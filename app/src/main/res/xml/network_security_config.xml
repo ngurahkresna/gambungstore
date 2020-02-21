@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<network-security-config>
+    <domain-config cleartextTrafficPermitted="true">
+        <domain includeSubdomains="true">gambungstore.id</domain>
+        <domain includeSubdomains="true">http://gambungstore.id</domain>
+        <domain includeSubdomains="true">http://gambungstore.id/api/</domain>
+        <domain includeSubdomains="true">rajaongkir.com</domain>
+        <domain includeSubdomains="true">api.rajaongkir.com</domain>
+    </domain-config>
+</network-security-config>
