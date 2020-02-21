@@ -4,15 +4,20 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 
 import com.example.gambungstore.client.Client;
 import com.example.gambungstore.models.Profile;
 import com.example.gambungstore.services.Services;
 import com.example.gambungstore.sharedpreference.SharedPreference;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+
+import org.w3c.dom.Text;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -91,6 +96,7 @@ public class homeActivity extends AppCompatActivity implements BottomNavigationV
             @Override
             public void onResponse(Call<Profile> call, Response<Profile> response) {
                 SharedPreference.setRegisteredId(getBaseContext(),response.body().getId());
+                changeLoginLayout(response.body().getUsername());
             }
 
             @Override
@@ -98,6 +104,22 @@ public class homeActivity extends AppCompatActivity implements BottomNavigationV
                 Log.d(TAG, "onFailure: "+t.toString());
             }
         });
+    }
+
+    public void changeLoginLayout(String name){
+//        TextView mWelcomeText = findViewById(R.id.welcomeText);
+        TextView mButtonAuth = findViewById(R.id.buttonAuth);
+
+//        mWelcomeText.setText(name);
+        mButtonAuth.setText(name);
+        mButtonAuth.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(homeActivity.this,editProfile.class);
+                startActivity(intent);
+            }
+        });
+
     }
     
 }

@@ -86,6 +86,9 @@ public class login extends AppCompatActivity {
                 }else{
                     Log.d(TAG, "onResponse: "+response.body().getToken());
                     SharedPreference.setRegisteredToken(getApplicationContext(),response.body().getToken());
+                    Intent intent = new Intent(login.this, homeActivity.class);// New activity
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(intent);
                     finish();
                 }
             }

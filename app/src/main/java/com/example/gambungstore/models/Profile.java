@@ -8,6 +8,8 @@ public class Profile {
     private int id;
     @SerializedName("username")
     private String username;
+    @SerializedName("name")
+    private String name;
     @SerializedName("email")
     private String email;
     @SerializedName("phone")
@@ -73,5 +75,13 @@ public class Profile {
 
     public void setCity(int city) {
         this.city = city;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }
