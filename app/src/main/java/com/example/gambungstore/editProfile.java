@@ -10,12 +10,14 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.gambungstore.client.Client;
 import com.example.gambungstore.models.Profile;
 import com.example.gambungstore.services.Services;
 import com.example.gambungstore.sharedpreference.SharedPreference;
 
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -97,6 +99,27 @@ public class editProfile extends AppCompatActivity {
     }
 
     private void submitProfile(){
+        service = Client.getClient(Client.BASE_URL).create(Services.class);
+        Call<ResponseBody> updateProfilCall = service.updateProfile(
+                SharedPreference.getRegisteredId(this),
+                this.mNama.getText().toString(),
+                this.mPhone.getText().toString(),
+                this.mTglLahir.getText().toString(),
+                this.mAlamat.getText().toString(),
+                Integer.parseInt(this.mCity.getText().toString())
+        );
+        updateProfilCall.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                Log.d(TAG, "onResponse: "+response.raw());
+                Toast.makeText(editProfile.this, "Berhasil Diubah", Toast.LENGTH_SHORT).show();
+                finish();
+            }
 
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                Log.d(TAG, "onFailure: "+t.toString());
+            }
+        });
     }
 }

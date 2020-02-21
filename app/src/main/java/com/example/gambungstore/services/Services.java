@@ -10,6 +10,8 @@ import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
+import retrofit2.http.Path;
 
 public interface Services {
 
@@ -40,6 +42,15 @@ public interface Services {
             @Header("Authorization") String token
     );
 
-
+    @FormUrlEncoded
+    @PUT("users/{id}")
+    Call<ResponseBody> updateProfile(
+            @Path("id") int id,
+            @Field("name") String nama,
+            @Field("phone") String phone,
+            @Field("birthday") String birthday,
+            @Field("address") String address,
+            @Field("city") int city
+    );
 
 }
