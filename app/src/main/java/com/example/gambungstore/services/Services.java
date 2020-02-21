@@ -1,9 +1,14 @@
 package com.example.gambungstore.services;
 
+import com.example.gambungstore.models.Login;
+import com.example.gambungstore.models.Profile;
+
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
+import retrofit2.http.GET;
+import retrofit2.http.Header;
 import retrofit2.http.POST;
 
 public interface Services {
@@ -22,6 +27,17 @@ public interface Services {
             @Field("role") String role
     );
 
+    @FormUrlEncoded
+    @POST("login")
+    Call<Login> loginProcess(
+            @Field("email") String email,
+            @Field("password") String password,
+            @Field("role") String role
+    );
 
+    @GET("profile")
+    Call<Profile> getProfile(
+            @Header("Authorization") String token
+    );
 
 }

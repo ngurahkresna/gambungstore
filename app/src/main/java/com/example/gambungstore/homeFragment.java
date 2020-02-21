@@ -11,17 +11,28 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.example.gambungstore.client.Client;
+import com.example.gambungstore.models.Profile;
+import com.example.gambungstore.services.Services;
+import com.example.gambungstore.sharedpreference.SharedPreference;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class homeFragment extends Fragment {
+    private static final String TAG = "homeFragment";
 
     private TextView auth;
     private TextView promos;
@@ -142,6 +153,5 @@ public class homeFragment extends Fragment {
         productAdapter = new adapterProduct();
         product.setAdapter(productAdapter);
     }
-
 
 }
