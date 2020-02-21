@@ -10,6 +10,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.gambungstore.sharedpreference.SharedPreference;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -106,5 +108,10 @@ public class sideBar extends Fragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
+    }
+
+    public void logoutProcess(View view){
+        SharedPreference.clearRegisteredId(getContext());
+        SharedPreference.clearRegisteredToken(getContext());
     }
 }

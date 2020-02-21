@@ -149,6 +149,7 @@
     <LinearLayout
         android:id="@+id/logoutButton"
         android:layout_alignParentBottom="true"
+        android:onClick="logoutProcess"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="@dimen/space_triple">
