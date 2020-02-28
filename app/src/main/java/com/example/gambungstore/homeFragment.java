@@ -18,10 +18,13 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.example.gambungstore.adapters.CategoryAdapter;
 import com.example.gambungstore.client.Client;
-import com.example.gambungstore.models.Profile;
+import com.example.gambungstore.models.Category.Category;
+import com.example.gambungstore.models.Category.DataCategory;
 import com.example.gambungstore.services.Services;
-import com.example.gambungstore.sharedpreference.SharedPreference;
+
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -46,7 +49,7 @@ public class homeFragment extends Fragment {
 
     private RecyclerView category;
     private LinearLayoutManager setLayoutManagerCategory;
-    private adapterCategory categoryAdapter;
+    private CategoryAdapter categoryAdapter;
 
     private RecyclerView product;
     private GridLayoutManager setLayoutManagerProduct;
@@ -68,6 +71,8 @@ public class homeFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        getCategory();
+
         auth = view.findViewById(R.id.buttonAuth);
         searchHome = view.findViewById(R.id.homeSearch);
         promo = view.findViewById(R.id.promo);
@@ -77,7 +82,6 @@ public class homeFragment extends Fragment {
         product = view.findViewById(R.id.product);
         products = view.findViewById(R.id.allProduct);
         onViewPromo();
-        onViewCategory();
         onViewProduct();
 
 
@@ -130,7 +134,7 @@ public class homeFragment extends Fragment {
         promo.setAdapter(promoAdapter);
     }
 
-    public void onViewCategory() {
+    public void onViewCategory(List<DataCategory> categories) {
         category.setHasFixedSize(true);
 
         // use a linear layout manager
@@ -138,7 +142,7 @@ public class homeFragment extends Fragment {
         category.setLayoutManager(setLayoutManager);
 
         // specify an adapter (see also next example)
-        categoryAdapter = new adapterCategory();
+        categoryAdapter = new CategoryAdapter(categories, getContext(),"HomeFragment");
         category.setAdapter(categoryAdapter);
     }
 
@@ -152,6 +156,23 @@ public class homeFragment extends Fragment {
         // specify an adapter (see also next example)
         productAdapter = new adapterProduct();
         product.setAdapter(productAdapter);
+    }
+
+    private void getCategory(){
+        Services service = Client.getClient(Client.BASE_URL).create(Services.class);
+        Call<Category> callCategory = service.getCategory();
+        callCategory.enqueue(new Callback<Category>() {
+            @Override
+            public void onResponse(Call<Category> call, Response<Category> response) {
+                List<DataCategory> dataCategories = response.body().getCategories();
+                onViewCategory(dataCategories);
+            }
+
+            @Override
+            public void onFailure(Call<Category> call, Throwable t) {
+                Log.d(TAG, "onFailure: "+t.toString());
+            }
+        });
     }
 
 }
