@@ -2,7 +2,8 @@ package com.example.gambungstore.services;
 
 import com.example.gambungstore.models.Login;
 import com.example.gambungstore.models.Profile;
-import com.example.gambungstore.models.Category.Category;
+import com.example.gambungstore.models.category.Category;
+import com.example.gambungstore.models.product.Product;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -56,5 +57,8 @@ public interface Services {
 
     @GET("category")
     Call<Category> getCategory();
+
+    @GET("product")
+    Call<Product> getProduct();
 
 }

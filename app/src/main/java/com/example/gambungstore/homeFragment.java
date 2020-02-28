@@ -19,9 +19,12 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.gambungstore.adapters.CategoryAdapter;
+import com.example.gambungstore.adapters.ProductAdapter;
 import com.example.gambungstore.client.Client;
-import com.example.gambungstore.models.Category.Category;
-import com.example.gambungstore.models.Category.DataCategory;
+import com.example.gambungstore.models.category.Category;
+import com.example.gambungstore.models.category.DataCategory;
+import com.example.gambungstore.models.product.DataProduct;
+import com.example.gambungstore.models.product.Product;
 import com.example.gambungstore.services.Services;
 
 import java.util.List;
@@ -53,7 +56,9 @@ public class homeFragment extends Fragment {
 
     private RecyclerView product;
     private GridLayoutManager setLayoutManagerProduct;
-    private adapterProduct productAdapter;
+    private ProductAdapter productAdapter;
+
+    private Services service;
 
     public homeFragment() {
         // Required empty public constructor
@@ -71,7 +76,10 @@ public class homeFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        service = Client.getClient(Client.BASE_URL).create(Services.class);
+
         getCategory();
+        getProduct();
 
         auth = view.findViewById(R.id.buttonAuth);
         searchHome = view.findViewById(R.id.homeSearch);
@@ -82,7 +90,6 @@ public class homeFragment extends Fragment {
         product = view.findViewById(R.id.product);
         products = view.findViewById(R.id.allProduct);
         onViewPromo();
-        onViewProduct();
 
 
         auth.setOnClickListener(new View.OnClickListener() {
@@ -146,7 +153,7 @@ public class homeFragment extends Fragment {
         category.setAdapter(categoryAdapter);
     }
 
-    public void onViewProduct() {
+    public void onViewProduct(List<DataProduct> dataProducts) {
         product.setHasFixedSize(true);
 
         // use a linear layout manager
@@ -154,12 +161,11 @@ public class homeFragment extends Fragment {
         product.setLayoutManager(setLayoutManagerProduct);
 
         // specify an adapter (see also next example)
-        productAdapter = new adapterProduct();
+        productAdapter = new ProductAdapter(dataProducts, getContext());
         product.setAdapter(productAdapter);
     }
 
     private void getCategory(){
-        Services service = Client.getClient(Client.BASE_URL).create(Services.class);
         Call<Category> callCategory = service.getCategory();
         callCategory.enqueue(new Callback<Category>() {
             @Override
@@ -170,6 +176,22 @@ public class homeFragment extends Fragment {
 
             @Override
             public void onFailure(Call<Category> call, Throwable t) {
+                Log.d(TAG, "onFailure: "+t.toString());
+            }
+        });
+    }
+
+    private void getProduct(){
+        Call<Product> callProduct = service.getProduct();
+        callProduct.enqueue(new Callback<Product>() {
+            @Override
+            public void onResponse(Call<Product> call, Response<Product> response) {
+                List<DataProduct> dataProducts = response.body().getProducts();
+                onViewProduct(dataProducts);
+            }
+
+            @Override
+            public void onFailure(Call<Product> call, Throwable t) {
                 Log.d(TAG, "onFailure: "+t.toString());
             }
         });

@@ -1,0 +1,78 @@
+package com.example.gambungstore.models.product;
+
+import com.google.gson.annotations.SerializedName;
+
+import java.util.List;
+
+public class DataProduct {
+    @SerializedName("id")
+    private int id;
+    @SerializedName("code")
+    private String code;
+    @SerializedName("store_code")
+    private String store_code;
+    @SerializedName("name")
+    private String name;
+    @SerializedName("description")
+    private String description;
+    @SerializedName("price")
+    private int price;
+    @SerializedName("images")
+    private List<ProductImage> images;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public String getStore_code() {
+        return store_code;
+    }
+
+    public void setStore_code(String store_code) {
+        this.store_code = store_code;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public int getPrice() {
+        return price;
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
+    }
+
+    public List<ProductImage> getImages() {
+        return images;
+    }
+
+    public void setImages(List<ProductImage> images) {
+        this.images = images;
+    }
+}

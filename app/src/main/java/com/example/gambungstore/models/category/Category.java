@@ -1,4 +1,4 @@
-package com.example.gambungstore.models.Category;
+package com.example.gambungstore.models.category;
 
 import com.google.gson.annotations.SerializedName;
 

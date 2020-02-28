@@ -1,7 +1,6 @@
 package com.example.gambungstore.adapters;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,10 +10,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.gambungstore.R;
-import com.example.gambungstore.models.Category.Category;
-import com.example.gambungstore.models.Category.DataCategory;
+import com.example.gambungstore.models.category.DataCategory;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.MyViewHolder> {

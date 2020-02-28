@@ -12,8 +12,8 @@ import android.widget.ImageView;
 
 import com.example.gambungstore.adapters.CategoryAdapter;
 import com.example.gambungstore.client.Client;
-import com.example.gambungstore.models.Category.Category;
-import com.example.gambungstore.models.Category.DataCategory;
+import com.example.gambungstore.models.category.Category;
+import com.example.gambungstore.models.category.DataCategory;
 import com.example.gambungstore.services.Services;
 
 import java.util.List;
