@@ -123,7 +123,7 @@ public class homeFragment extends Fragment {
         searchHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getContext(), searchActivity.class));
+                startActivity(new Intent(getContext(), SearchActivity.class));
 //                getActivity().onBackPressed();
             }
         });

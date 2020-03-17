@@ -1,16 +1,24 @@
 package com.example.gambungstore;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.example.gambungstore.sharedpreference.SharedPreference;
+
+import org.w3c.dom.Text;
 
 
 /**
@@ -32,6 +40,9 @@ public class sideBar extends Fragment {
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
+
+    private LinearLayout mBackButton, mWishlistMenu, mEditProfile, mLogoutButton;
+    TextView mUsernameSidebar;
 
     public sideBar() {
         // Required empty public constructor
@@ -81,18 +92,68 @@ public class sideBar extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
+//        if (context instanceof OnFragmentInteractionListener) {
+//            mListener = (OnFragmentInteractionListener) context;
+//        } else {
+//            throw new RuntimeException(context.toString()
+//                    + " must implement OnFragmentInteractionListener");
+//        }
+
     }
 
     @Override
     public void onDetach() {
         super.onDetach();
         mListener = null;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        mUsernameSidebar = getView().findViewById(R.id.usernameSidebar);
+        mUsernameSidebar.setText(SharedPreference.getRegisteredUsername(getContext()));
+
+        mBackButton = getView().findViewById(R.id.backButtonSidebar);
+        mBackButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getFragmentManager().beginTransaction().remove(sideBar.this).commit();
+                ((homeActivity)getActivity()).refreshMenu();
+            }
+        });
+
+        mWishlistMenu = getView().findViewById(R.id.wishlistMenu);
+        mWishlistMenu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), wishlistActivity.class);
+                startActivity(intent);
+                getFragmentManager().beginTransaction().remove(sideBar.this).commit();
+                ((homeActivity)getActivity()).refreshMenu();
+            }
+        });
+
+        mEditProfile = getView().findViewById(R.id.editProfileMenu);
+        mEditProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), editProfile.class);
+                startActivity(intent);
+                getFragmentManager().beginTransaction().remove(sideBar.this).commit();
+                ((homeActivity)getActivity()).refreshMenu();
+            }
+        });
+
+        mLogoutButton = getView().findViewById(R.id.logoutButton);
+        mLogoutButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                logoutProcess();
+                getFragmentManager().beginTransaction().remove(sideBar.this).commit();
+                ((homeActivity)getActivity()).refreshMenu();
+            }
+        });
     }
 
     /**
@@ -110,7 +171,7 @@ public class sideBar extends Fragment {
         void onFragmentInteraction(Uri uri);
     }
 
-    public void logoutProcess(View view){
+    public void logoutProcess(){
         SharedPreference.clearRegisteredId(getContext());
         SharedPreference.clearRegisteredToken(getContext());
         SharedPreference.clearRegisteredUsername(getContext());

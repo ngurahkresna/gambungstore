@@ -3,6 +3,7 @@ package com.example.gambungstore;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -118,11 +119,22 @@ public class homeActivity extends AppCompatActivity implements BottomNavigationV
         mButtonAuth.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(homeActivity.this,editProfile.class);
-                startActivity(intent);
+//                Intent intent = new Intent(homeActivity.this,editProfile.class);
+//                startActivity(intent);
+                sideBar fragment = new sideBar();
+                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                transaction.replace(R.id.homeFragment,fragment);
+                transaction.commit();
+                findViewById(R.id.fragmentHome).setVisibility(View.GONE);
+                findViewById(R.id.bottomNavigation).setVisibility(View.GONE);
             }
         });
 
+    }
+
+    public void refreshMenu(){
+        findViewById(R.id.fragmentHome).setVisibility(View.VISIBLE);
+        findViewById(R.id.bottomNavigation).setVisibility(View.VISIBLE);
     }
 
 }

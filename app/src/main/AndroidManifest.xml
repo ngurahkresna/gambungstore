@@ -16,7 +16,7 @@
         <activity android:name=".editProfile" />
         <activity android:name=".changePasswordActivity" />
         <activity android:name=".wishlistActivity" />
-        <activity android:name=".searchActivity" />
+        <activity android:name=".SearchActivity" />
         <activity android:name=".productActivity" />
         <activity android:name=".categoryActivity" />
         <activity android:name=".promoActivity" />

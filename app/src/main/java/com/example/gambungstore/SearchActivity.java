@@ -2,7 +2,6 @@ package com.example.gambungstore;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.Service;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcelable;
@@ -24,8 +23,8 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class searchActivity extends AppCompatActivity {
-    private static final String TAG = "searchActivity";
+public class SearchActivity extends AppCompatActivity {
+    private static final String TAG = "SearchActivity";
     
     private ImageView buttonBack;
     private EditText mSearchHint;
@@ -65,10 +64,10 @@ public class searchActivity extends AppCompatActivity {
             public void onResponse(Call<List<DataProduct>> call, Response<List<DataProduct>> response) {
                 List<DataProduct> dataProducts = response.body();
                 if (dataProducts.isEmpty()){
-                    Toast.makeText(searchActivity.this, "Data Tidak Ditemukan", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SearchActivity.this, "Data Tidak Ditemukan", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                Intent intent = new Intent(searchActivity.this, productActivity.class);
+                Intent intent = new Intent(SearchActivity.this, productActivity.class);
                 intent.putExtra("status", "search");
                 intent.putParcelableArrayListExtra("dataproduct", (ArrayList<? extends Parcelable>) dataProducts);
                 startActivity(intent);
