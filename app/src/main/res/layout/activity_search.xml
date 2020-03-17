@@ -63,6 +63,7 @@
                         android:background="@android:color/white"
                         android:hint="Search"
                         android:textColor="@color/colorFont"
+                        android:inputType="text"
                         android:textColorHint="@color/colorFont"
                         android:textSize="@dimen/font_small" />
 

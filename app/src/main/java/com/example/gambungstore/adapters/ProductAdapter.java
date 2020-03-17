@@ -42,10 +42,13 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyViewHo
         DataProduct productPosition = listProduct.get(position);
         holder.mTitle.setText(productPosition.getName());
         holder.mPrice.setText("Rp "+productPosition.getPrice());
-        if (productPosition.getImages().isEmpty() == false){
-            Glide.with(context)
-                    .load(Client.IMAGE_URL+productPosition.getImages().get(0).getImage_name())
-                    .into(holder.mImageView);
+        if (productPosition.getImages() != null) {
+            if (!productPosition.getImages().isEmpty()) {
+                Log.d(TAG, "onBindViewHolder: " + productPosition.getName());
+                Glide.with(context)
+                        .load(Client.IMAGE_URL + productPosition.getImages().get(0).getImage_name())
+                        .into(holder.mImageView);
+            }
         }
     }
 

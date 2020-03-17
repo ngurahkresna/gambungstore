@@ -1,10 +1,13 @@
 package com.example.gambungstore.models.product;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-public class DataProduct {
+public class DataProduct implements Parcelable {
     @SerializedName("id")
     private int id;
     @SerializedName("code")
@@ -19,6 +22,27 @@ public class DataProduct {
     private int price;
     @SerializedName("images")
     private List<ProductImage> images;
+
+    protected DataProduct(Parcel in) {
+        id = in.readInt();
+        code = in.readString();
+        store_code = in.readString();
+        name = in.readString();
+        description = in.readString();
+        price = in.readInt();
+    }
+
+    public static final Creator<DataProduct> CREATOR = new Creator<DataProduct>() {
+        @Override
+        public DataProduct createFromParcel(Parcel in) {
+            return new DataProduct(in);
+        }
+
+        @Override
+        public DataProduct[] newArray(int size) {
+            return new DataProduct[size];
+        }
+    };
 
     public int getId() {
         return id;
@@ -74,5 +98,20 @@ public class DataProduct {
 
     public void setImages(List<ProductImage> images) {
         this.images = images;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(id);
+        dest.writeString(code);
+        dest.writeString(store_code);
+        dest.writeString(name);
+        dest.writeString(description);
+        dest.writeInt(price);
     }
 }

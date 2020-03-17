@@ -37,17 +37,25 @@ public class productActivity extends AppCompatActivity {
         setContentView(R.layout.activity_product);
 
         product = findViewById(R.id.product);
-
         buttonBack = findViewById(R.id.backButton);
 
         buttonBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(productActivity.this, homeFragment.class));
+                onBackPressed();
             }
         });
 
-        getProduct();
+        //cek apakah dari search activity atau bukan
+        if (getIntent().getStringExtra("status") != null){
+            if (getIntent().getStringExtra("status").equals("search")){
+                List<DataProduct> parseDataProduct = getIntent().getParcelableArrayListExtra("dataproduct");
+                onViewProduct(parseDataProduct);
+            }
+        }else{
+            getProduct();
+        }
+
     }
 
     public void onViewProduct(List<DataProduct> dataProducts) {

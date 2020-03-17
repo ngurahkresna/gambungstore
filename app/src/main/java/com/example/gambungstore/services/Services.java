@@ -3,7 +3,10 @@ package com.example.gambungstore.services;
 import com.example.gambungstore.models.Login;
 import com.example.gambungstore.models.Profile;
 import com.example.gambungstore.models.category.Category;
+import com.example.gambungstore.models.product.DataProduct;
 import com.example.gambungstore.models.product.Product;
+
+import java.util.List;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -60,5 +63,11 @@ public interface Services {
 
     @GET("product")
     Call<Product> getProduct();
+
+    @FormUrlEncoded
+    @POST("product/search")
+    Call<List<DataProduct>> searchProduct(
+      @Field("value") String key
+    );
 
 }
