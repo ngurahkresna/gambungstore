@@ -2,6 +2,7 @@ package com.example.gambungstore.services;
 
 import com.example.gambungstore.models.Login;
 import com.example.gambungstore.models.Profile;
+import com.example.gambungstore.models.cart.Cart;
 import com.example.gambungstore.models.category.Category;
 import com.example.gambungstore.models.product.DataProduct;
 import com.example.gambungstore.models.product.Product;
@@ -17,6 +18,7 @@ import retrofit2.http.Header;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 public interface Services {
 
@@ -68,6 +70,11 @@ public interface Services {
     @POST("product/search")
     Call<List<DataProduct>> searchProduct(
       @Field("value") String key
+    );
+
+    @GET("cart")
+    Call<Cart> getCart(
+      @Query("username") String username
     );
 
 }

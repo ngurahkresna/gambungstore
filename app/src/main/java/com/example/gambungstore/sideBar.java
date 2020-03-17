@@ -113,5 +113,6 @@ public class sideBar extends Fragment {
     public void logoutProcess(View view){
         SharedPreference.clearRegisteredId(getContext());
         SharedPreference.clearRegisteredToken(getContext());
+        SharedPreference.clearRegisteredUsername(getContext());
     }
 }

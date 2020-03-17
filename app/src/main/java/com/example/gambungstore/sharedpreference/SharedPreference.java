@@ -6,7 +6,8 @@ import android.content.SharedPreferences;
 public class SharedPreference {
 
     static final String KEY_USER_TEREGISTER ="user_id";
-    static final String KEY_TOKEN_TEREGISTER="token_id";
+    static final String KEY_TOKEN_TEREGISTER="user_token";
+    static final String KEY_USERNAME_TEREGISTER="user_username";
 
     public static SharedPreferences getSharedPreferences(Context context){
         SharedPreferences sharedpreferences = context.getSharedPreferences("gambung", Context.MODE_PRIVATE);
@@ -49,4 +50,21 @@ public class SharedPreference {
         editor.commit();
     }
 
+    //username
+    public static void setRegisteredUsername(Context context, String username){
+        SharedPreferences.Editor editor = getSharedPreferences(context).edit();
+        editor.putString(KEY_USERNAME_TEREGISTER, username);
+        editor.apply();
+    }
+
+    public static String getRegisteredUsername(Context context){
+        return getSharedPreferences(context).getString(KEY_USERNAME_TEREGISTER,"");
+    }
+
+    public static void clearRegisteredUsername(Context context){
+        SharedPreferences.Editor editor = getSharedPreferences(context).edit();
+        editor.remove(KEY_USERNAME_TEREGISTER);
+        editor.clear();
+        editor.commit();
+    }
 }

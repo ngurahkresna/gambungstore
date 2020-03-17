@@ -98,6 +98,7 @@ public class homeActivity extends AppCompatActivity implements BottomNavigationV
             @Override
             public void onResponse(Call<Profile> call, Response<Profile> response) {
                 SharedPreference.setRegisteredId(getBaseContext(),response.body().getId());
+                SharedPreference.setRegisteredUsername(getBaseContext(),response.body().getUsername());
                 changeLoginLayout(response.body().getUsername());
             }
 
