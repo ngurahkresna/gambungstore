@@ -11,17 +11,34 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.example.gambungstore.adapters.CategoryAdapter;
+import com.example.gambungstore.adapters.ProductAdapter;
+import com.example.gambungstore.client.Client;
+import com.example.gambungstore.models.category.Category;
+import com.example.gambungstore.models.category.DataCategory;
+import com.example.gambungstore.models.product.DataProduct;
+import com.example.gambungstore.models.product.Product;
+import com.example.gambungstore.services.Services;
+
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class homeFragment extends Fragment {
+    private static final String TAG = "homeFragment";
 
     private TextView auth;
     private TextView promos;
@@ -35,11 +52,13 @@ public class homeFragment extends Fragment {
 
     private RecyclerView category;
     private LinearLayoutManager setLayoutManagerCategory;
-    private adapterCategory categoryAdapter;
+    private CategoryAdapter categoryAdapter;
 
     private RecyclerView product;
     private GridLayoutManager setLayoutManagerProduct;
-    private adapterProduct productAdapter;
+    private ProductAdapter productAdapter;
+
+    private Services service;
 
     public homeFragment() {
         // Required empty public constructor
@@ -57,6 +76,11 @@ public class homeFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        service = Client.getClient(Client.BASE_URL).create(Services.class);
+
+        getCategory();
+        getProduct();
+
         auth = view.findViewById(R.id.buttonAuth);
         searchHome = view.findViewById(R.id.homeSearch);
         promo = view.findViewById(R.id.promo);
@@ -66,8 +90,6 @@ public class homeFragment extends Fragment {
         product = view.findViewById(R.id.product);
         products = view.findViewById(R.id.allProduct);
         onViewPromo();
-        onViewCategory();
-        onViewProduct();
 
 
         auth.setOnClickListener(new View.OnClickListener() {
@@ -101,7 +123,7 @@ public class homeFragment extends Fragment {
         searchHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getContext(), searchActivity.class));
+                startActivity(new Intent(getContext(), SearchActivity.class));
 //                getActivity().onBackPressed();
             }
         });
@@ -119,7 +141,7 @@ public class homeFragment extends Fragment {
         promo.setAdapter(promoAdapter);
     }
 
-    public void onViewCategory() {
+    public void onViewCategory(List<DataCategory> categories) {
         category.setHasFixedSize(true);
 
         // use a linear layout manager
@@ -127,11 +149,11 @@ public class homeFragment extends Fragment {
         category.setLayoutManager(setLayoutManager);
 
         // specify an adapter (see also next example)
-        categoryAdapter = new adapterCategory();
+        categoryAdapter = new CategoryAdapter(categories, getContext(),"HomeFragment");
         category.setAdapter(categoryAdapter);
     }
 
-    public void onViewProduct() {
+    public void onViewProduct(List<DataProduct> dataProducts) {
         product.setHasFixedSize(true);
 
         // use a linear layout manager
@@ -139,9 +161,40 @@ public class homeFragment extends Fragment {
         product.setLayoutManager(setLayoutManagerProduct);
 
         // specify an adapter (see also next example)
-        productAdapter = new adapterProduct();
+        productAdapter = new ProductAdapter(dataProducts, getContext());
         product.setAdapter(productAdapter);
     }
 
+    private void getCategory(){
+        Call<Category> callCategory = service.getCategory();
+        callCategory.enqueue(new Callback<Category>() {
+            @Override
+            public void onResponse(Call<Category> call, Response<Category> response) {
+                List<DataCategory> dataCategories = response.body().getCategories();
+                onViewCategory(dataCategories);
+            }
+
+            @Override
+            public void onFailure(Call<Category> call, Throwable t) {
+                Log.d(TAG, "onFailure: "+t.toString());
+            }
+        });
+    }
+
+    private void getProduct(){
+        Call<Product> callProduct = service.getProduct();
+        callProduct.enqueue(new Callback<Product>() {
+            @Override
+            public void onResponse(Call<Product> call, Response<Product> response) {
+                List<DataProduct> dataProducts = response.body().getProducts();
+                onViewProduct(dataProducts);
+            }
+
+            @Override
+            public void onFailure(Call<Product> call, Throwable t) {
+                Log.d(TAG, "onFailure: "+t.toString());
+            }
+        });
+    }
 
 }

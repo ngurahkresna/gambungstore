@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_marginTop="@dimen/space_double"
+    android:layout_margin="@dimen/space"
+    android:padding="@dimen/space"
+    android:background="@drawable/category_background"
+    android:clipToPadding="false">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="100dp"
+            android:layout_height="120dp"
+            app:cardCornerRadius="4dp"
+            android:id="@+id/containerProduct">
+
+            <ImageView
+                android:id="@+id/cartBackground"
+                android:layout_width="100dp"
+                android:layout_height="120dp"
+                android:scaleType="centerCrop"
+                android:background="@drawable/product_backgorund" />
+        </androidx.cardview.widget.CardView>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/space_double"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/cartTitle"
+                android:layout_marginVertical="@dimen/space"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="2"
+                android:text="ini Title panjangggggggg"
+                android:textSize="20sp"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/cartQuantity"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/containerProduct"
+                android:ellipsize="end"
+                android:maxLines="2"
+                android:text="Quantity : 2"
+                android:textSize="14sp"/>
+
+            <TextView
+                android:id="@+id/cartPrice"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/containerProduct"
+                android:ellipsize="end"
+                android:maxLines="2"
+                android:text="Total Price : Rp 20.000"
+                android:textSize="14sp"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>
