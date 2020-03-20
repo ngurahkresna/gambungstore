@@ -8,6 +8,7 @@ public class SharedPreference {
     static final String KEY_USER_TEREGISTER ="user_id";
     static final String KEY_TOKEN_TEREGISTER="user_token";
     static final String KEY_USERNAME_TEREGISTER="user_username";
+    static final String KEY_NAME_TEREGISTER="user_name";
 
     public static SharedPreferences getSharedPreferences(Context context){
         SharedPreferences sharedpreferences = context.getSharedPreferences("gambung", Context.MODE_PRIVATE);
@@ -64,6 +65,24 @@ public class SharedPreference {
     public static void clearRegisteredUsername(Context context){
         SharedPreferences.Editor editor = getSharedPreferences(context).edit();
         editor.remove(KEY_USERNAME_TEREGISTER);
+        editor.clear();
+        editor.commit();
+    }
+
+    //username
+    public static void setRegisteredName(Context context, String username){
+        SharedPreferences.Editor editor = getSharedPreferences(context).edit();
+        editor.putString(KEY_NAME_TEREGISTER, username);
+        editor.apply();
+    }
+
+    public static String getRegisteredName(Context context){
+        return getSharedPreferences(context).getString(KEY_NAME_TEREGISTER,"");
+    }
+
+    public static void clearRegisteredName(Context context){
+        SharedPreferences.Editor editor = getSharedPreferences(context).edit();
+        editor.remove(KEY_NAME_TEREGISTER);
         editor.clear();
         editor.commit();
     }

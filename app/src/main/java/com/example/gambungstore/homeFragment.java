@@ -7,6 +7,8 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -21,11 +23,13 @@ import android.widget.TextView;
 import com.example.gambungstore.adapters.CategoryAdapter;
 import com.example.gambungstore.adapters.ProductAdapter;
 import com.example.gambungstore.client.Client;
+import com.example.gambungstore.models.Profile;
 import com.example.gambungstore.models.category.Category;
 import com.example.gambungstore.models.category.DataCategory;
 import com.example.gambungstore.models.product.DataProduct;
 import com.example.gambungstore.models.product.Product;
 import com.example.gambungstore.services.Services;
+import com.example.gambungstore.sharedpreference.SharedPreference;
 
 import java.util.List;
 
@@ -59,7 +63,6 @@ public class homeFragment extends Fragment {
     private ProductAdapter productAdapter;
 
     private Services service;
-
     public homeFragment() {
         // Required empty public constructor
     }
@@ -75,6 +78,14 @@ public class homeFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        if (isLogin()){
+            TextView mWelcomeText = view.findViewById(R.id.welcomeText);
+            TextView mButtonAuth = view.findViewById(R.id.buttonAuth);
+
+            mWelcomeText.setText(SharedPreference.getRegisteredName(getContext()));
+            mButtonAuth.setText(SharedPreference.getRegisteredUsername(getContext()));
+        }
 
         service = Client.getClient(Client.BASE_URL).create(Services.class);
 
@@ -95,7 +106,10 @@ public class homeFragment extends Fragment {
         auth.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getContext(), authOption.class));
+                if (isLogin())
+                    ((homeActivity) getActivity()).removeBottomNavigation();
+                else
+                    startActivity(new Intent(getContext(), authOption.class));
             }
         });
 
@@ -127,6 +141,14 @@ public class homeFragment extends Fragment {
 //                getActivity().onBackPressed();
             }
         });
+    }
+
+    private boolean isLogin(){
+        if (SharedPreference.getRegisteredToken(getContext()).matches("")){
+            return false;
+        }else{
+            return true;
+        }
     }
 
     public void onViewPromo() {
