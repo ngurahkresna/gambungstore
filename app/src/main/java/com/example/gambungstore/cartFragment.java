@@ -26,6 +26,7 @@ import com.example.gambungstore.client.Client;
 import com.example.gambungstore.models.cart.Cart;
 import com.example.gambungstore.models.cart.DataCart;
 import com.example.gambungstore.models.product.DataProduct;
+import com.example.gambungstore.progressbar.ProgressBarGambung;
 import com.example.gambungstore.services.Services;
 import com.example.gambungstore.sharedpreference.SharedPreference;
 
@@ -46,6 +47,8 @@ public class cartFragment extends Fragment {
     private LinearLayoutManager setLayoutManagerCart;
     private CartAdapter cartAdapter;
 
+    private ProgressBarGambung progressbar;
+
     public cartFragment() {
         // Required empty public constructor
     }
@@ -60,8 +63,11 @@ public class cartFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        progressbar = new ProgressBarGambung(getActivity());
+        progressbar.startProgressBarGambung();
         if (!SharedPreference.getRegisteredToken(getContext()).matches(""))
             getCartData();
+        progressbar.endProgressBarGambung();
     }
 
     private void getCartData(){
@@ -79,6 +85,7 @@ public class cartFragment extends Fragment {
                     viewRecyclerCart(response.body().getDataCart());
                     TextView mTotal = getView().findViewById(R.id.cartTotal);
                     mTotal.setText("Rp "+getTotalHarga(response.body().getDataCart())+",-");
+                    progressbar.endProgressBarGambung();
                 }
             }
 

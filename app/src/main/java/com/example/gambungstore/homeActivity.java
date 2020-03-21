@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import com.example.gambungstore.client.Client;
 import com.example.gambungstore.models.Profile;
+import com.example.gambungstore.progressbar.ProgressBarGambung;
 import com.example.gambungstore.services.Services;
 import com.example.gambungstore.sharedpreference.SharedPreference;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -31,6 +32,8 @@ public class homeActivity extends AppCompatActivity implements BottomNavigationV
     private static final String TAG = "homeActivity";
 
     private Services service;
+
+    protected ProgressBarGambung progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

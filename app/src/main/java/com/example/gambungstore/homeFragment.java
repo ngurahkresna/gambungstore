@@ -1,6 +1,7 @@
 package com.example.gambungstore;
 
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -31,6 +32,7 @@ import com.example.gambungstore.models.product.DataProduct;
 import com.example.gambungstore.models.product.Product;
 import com.example.gambungstore.models.promo.DataPromo;
 import com.example.gambungstore.models.promo.Promo;
+import com.example.gambungstore.progressbar.ProgressBarGambung;
 import com.example.gambungstore.services.Services;
 import com.example.gambungstore.sharedpreference.SharedPreference;
 
@@ -44,7 +46,7 @@ import retrofit2.Response;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class homeFragment extends Fragment {
+public class homeFragment extends Fragment{
     private static final String TAG = "homeFragment";
 
     private TextView auth;
@@ -66,6 +68,9 @@ public class homeFragment extends Fragment {
     private ProductAdapter productAdapter;
 
     private Services service;
+
+    private ProgressBarGambung progressBar;
+
     public homeFragment() {
         // Required empty public constructor
     }
@@ -81,6 +86,9 @@ public class homeFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        progressBar = new ProgressBarGambung(getActivity());
+        progressBar.startProgressBarGambung();
+        Log.d(TAG, "onViewCreated act: "+getActivity());
 
         if (isLogin()){
             TextView mWelcomeText = view.findViewById(R.id.welcomeText);
@@ -187,6 +195,8 @@ public class homeFragment extends Fragment {
         // specify an adapter (see also next example)
         productAdapter = new ProductAdapter(dataProducts, getContext());
         product.setAdapter(productAdapter);
+
+        progressBar.endProgressBarGambung();
     }
 
     private void getCategory(){
@@ -236,5 +246,7 @@ public class homeFragment extends Fragment {
             }
         });
     }
+
+
 
 }
