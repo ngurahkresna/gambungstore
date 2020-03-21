@@ -22,12 +22,15 @@ import android.widget.TextView;
 
 import com.example.gambungstore.adapters.CategoryAdapter;
 import com.example.gambungstore.adapters.ProductAdapter;
+import com.example.gambungstore.adapters.PromoAdapter;
 import com.example.gambungstore.client.Client;
 import com.example.gambungstore.models.Profile;
 import com.example.gambungstore.models.category.Category;
 import com.example.gambungstore.models.category.DataCategory;
 import com.example.gambungstore.models.product.DataProduct;
 import com.example.gambungstore.models.product.Product;
+import com.example.gambungstore.models.promo.DataPromo;
+import com.example.gambungstore.models.promo.Promo;
 import com.example.gambungstore.services.Services;
 import com.example.gambungstore.sharedpreference.SharedPreference;
 
@@ -52,7 +55,7 @@ public class homeFragment extends Fragment {
 
     private RecyclerView promo;
     private LinearLayoutManager setLayoutManager;
-    private adapterPromo promoAdapter;
+    private PromoAdapter promoAdapter;
 
     private RecyclerView category;
     private LinearLayoutManager setLayoutManagerCategory;
@@ -89,9 +92,6 @@ public class homeFragment extends Fragment {
 
         service = Client.getClient(Client.BASE_URL).create(Services.class);
 
-        getCategory();
-        getProduct();
-
         auth = view.findViewById(R.id.buttonAuth);
         searchHome = view.findViewById(R.id.homeSearch);
         promo = view.findViewById(R.id.promo);
@@ -100,8 +100,10 @@ public class homeFragment extends Fragment {
         categories = view.findViewById(R.id.allCategory);
         product = view.findViewById(R.id.product);
         products = view.findViewById(R.id.allProduct);
-        onViewPromo();
 
+        getCategory();
+        getProduct();
+        getPromo();
 
         auth.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -151,7 +153,7 @@ public class homeFragment extends Fragment {
         }
     }
 
-    public void onViewPromo() {
+    public void onViewPromo(List<DataPromo> dataPromos) {
         promo.setHasFixedSize(true);
 
         // use a linear layout manager
@@ -159,7 +161,7 @@ public class homeFragment extends Fragment {
         promo.setLayoutManager(setLayoutManager);
 
         // specify an adapter (see also next example)
-        promoAdapter = new adapterPromo();
+        promoAdapter = new PromoAdapter(dataPromos, getContext());
         promo.setAdapter(promoAdapter);
     }
 
@@ -214,6 +216,22 @@ public class homeFragment extends Fragment {
 
             @Override
             public void onFailure(Call<Product> call, Throwable t) {
+                Log.d(TAG, "onFailure: "+t.toString());
+            }
+        });
+    }
+
+    private void getPromo(){
+        Call<Promo> callPromo = service.getPromo();
+        callPromo.enqueue(new Callback<Promo>() {
+            @Override
+            public void onResponse(Call<Promo> call, Response<Promo> response) {
+                List<DataPromo> dataPromos = response.body().getDataPromo();
+                onViewPromo(dataPromos);
+            }
+
+            @Override
+            public void onFailure(Call<Promo> call, Throwable t) {
                 Log.d(TAG, "onFailure: "+t.toString());
             }
         });

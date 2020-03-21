@@ -6,6 +6,7 @@ import com.example.gambungstore.models.cart.Cart;
 import com.example.gambungstore.models.category.Category;
 import com.example.gambungstore.models.product.DataProduct;
 import com.example.gambungstore.models.product.Product;
+import com.example.gambungstore.models.promo.Promo;
 import com.example.gambungstore.models.wishlist.Wishlist;
 
 import java.util.List;
@@ -80,4 +81,7 @@ public interface Services {
 
     @GET("wishlist")
     Call<Wishlist> getWishlist();
+
+    @GET("voucher")
+    Call<Promo> getPromo();
 }
