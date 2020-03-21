@@ -70,6 +70,7 @@ public class homeFragment extends Fragment{
     private Services service;
 
     private ProgressBarGambung progressBar;
+    private boolean service1 = false, service2 = false, service3 = false, service4 = false;
 
     public homeFragment() {
         // Required empty public constructor
@@ -171,6 +172,10 @@ public class homeFragment extends Fragment{
         // specify an adapter (see also next example)
         promoAdapter = new PromoAdapter(dataPromos, getContext());
         promo.setAdapter(promoAdapter);
+        service1 = true;
+        if(service1 && service2 && service3){
+            progressBar.endProgressBarGambung();
+        }
     }
 
     public void onViewCategory(List<DataCategory> categories) {
@@ -183,6 +188,10 @@ public class homeFragment extends Fragment{
         // specify an adapter (see also next example)
         categoryAdapter = new CategoryAdapter(categories, getContext(),"HomeFragment");
         category.setAdapter(categoryAdapter);
+        service2 = true;
+        if(service1 && service2 && service3){
+            progressBar.endProgressBarGambung();
+        }
     }
 
     public void onViewProduct(List<DataProduct> dataProducts) {
@@ -196,7 +205,11 @@ public class homeFragment extends Fragment{
         productAdapter = new ProductAdapter(dataProducts, getContext());
         product.setAdapter(productAdapter);
 
-        progressBar.endProgressBarGambung();
+        service3 = true;
+        if(service1 && service2 && service3){
+            progressBar.endProgressBarGambung();
+        }
+//        progressBar.endProgressBarGambung();
     }
 
     private void getCategory(){
@@ -246,7 +259,5 @@ public class homeFragment extends Fragment{
             }
         });
     }
-
-
 
 }
