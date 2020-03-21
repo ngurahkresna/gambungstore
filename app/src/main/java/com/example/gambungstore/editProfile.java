@@ -70,7 +70,7 @@ public class editProfile extends AppCompatActivity {
                 mPhone.setText(response.body().getPhone());
                 mTglLahir.setText(response.body().getBirthday());
                 mAlamat.setText(response.body().getAddress());
-                mCity.setText(Integer.toString(response.body().getCity()));
+                mCity.setText(response.body().getCity());
 
                 //disabled
                 mUsername.setKeyListener(null);
