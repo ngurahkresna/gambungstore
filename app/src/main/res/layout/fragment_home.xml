@@ -152,16 +152,27 @@
                 android:layout_marginLeft="@dimen/space_triple"
                 android:layout_marginTop="0dp"
                 android:layout_marginRight="@dimen/space_triple"
-                android:orientation="vertical">
+                android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/allCategory"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Kategori"
                     android:textColor="@color/colorFont"
                     android:textSize="16sp"
                     android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/allCategory"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="@dimen/space"
+                    android:text="Semua Kategori"
+                    android:textAlignment="textEnd"
+                    android:textColor="@color/colorFont"
+                    android:textSize="12sp"
+                    android:textStyle="normal" />
             </LinearLayout>
 
             <androidx.recyclerview.widget.RecyclerView

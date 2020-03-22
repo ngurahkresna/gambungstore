@@ -5,6 +5,7 @@ import com.example.gambungstore.models.Profile;
 import com.example.gambungstore.models.RajaOngkir;
 import com.example.gambungstore.models.cart.Cart;
 import com.example.gambungstore.models.category.Category;
+import com.example.gambungstore.models.category.DataCategory;
 import com.example.gambungstore.models.product.DataProduct;
 import com.example.gambungstore.models.product.Product;
 import com.example.gambungstore.models.wishlist.Wishlist;
@@ -66,6 +67,12 @@ public interface Services {
 
     @GET("category")
     Call<Category> getCategory();
+
+    @FormUrlEncoded
+    @POST("category/search")
+    Call<List<DataCategory>> searchCategory(
+            @Field("value") String key
+    );
 
     @GET("product")
     Call<Product> getProduct();
