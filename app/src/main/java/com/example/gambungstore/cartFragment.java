@@ -65,9 +65,11 @@ public class cartFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         progressbar = new ProgressBarGambung(getActivity());
         progressbar.startProgressBarGambung();
-        if (!SharedPreference.getRegisteredToken(getContext()).matches(""))
+        if (!SharedPreference.getRegisteredToken(getContext()).matches("")) {
             getCartData();
-        progressbar.endProgressBarGambung();
+        }else {
+            progressbar.endProgressBarGambung();
+        }
     }
 
     private void getCartData(){
