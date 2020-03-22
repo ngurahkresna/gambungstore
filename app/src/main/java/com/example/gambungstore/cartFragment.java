@@ -67,7 +67,7 @@ public class cartFragment extends Fragment {
         progressbar.startProgressBarGambung();
         if (!SharedPreference.getRegisteredToken(getContext()).matches("")) {
             getCartData();
-        }else {
+        } else {
             progressbar.endProgressBarGambung();
         }
     }
@@ -87,13 +87,14 @@ public class cartFragment extends Fragment {
                     viewRecyclerCart(response.body().getDataCart());
                     TextView mTotal = getView().findViewById(R.id.cartTotal);
                     mTotal.setText("Rp "+getTotalHarga(response.body().getDataCart())+",-");
-                    progressbar.endProgressBarGambung();
                 }
+                progressbar.endProgressBarGambung();
             }
 
             @Override
             public void onFailure(Call<Cart> call, Throwable t) {
                 Log.d(TAG, "onFailure: "+t.toString());
+                progressbar.endProgressBarGambung();
             }
         });
     }

@@ -13,6 +13,7 @@ import java.util.List;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
+import retrofit2.http.DELETE;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
@@ -84,4 +85,9 @@ public interface Services {
 
     @GET("voucher")
     Call<Promo> getPromo();
+
+    @DELETE("cart/{id}")
+    Call<ResponseBody> deleteCart(
+            @Path("id") int id
+    );
 }

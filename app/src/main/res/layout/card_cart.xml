@@ -65,6 +65,14 @@
                 android:text="Total Price : Rp 20.000"
                 android:textSize="14sp"/>
 
+            <Button
+                android:id="@+id/deleteButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/colorAccent"
+                android:textColor="@color/colorWhite"
+                android:text="Delete" />
+
         </LinearLayout>
 
     </LinearLayout>
