@@ -39,6 +39,7 @@
                         android:text="Kode Voucher" />
 
                     <TextView
+                        android:id="@+id/tanggalPromo"
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/space"
@@ -91,6 +92,7 @@
                         android:textStyle="bold" />
 
                     <TextView
+                        android:id="@+id/DetailPromo"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/space"
@@ -113,6 +115,7 @@
                         android:textStyle="bold" />
 
                     <TextView
+                        android:id="@+id/SyaratPromo"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/space"

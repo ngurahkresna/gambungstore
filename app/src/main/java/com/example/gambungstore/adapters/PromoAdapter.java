@@ -1,15 +1,18 @@
 package com.example.gambungstore.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.gambungstore.R;
+import com.example.gambungstore.detailPromo;
 import com.example.gambungstore.models.promo.DataPromo;
 import com.example.gambungstore.models.promo.Promo;
 
@@ -37,6 +40,14 @@ public class PromoAdapter extends RecyclerView.Adapter<PromoAdapter.MyViewHolder
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         final DataPromo positionDataPromo = dataPromo.get(position);
         holder.mPromoTitle.setText(positionDataPromo.getCode().toString());
+        holder.mPromoCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, detailPromo.class);
+                intent.putExtra("promo", positionDataPromo);
+                context.startActivity(intent);
+            }
+        });
     }
 
     @Override
@@ -47,10 +58,11 @@ public class PromoAdapter extends RecyclerView.Adapter<PromoAdapter.MyViewHolder
     public class MyViewHolder extends RecyclerView.ViewHolder {
 
         TextView mPromoTitle;
-
+        ImageView mPromoCard;
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             this.mPromoTitle = itemView.findViewById(R.id.promoTitle);
+            this.mPromoCard = itemView.findViewById(R.id.promoCard);
         }
     }
 }

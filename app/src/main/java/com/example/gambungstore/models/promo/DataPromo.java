@@ -1,8 +1,11 @@
 package com.example.gambungstore.models.promo;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.SerializedName;
 
-public class DataPromo {
+public class DataPromo implements Parcelable {
 
     @SerializedName("id")
     private int id;
@@ -18,6 +21,28 @@ public class DataPromo {
     private String start_date;
     @SerializedName("end_date")
     private String end_date;
+
+    protected DataPromo(Parcel in) {
+        id = in.readInt();
+        code = in.readString();
+        type = in.readString();
+        percentage = in.readInt();
+        terms = in.readString();
+        start_date = in.readString();
+        end_date = in.readString();
+    }
+
+    public static final Creator<DataPromo> CREATOR = new Creator<DataPromo>() {
+        @Override
+        public DataPromo createFromParcel(Parcel in) {
+            return new DataPromo(in);
+        }
+
+        @Override
+        public DataPromo[] newArray(int size) {
+            return new DataPromo[size];
+        }
+    };
 
     public int getId() {
         return id;
@@ -73,5 +98,21 @@ public class DataPromo {
 
     public void setEnd_date(String end_date) {
         this.end_date = end_date;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(id);
+        dest.writeString(code);
+        dest.writeString(type);
+        dest.writeInt(percentage);
+        dest.writeString(terms);
+        dest.writeString(start_date);
+        dest.writeString(end_date);
     }
 }
