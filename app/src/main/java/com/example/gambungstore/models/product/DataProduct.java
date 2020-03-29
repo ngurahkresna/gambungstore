@@ -3,6 +3,7 @@ package com.example.gambungstore.models.product;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.example.gambungstore.models.cart.DataCart;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
@@ -20,6 +21,12 @@ public class DataProduct implements Parcelable {
     private String description;
     @SerializedName("price")
     private int price;
+    @SerializedName("weight")
+    private int weight;
+    @SerializedName("stock")
+    private int stock;
+    @SerializedName("cart")
+    private List<DataCart> carts;
     @SerializedName("images")
     private List<ProductImage> images;
 
@@ -43,6 +50,30 @@ public class DataProduct implements Parcelable {
             return new DataProduct[size];
         }
     };
+
+    public List<DataCart> getCarts() {
+        return carts;
+    }
+
+    public void setCarts(List<DataCart> carts) {
+        this.carts = carts;
+    }
+
+    public int getWeight() {
+        return weight;
+    }
+
+    public void setWeight(int weight) {
+        this.weight = weight;
+    }
+
+    public int getStock() {
+        return stock;
+    }
+
+    public void setStock(int stock) {
+        this.stock = stock;
+    }
 
     public int getId() {
         return id;

@@ -8,23 +8,38 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.gambungstore.adapters.ExpeditionCheckoutAdapter;
+import com.example.gambungstore.client.Client;
+import com.example.gambungstore.models.checkout.Checkout;
+import com.example.gambungstore.models.store.DataStore;
+import com.example.gambungstore.services.Services;
+import com.example.gambungstore.sharedpreference.SharedPreference;
 
 import java.util.ArrayList;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 import static android.provider.AlarmClock.EXTRA_MESSAGE;
 
 public class CheckoutForm extends AppCompatActivity {
-
+    private static final String TAG = "CheckoutForm";
+    
     RecyclerView mCheckoutCard;
 
-    TextView mExpeditionChoosen;
     TextView mPayment;
+    TextView mAddress, mProductPrice;
+    EditText mPhone;
+    EditText mPromo;
 
     ArrayList<String> expedition = new ArrayList<>();
     ArrayList<String> paymentMethod = new ArrayList<>();
@@ -36,10 +51,12 @@ public class CheckoutForm extends AppCompatActivity {
 
         mCheckoutCard = findViewById(R.id.checkoutCard);
         mPayment = findViewById(R.id.payment);
+        mAddress = findViewById(R.id.addressValue);
+        mPhone = findViewById(R.id.phoneValue);
+        mPromo = findViewById(R.id.promoValue);
+        mProductPrice = findViewById(R.id.productPrice);
 
-        View inflatedView = getLayoutInflater().inflate(R.layout.expedition_card_checkout, null);
-        mExpeditionChoosen = (TextView) inflatedView.findViewById(R.id.expeditionChoosed);
-        mExpeditionChoosen.setText("Hello!");
+        getData();
 
         expedition.add("JNE");
         expedition.add("TIKI");
@@ -47,8 +64,6 @@ public class CheckoutForm extends AppCompatActivity {
 
         paymentMethod.add("Ji-Cash");
         paymentMethod.add("Transfer");
-
-        checkoutAdapter();
     }
 
     public void paymentMethod(View view) {
@@ -67,24 +82,8 @@ public class CheckoutForm extends AppCompatActivity {
         dialog.show();
     }
 
-    public void chooseExpedition(View view) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Pilih Ekspedisi");
-
-        builder.setItems(expedition.toArray(new String[0]), new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                Toast.makeText(CheckoutForm.this, "You click " + expedition.get(which), Toast.LENGTH_SHORT).show();
-                mExpeditionChoosen.setText(expedition.get(which));
-            }
-        });
-
-        AlertDialog dialog = builder.create();
-        dialog.show();
-    }
-
-    public void checkoutAdapter() {
-        ExpeditionCheckoutAdapter checkoutAdapter = new ExpeditionCheckoutAdapter(this);
+    public void checkoutAdapter(List<DataStore> listStores) {
+        ExpeditionCheckoutAdapter checkoutAdapter = new ExpeditionCheckoutAdapter(listStores,this);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, RecyclerView.VERTICAL, false);
         mCheckoutCard.setLayoutManager(linearLayoutManager);
         mCheckoutCard.setAdapter(checkoutAdapter);
@@ -95,6 +94,29 @@ public class CheckoutForm extends AppCompatActivity {
     }
 
     public void backToHome(View view) {
+        onBackPressed();
+    }
 
+    public void getData(){
+        Services service = Client.getClient(Client.BASE_URL).create(Services.class);
+        Call<Checkout> callCheckout = service.getCheckout(
+                SharedPreference.getRegisteredUsername(this)
+        );
+
+        callCheckout.enqueue(new Callback<Checkout>() {
+            @Override
+            public void onResponse(Call<Checkout> call, Response<Checkout> response) {
+                Log.d(TAG, "onResponse: "+response.raw());
+                mAddress.setText(response.body().getUser().getAddress().toString());
+                mPhone.setText(response.body().getUser().getPhone().toString());
+                mProductPrice.setText("Rp "+Integer.toString(response.body().getPrice())+",-");
+                checkoutAdapter(response.body().getStore());
+            }
+
+            @Override
+            public void onFailure(Call<Checkout> call, Throwable t) {
+                Log.d(TAG, "onFailure: "+t.toString());
+            }
+        });
     }
 }

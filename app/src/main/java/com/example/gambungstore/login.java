@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import com.example.gambungstore.client.Client;
 import com.example.gambungstore.models.Login;
+import com.example.gambungstore.progressbar.ProgressBarGambung;
 import com.example.gambungstore.services.Services;
 import com.example.gambungstore.sharedpreference.SharedPreference;
 
@@ -29,13 +30,16 @@ public class login extends AppCompatActivity {
     private Button mLoginButton;
     
     Services service;
-    
+
+    ProgressBarGambung progressbar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
         getXml();
+        progressbar = new ProgressBarGambung(this);
         
         this.mBackButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -47,6 +51,7 @@ public class login extends AppCompatActivity {
         this.mLoginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                progressbar.startProgressBarGambung();
                 loginProcess();
             }
         });
@@ -90,6 +95,7 @@ public class login extends AppCompatActivity {
                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(intent);
                     finish();
+                    progressbar.endProgressBarGambung();
                 }
             }
 

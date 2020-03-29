@@ -4,11 +4,13 @@ import com.example.gambungstore.models.Login;
 import com.example.gambungstore.models.Profile;
 import com.example.gambungstore.models.cart.Cart;
 import com.example.gambungstore.models.category.Category;
+import com.example.gambungstore.models.checkout.Checkout;
 import com.example.gambungstore.models.product.DataProduct;
 import com.example.gambungstore.models.product.Product;
 import com.example.gambungstore.models.promo.Promo;
 import com.example.gambungstore.models.wishlist.Wishlist;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import okhttp3.ResponseBody;
@@ -20,6 +22,7 @@ import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
+import retrofit2.http.Part;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 
@@ -89,5 +92,18 @@ public interface Services {
     @DELETE("cart/{id}")
     Call<ResponseBody> deleteCart(
             @Path("id") int id
+    );
+
+    @FormUrlEncoded
+    @POST("cart/checkout")
+    Call<ResponseBody> checkout(
+            @Field("cart_id[]") ArrayList<Integer> cart_id,
+            @Field("quantity[]") ArrayList<Integer> quantity,
+            @Field("username") String username
+    );
+
+    @GET("checkout")
+    Call<Checkout> getCheckout(
+            @Query("username") String username
     );
 }
