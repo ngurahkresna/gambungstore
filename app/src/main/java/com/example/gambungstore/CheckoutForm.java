@@ -54,6 +54,7 @@ public class CheckoutForm extends AppCompatActivity {
     public String voucherType = "";
     public int grandTotalPrice = 0;
     public int expeditionPrice = 0;
+    public String metodePembayaran = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,8 +93,9 @@ public class CheckoutForm extends AppCompatActivity {
         builder.setItems(paymentMethod.toArray(new String[0]), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                Toast.makeText(CheckoutForm.this, "You click " + paymentMethod.get(which), Toast.LENGTH_SHORT).show();
+                Toast.makeText(CheckoutForm.this, "Anda Memilih " + paymentMethod.get(which), Toast.LENGTH_SHORT).show();
                 mPayment.setText(paymentMethod.get(which));
+                metodePembayaran = paymentMethod.get(which);
             }
         });
 
@@ -131,6 +133,10 @@ public class CheckoutForm extends AppCompatActivity {
                 mProductPrice.setText("Rp "+Integer.toString(response.body().getPrice())+",-");
                 productPrice = response.body().getPrice();
                 checkoutAdapter(response.body().getStore());
+
+                defaultVoucher();
+                mTotalPrice.setText("Rp "+grandTotalPrice+",-");
+
                 progressbar.endProgressBarGambung();
             }
 
@@ -139,6 +145,7 @@ public class CheckoutForm extends AppCompatActivity {
                 Log.d(TAG, "onFailure: "+t.toString());
             }
         });
+
     }
 
     private void cekVoucher(){
@@ -191,7 +198,7 @@ public class CheckoutForm extends AppCompatActivity {
 
     public void refreshRincianHarga(){
         mDiscountPrice.setText("Rp "+Integer.toString(voucherPrice)+",- ("+voucherType.toUpperCase()+")");
-        mTotalPrice.setText(Integer.toString(grandTotalPrice));
+        mTotalPrice.setText("Rp "+Integer.toString(grandTotalPrice)+",-");
     }
 
     private void defaultVoucher(){
