@@ -8,6 +8,7 @@ import com.example.gambungstore.models.checkout.Checkout;
 import com.example.gambungstore.models.product.DataProduct;
 import com.example.gambungstore.models.product.Product;
 import com.example.gambungstore.models.promo.Promo;
+import com.example.gambungstore.models.voucher.Voucher;
 import com.example.gambungstore.models.wishlist.Wishlist;
 
 import java.util.ArrayList;
@@ -105,5 +106,10 @@ public interface Services {
     @GET("checkout")
     Call<Checkout> getCheckout(
             @Query("username") String username
+    );
+
+    @GET("voucher/{code}")
+    Call<Voucher> getVoucher(
+            @Path("code") String code
     );
 }

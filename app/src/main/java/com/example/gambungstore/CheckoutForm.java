@@ -19,6 +19,8 @@ import com.example.gambungstore.adapters.ExpeditionCheckoutAdapter;
 import com.example.gambungstore.client.Client;
 import com.example.gambungstore.models.checkout.Checkout;
 import com.example.gambungstore.models.store.DataStore;
+import com.example.gambungstore.models.voucher.Voucher;
+import com.example.gambungstore.progressbar.ProgressBarGambung;
 import com.example.gambungstore.services.Services;
 import com.example.gambungstore.sharedpreference.SharedPreference;
 
@@ -33,21 +35,32 @@ import static android.provider.AlarmClock.EXTRA_MESSAGE;
 
 public class CheckoutForm extends AppCompatActivity {
     private static final String TAG = "CheckoutForm";
-    
+
+    ProgressBarGambung progressbar = new ProgressBarGambung(this);
+
     RecyclerView mCheckoutCard;
 
-    TextView mPayment;
-    TextView mAddress, mProductPrice;
+    TextView mDiscountPrice,mProductPrice, mTotalPrice;
+    TextView mAddress, mPayment;
     EditText mPhone;
     EditText mPromo;
+    Button mButtonCekVoucher;
 
-    ArrayList<String> expedition = new ArrayList<>();
     ArrayList<String> paymentMethod = new ArrayList<>();
+
+    //global variable
+    public int productPrice = 0;
+    public int voucherPrice = 0;
+    public String voucherType = "";
+    public int grandTotalPrice = 0;
+    public int expeditionPrice = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_checkout_form);
+
+        progressbar.startProgressBarGambung();
 
         mCheckoutCard = findViewById(R.id.checkoutCard);
         mPayment = findViewById(R.id.payment);
@@ -55,15 +68,21 @@ public class CheckoutForm extends AppCompatActivity {
         mPhone = findViewById(R.id.phoneValue);
         mPromo = findViewById(R.id.promoValue);
         mProductPrice = findViewById(R.id.productPrice);
+        mButtonCekVoucher = findViewById(R.id.buttonCekVoucher);
+        mDiscountPrice = findViewById(R.id.discountPrice);
+        mTotalPrice = findViewById(R.id.totalPrice);
 
         getData();
 
-        expedition.add("JNE");
-        expedition.add("TIKI");
-        expedition.add("POS INDONESIA");
-
         paymentMethod.add("Ji-Cash");
         paymentMethod.add("Transfer");
+
+        mButtonCekVoucher.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                cekVoucher();
+            }
+        });
     }
 
     public void paymentMethod(View view) {
@@ -110,7 +129,9 @@ public class CheckoutForm extends AppCompatActivity {
                 mAddress.setText(response.body().getUser().getAddress().toString());
                 mPhone.setText(response.body().getUser().getPhone().toString());
                 mProductPrice.setText("Rp "+Integer.toString(response.body().getPrice())+",-");
+                productPrice = response.body().getPrice();
                 checkoutAdapter(response.body().getStore());
+                progressbar.endProgressBarGambung();
             }
 
             @Override
@@ -118,5 +139,76 @@ public class CheckoutForm extends AppCompatActivity {
                 Log.d(TAG, "onFailure: "+t.toString());
             }
         });
+    }
+
+    private void cekVoucher(){
+        progressbar.startProgressBarGambung();
+        String code = mPromo.getText().toString();
+        if (!code.equals("")){
+            Services service = Client.getClient(Client.BASE_URL).create(Services.class);
+            Call<Voucher> callVoucher = service.getVoucher(
+                code
+            );
+            callVoucher.enqueue(new Callback<Voucher>() {
+                @Override
+                public void onResponse(Call<Voucher> call, Response<Voucher> response) {
+                    voucherPrice = response.body().getPercentage()*productPrice/100;
+                    Log.d(TAG, "onResponse: "+response.body().getPercentage());
+                    Log.d(TAG, "onResponse: "+voucherPrice);
+                    if (response.body().getType() != null){
+                        if (response.body().getType().equals("VCRCB")){
+                            voucherType = "cashback";
+                        }else{
+                            voucherType = "discount";
+                            grandTotalPrice -= voucherPrice;
+                        }
+                        alertDialogNotif("Berhasil Menambahkan Voucher");
+                        refreshRincianHarga();
+                    }else{
+                        defaultVoucher();
+                        refreshRincianHarga();
+                        alertDialogNotif("Voucher Tidak Ditemukan");
+                    }
+
+                }
+
+                @Override
+                public void onFailure(Call<Voucher> call, Throwable t) {
+                    Log.d(TAG, "onFailure: "+t.toString());
+                    defaultVoucher();
+                    refreshRincianHarga();
+                    alertDialogNotif("Voucher Tidak Ditemukan");
+                }
+            });
+        }else{
+            defaultVoucher();
+            refreshRincianHarga();
+            alertDialogNotif("Anda Belum Memasukan Kode Voucher");
+        }
+        progressbar.endProgressBarGambung();
+
+    }
+
+    public void refreshRincianHarga(){
+        mDiscountPrice.setText("Rp "+Integer.toString(voucherPrice)+",- ("+voucherType.toUpperCase()+")");
+        mTotalPrice.setText(Integer.toString(grandTotalPrice));
+    }
+
+    private void defaultVoucher(){
+        voucherPrice = 0;
+        voucherType = "";
+        grandTotalPrice = productPrice - voucherPrice + expeditionPrice;
+    }
+
+    private void alertDialogNotif(String message){
+        AlertDialog alertDialog = new AlertDialog.Builder(CheckoutForm.this).create();
+        alertDialog.setMessage(message);
+        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+        alertDialog.show();
     }
 }
