@@ -40,7 +40,7 @@ public class CheckoutForm extends AppCompatActivity {
 
     RecyclerView mCheckoutCard;
 
-    TextView mDiscountPrice,mProductPrice, mTotalPrice;
+    TextView mDiscountPrice,mProductPrice, mTotalPrice,mExpeditionPrice;
     TextView mAddress, mPayment;
     EditText mPhone;
     EditText mPromo;
@@ -55,6 +55,9 @@ public class CheckoutForm extends AppCompatActivity {
     public int grandTotalPrice = 0;
     public int expeditionPrice = 0;
     public String metodePembayaran = "";
+
+    //expedition array
+    public int[] expeditionArray;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,6 +75,7 @@ public class CheckoutForm extends AppCompatActivity {
         mButtonCekVoucher = findViewById(R.id.buttonCekVoucher);
         mDiscountPrice = findViewById(R.id.discountPrice);
         mTotalPrice = findViewById(R.id.totalPrice);
+        mExpeditionPrice = findViewById(R.id.expeditionPrice);
 
         getData();
 
@@ -133,6 +137,8 @@ public class CheckoutForm extends AppCompatActivity {
                 mProductPrice.setText("Rp "+Integer.toString(response.body().getPrice())+",-");
                 productPrice = response.body().getPrice();
                 checkoutAdapter(response.body().getStore());
+
+                expeditionArray = new int[response.body().getStore().size()];
 
                 defaultVoucher();
                 mTotalPrice.setText("Rp "+grandTotalPrice+",-");
@@ -197,8 +203,16 @@ public class CheckoutForm extends AppCompatActivity {
     }
 
     public void refreshRincianHarga(){
-        mDiscountPrice.setText("Rp "+Integer.toString(voucherPrice)+",- ("+voucherType.toUpperCase()+")");
+        grandTotalPrice = productPrice - voucherPrice + expeditionPrice;
+        if (voucherType.equals("")){
+            mDiscountPrice.setText("Rp "+Integer.toString(voucherPrice)+",-");
+        }else{
+            mDiscountPrice.setText("Rp "+Integer.toString(voucherPrice)+",- ("+voucherType.toUpperCase()+")");
+        }
         mTotalPrice.setText("Rp "+Integer.toString(grandTotalPrice)+",-");
+        mExpeditionPrice.setText("Rp "+Integer.toString(expeditionPrice)+",-");
+
+
     }
 
     private void defaultVoucher(){
@@ -217,5 +231,18 @@ public class CheckoutForm extends AppCompatActivity {
                     }
                 });
         alertDialog.show();
+    }
+
+    public void setExpedition(int cost, int position){
+        int totalExpedition = 0;
+        expeditionArray[position] = cost;
+
+        Log.d(TAG, "setExpedition: "+position);
+
+        for (int value: expeditionArray) {
+            totalExpedition += value;
+        }
+
+        this.expeditionPrice = totalExpedition;
     }
 }

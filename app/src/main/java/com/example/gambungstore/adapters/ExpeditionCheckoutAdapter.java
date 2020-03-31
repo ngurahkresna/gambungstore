@@ -1,5 +1,6 @@
 package com.example.gambungstore.adapters;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.view.LayoutInflater;
@@ -53,8 +54,15 @@ public class ExpeditionCheckoutAdapter extends RecyclerView.Adapter<ExpeditionCh
             @Override
             public void onClick(View v) {
                 ArrayList<String> expedition = new ArrayList<>();
+                ArrayList<Integer> cost = new ArrayList<>();
                 for (int i = 0; i < storePosition.getExpeditions().size(); i++){
-                    expedition.add(storePosition.getExpeditions().get(i).getExpedition_code().toUpperCase());
+                    for (int j = 0; j < storePosition.getExpeditions().get(i).getPrice().size(); j++){
+                        expedition.add(storePosition.getExpeditions().get(i).getExpedition_code().toUpperCase()+" - "+
+                                storePosition.getExpeditions().get(i).getPrice().get(j).getService()+" ( Rp "+
+                                storePosition.getExpeditions().get(i).getPrice().get(j).getCost().get(0).getValue()+",- ) - "+
+                                storePosition.getExpeditions().get(i).getPrice().get(j).getCost().get(0).getDay()+" hari");
+                        cost.add(storePosition.getExpeditions().get(i).getPrice().get(j).getCost().get(0).getValue());
+                    }
                 }
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(context);
@@ -64,6 +72,8 @@ public class ExpeditionCheckoutAdapter extends RecyclerView.Adapter<ExpeditionCh
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         holder.mExpeditionChoosen.setText(expedition.get(which));
+                        ((CheckoutForm)context).setExpedition(cost.get(which), position);
+                        ((CheckoutForm)context).refreshRincianHarga();
                     }
                 });
 
