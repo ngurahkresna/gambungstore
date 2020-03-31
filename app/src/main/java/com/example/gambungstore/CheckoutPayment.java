@@ -15,6 +15,10 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.gambungstore.client.Client;
+import com.example.gambungstore.services.Services;
+import com.example.gambungstore.sharedpreference.SharedPreference;
+
 import java.io.File;
 import java.io.IOException;
 
@@ -22,7 +26,11 @@ import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.Request;
 import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
 import pl.aprilapps.easyphotopicker.EasyImage;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class CheckoutPayment extends AppCompatActivity {
     private static final String TAG = "CheckoutPayment";
@@ -121,16 +129,43 @@ public class CheckoutPayment extends AppCompatActivity {
                 File file = new File(String.valueOf(imageFile));
                 RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
                 String imageName = file.getName();
-                MultipartBody.Part body = MultipartBody.Part.createFormData("image", imageName, requestFile);
+                MultipartBody.Part body = MultipartBody.Part.createFormData("proof_image", imageName, requestFile);
 
+                uploadProof(body);
+            }
+
+            @Override
+            public void onCanceled(EasyImage.ImageSource source, int type) {
+
+            }
+        });
+    }
+
+    private void uploadProof(MultipartBody.Part image){
+
+        RequestBody transaction_code =
+                RequestBody.create(MediaType.parse("text/plain"), getIntent().getStringExtra("transaction_code"));
+        RequestBody username =
+                RequestBody.create(MediaType.parse("text/plain"), SharedPreference.getRegisteredUsername(this));
+
+        Services service = Client.getClient(Client.BASE_URL).create(Services.class);
+        Call<ResponseBody> callUploadProof = service.uploadProof(
+                transaction_code,
+                image,
+                username
+        );
+        callUploadProof.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                Log.d(TAG, "onResponse: "+response.raw());
                 Intent intent = new Intent(CheckoutPayment.this, CheckoutDone.class);
                 startActivity(intent);
                 finish();
             }
 
             @Override
-            public void onCanceled(EasyImage.ImageSource source, int type) {
-
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                Log.d(TAG, "onFailure: "+t.toString());
             }
         });
     }
