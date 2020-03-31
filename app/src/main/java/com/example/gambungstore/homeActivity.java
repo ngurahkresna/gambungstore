@@ -71,7 +71,7 @@ public class homeActivity extends AppCompatActivity implements BottomNavigationV
                 break;
 
             case R.id.transaction_menu:
-                fragment = new onGoingTransaction();
+                fragment = new transaction();
                 break;
 
             case R.id.chat_menu:

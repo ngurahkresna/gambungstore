@@ -2,6 +2,8 @@
     <string name="app_name">GambungStore</string>
 
     <string name="tab_onGoing">Sedang Berlangsung</string>
+    <string name="tab_history">Histori</string>
+
 
 
     <!-- TODO: Remove or change this placeholder text -->

@@ -23,11 +23,11 @@ import android.view.ViewGroup;
  * Use the {@link onGoingTransaction#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class onGoingTransaction extends Fragment {
+public class historyTransaction extends Fragment {
     RecyclerView recyclerView;
     LinearLayoutManager linearLayoutManager;
     PagerAdapter pagerAdapter;
-    public onGoingTransaction() {
+    public historyTransaction() {
         // Required empty public constructor
     }
 
@@ -37,18 +37,18 @@ public class onGoingTransaction extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
 
-        return inflater.inflate(R.layout.fragment_on_going_transaction, container, false);
+        return inflater.inflate(R.layout.fragment_history_transaction, container, false);
     }
     public void transactionAdapter() {
-        recyclerView = getView().findViewById(R.id.onGoingRecyclerView);
+        recyclerView = getView().findViewById(R.id.historyRecyclerView);
         linearLayoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(linearLayoutManager);
-        OnGoingAdapter onGoingAdapter = new OnGoingAdapter();
-        recyclerView.setAdapter(onGoingAdapter);
+        HistoryAdapter HistoryAdapter = new HistoryAdapter();
+        recyclerView.setAdapter(HistoryAdapter);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         transactionAdapter();
     }
-  }
+}
