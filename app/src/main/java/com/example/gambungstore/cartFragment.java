@@ -134,7 +134,7 @@ public class cartFragment extends Fragment {
     private String getTotalHarga(List<DataCart> dataCarts){
         int harga = 0;
         for (int i = 0; i < dataCarts.size(); i++){
-            harga += Integer.valueOf(dataCarts.get(i).getPrice());
+            harga += (Integer.valueOf(dataCarts.get(i).getPrice())*dataCarts.get(i).getQuantity());
         }
         return Integer.toString(harga);
     }
