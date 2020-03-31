@@ -60,7 +60,8 @@ public class cartFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        getCartData();
+        if (!SharedPreference.getRegisteredToken(getContext()).matches(""))
+            getCartData();
     }
 
     private void getCartData(){
@@ -71,12 +72,14 @@ public class cartFragment extends Fragment {
         callCart.enqueue(new Callback<Cart>() {
             @Override
             public void onResponse(Call<Cart> call, Response<Cart> response) {
-                getView().findViewById(R.id.cartEmpty).setVisibility(View.GONE);
-                getView().findViewById(R.id.cartEmptyText).setVisibility(View.GONE);
-                getView().findViewById(R.id.cartRecycleView).setVisibility(View.VISIBLE);
-                viewRecyclerCart(response.body().getDataCart());
-                TextView mTotal = getView().findViewById(R.id.cartTotal);
-                mTotal.setText("Rp "+getTotalHarga(response.body().getDataCart())+",-");
+                if (!response.body().getDataCart().isEmpty()) {
+                    getView().findViewById(R.id.cartEmpty).setVisibility(View.GONE);
+                    getView().findViewById(R.id.cartEmptyText).setVisibility(View.GONE);
+                    getView().findViewById(R.id.cartRecycleView).setVisibility(View.VISIBLE);
+                    viewRecyclerCart(response.body().getDataCart());
+                    TextView mTotal = getView().findViewById(R.id.cartTotal);
+                    mTotal.setText("Rp "+getTotalHarga(response.body().getDataCart())+",-");
+                }
             }
 
             @Override

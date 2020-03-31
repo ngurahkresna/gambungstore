@@ -57,8 +57,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/space_double"
-                    android:hint="Nama"
-                    android:textColor="@color/colorWhite" />
+                    android:hint="Nama" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -73,8 +72,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/space_double"
-                    android:hint="Username"
-                    android:textColor="@color/colorWhite" />
+                    android:hint="Username" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -90,8 +88,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/space_double"
-                    android:hint="Email"
-                    android:textColor="@color/colorWhite" />
+                    android:hint="Email" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -107,8 +104,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/space_double"
-                    android:hint="No Telephone"
-                    android:textColor="@color/colorWhite" />
+                    android:hint="No Telephone" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -130,8 +126,7 @@
                         android:layout_width="180dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/space_double"
-                        android:hint="Kota"
-                        android:textColor="@color/colorWhite" />
+                        android:hint="Kota" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -146,8 +141,7 @@
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/space_double"
-                        android:hint="Tanggal Lahir"
-                        android:textColor="@color/colorWhite" />
+                        android:hint="Tanggal Lahir" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -165,8 +159,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/space_double"
-                    android:hint="Alamat Lengkap"
-                    android:textColor="@color/colorWhite"/>
+                    android:hint="Alamat Lengkap"/>
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -189,7 +182,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/space_double"
                     android:hint="Password"
-                    android:textColor="@color/colorWhite"
                     android:inputType="textPassword"/>
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -206,7 +198,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/space_double"
                     android:hint="Konfirmasi Password"
-                    android:textColor="@color/colorWhite"
                     android:inputType="textPassword"/>
 
             </com.google.android.material.textfield.TextInputLayout>

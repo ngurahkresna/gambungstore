@@ -31,7 +31,7 @@ public class homeActivity extends AppCompatActivity implements BottomNavigationV
     private static final String TAG = "homeActivity";
 
     private Services service;
-    
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -100,7 +100,9 @@ public class homeActivity extends AppCompatActivity implements BottomNavigationV
             public void onResponse(Call<Profile> call, Response<Profile> response) {
                 SharedPreference.setRegisteredId(getBaseContext(),response.body().getId());
                 SharedPreference.setRegisteredUsername(getBaseContext(),response.body().getUsername());
-                changeLoginLayout(response.body().getUsername());
+                SharedPreference.setRegisteredName(getBaseContext(),response.body().getName());
+
+                changeLoginLayout(response.body().getUsername(), response.body().getName());
             }
 
             @Override
@@ -110,23 +112,16 @@ public class homeActivity extends AppCompatActivity implements BottomNavigationV
         });
     }
 
-    public void changeLoginLayout(String name){
-//        TextView mWelcomeText = findViewById(R.id.welcomeText);
+    public void changeLoginLayout(String username, String name){
+        TextView mWelcomeText = findViewById(R.id.welcomeText);
         TextView mButtonAuth = findViewById(R.id.buttonAuth);
 
-//        mWelcomeText.setText(name);
-        mButtonAuth.setText(name);
+        mWelcomeText.setText(name);
+        mButtonAuth.setText(username);
         mButtonAuth.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Intent intent = new Intent(homeActivity.this,editProfile.class);
-//                startActivity(intent);
-                sideBar fragment = new sideBar();
-                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                transaction.replace(R.id.homeFragment,fragment);
-                transaction.commit();
-                findViewById(R.id.fragmentHome).setVisibility(View.GONE);
-                findViewById(R.id.bottomNavigation).setVisibility(View.GONE);
+                removeBottomNavigation();
             }
         });
 
@@ -135,6 +130,21 @@ public class homeActivity extends AppCompatActivity implements BottomNavigationV
     public void refreshMenu(){
         findViewById(R.id.fragmentHome).setVisibility(View.VISIBLE);
         findViewById(R.id.bottomNavigation).setVisibility(View.VISIBLE);
+        TextView mWelcomeText = findViewById(R.id.welcomeText);
+        TextView mButtonAuth = findViewById(R.id.buttonAuth);
+
+        mWelcomeText.setText("Guest");
+        mButtonAuth.setText("Login/Register");
+    }
+
+    public void removeBottomNavigation()
+    {
+        sideBar fragment = new sideBar();
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.homeFragment,fragment);
+        transaction.commit();
+        findViewById(R.id.fragmentHome).setVisibility(View.GONE);
+        findViewById(R.id.bottomNavigation).setVisibility(View.GONE);
     }
 
 }
