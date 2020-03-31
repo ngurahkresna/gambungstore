@@ -112,4 +112,19 @@ public interface Services {
     Call<Voucher> getVoucher(
             @Path("code") String code
     );
+
+    @FormUrlEncoded
+    @POST("checkout")
+    Call<ResponseBody> processCheckout(
+            @Field("username") String username,
+            @Field("address") String address,
+            @Field("phone") String phone,
+            @Field("store_id[]") ArrayList<Integer> store_id,
+            @Field("expedition[]") ArrayList<String> expedition,
+            @Field("total_shipping_charges") int total_shipping_charges,
+            @Field("total_product_amount") int total_product_amount,
+            @Field("total_discount_amount") int total_discount_amount,
+            @Field("grand_total") int grand_total,
+            @Field("payment_method_id") int payment_method_id
+    );
 }

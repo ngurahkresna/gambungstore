@@ -55,6 +55,7 @@ public class ExpeditionCheckoutAdapter extends RecyclerView.Adapter<ExpeditionCh
             public void onClick(View v) {
                 ArrayList<String> expedition = new ArrayList<>();
                 ArrayList<Integer> cost = new ArrayList<>();
+                ArrayList<String> code = new ArrayList<>();
                 for (int i = 0; i < storePosition.getExpeditions().size(); i++){
                     for (int j = 0; j < storePosition.getExpeditions().get(i).getPrice().size(); j++){
                         expedition.add(storePosition.getExpeditions().get(i).getExpedition_code().toUpperCase()+" - "+
@@ -62,6 +63,7 @@ public class ExpeditionCheckoutAdapter extends RecyclerView.Adapter<ExpeditionCh
                                 storePosition.getExpeditions().get(i).getPrice().get(j).getCost().get(0).getValue()+",- ) - "+
                                 storePosition.getExpeditions().get(i).getPrice().get(j).getCost().get(0).getDay()+" hari");
                         cost.add(storePosition.getExpeditions().get(i).getPrice().get(j).getCost().get(0).getValue());
+                        code.add(storePosition.getExpeditions().get(i).getExpedition_code());
                     }
                 }
 
@@ -72,7 +74,7 @@ public class ExpeditionCheckoutAdapter extends RecyclerView.Adapter<ExpeditionCh
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         holder.mExpeditionChoosen.setText(expedition.get(which));
-                        ((CheckoutForm)context).setExpedition(cost.get(which), position);
+                        ((CheckoutForm)context).setExpedition(cost.get(which), position, code.get(which));
                         ((CheckoutForm)context).refreshRincianHarga();
                     }
                 });

@@ -16,6 +16,16 @@ public class Checkout {
     private int price;
     @SerializedName("weight")
     private List<Weight> weights;
+    @SerializedName("payment_method")
+    private List<PaymentMethod> payments;
+
+    public List<PaymentMethod> getPayments() {
+        return payments;
+    }
+
+    public void setPayments(List<PaymentMethod> payments) {
+        this.payments = payments;
+    }
 
     public Profile getUser() {
         return user;

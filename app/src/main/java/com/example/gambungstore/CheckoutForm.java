@@ -18,6 +18,7 @@ import android.widget.Toast;
 import com.example.gambungstore.adapters.ExpeditionCheckoutAdapter;
 import com.example.gambungstore.client.Client;
 import com.example.gambungstore.models.checkout.Checkout;
+import com.example.gambungstore.models.checkout.PaymentMethod;
 import com.example.gambungstore.models.store.DataStore;
 import com.example.gambungstore.models.voucher.Voucher;
 import com.example.gambungstore.progressbar.ProgressBarGambung;
@@ -27,11 +28,10 @@ import com.example.gambungstore.sharedpreference.SharedPreference;
 import java.util.ArrayList;
 import java.util.List;
 
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-
-import static android.provider.AlarmClock.EXTRA_MESSAGE;
 
 public class CheckoutForm extends AppCompatActivity {
     private static final String TAG = "CheckoutForm";
@@ -59,6 +59,12 @@ public class CheckoutForm extends AppCompatActivity {
     //expedition array
     public int[] expeditionArray;
 
+    //checkout detail
+    ArrayList<Integer> store_id = new ArrayList<>();
+    String[] expeditionCode;
+    List<PaymentMethod> paymentMethods;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -78,9 +84,6 @@ public class CheckoutForm extends AppCompatActivity {
         mExpeditionPrice = findViewById(R.id.expeditionPrice);
 
         getData();
-
-        paymentMethod.add("Ji-Cash");
-        paymentMethod.add("Transfer");
 
         mButtonCekVoucher.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -115,7 +118,34 @@ public class CheckoutForm extends AppCompatActivity {
     }
 
     public void submitButton(View view) {
-        Toast.makeText(CheckoutForm.this, "Go to next step", Toast.LENGTH_SHORT).show();
+
+        for(int expeditionCost : expeditionArray){
+            if (expeditionCost == 0){
+                Toast.makeText(CheckoutForm.this, "Anda Belum Memilih Expedisi", Toast.LENGTH_SHORT).show();
+                return;
+            }
+        }
+
+        if (productPrice == 0){
+            Toast.makeText(CheckoutForm.this, "Terjadi Kesalahan", Toast.LENGTH_SHORT).show();
+        }else if (voucherPrice != 0 && voucherType == ""){
+            Toast.makeText(CheckoutForm.this, "Terjadi Kesalahan", Toast.LENGTH_SHORT).show();
+        }else if (grandTotalPrice == 0){
+            Toast.makeText(CheckoutForm.this, "Terjadi Kesalahan", Toast.LENGTH_SHORT).show();
+        }else if (expeditionPrice == 0){
+            Toast.makeText(CheckoutForm.this, "Anda Belum Memilih Expedisi", Toast.LENGTH_SHORT).show();
+        }else if (metodePembayaran.equals("")){
+            Toast.makeText(CheckoutForm.this, "Anda Belum Memilih Metode Pembayaran", Toast.LENGTH_SHORT).show();
+        }else{
+            processCheckout();
+            Intent intent = new Intent(CheckoutForm.this, CheckoutPayment.class);
+            intent.putExtra("productPrice", productPrice);
+            intent.putExtra("discountPrice", voucherPrice);
+            intent.putExtra("expeditionPrice",expeditionPrice);
+            intent.putExtra("grandTotalPrice",grandTotalPrice);
+            finish();
+            startActivity(intent);
+        }
     }
 
     public void backToHome(View view) {
@@ -138,7 +168,19 @@ public class CheckoutForm extends AppCompatActivity {
                 productPrice = response.body().getPrice();
                 checkoutAdapter(response.body().getStore());
 
+                //get name payment method
+                paymentMethods = response.body().getPayments();
+                for(PaymentMethod method : paymentMethods){
+                    paymentMethod.add(method.getName());
+                }
+
+                //get all data store id
+                for(DataStore store : response.body().getStore()){
+                    store_id.add(store.getId());
+                }
+
                 expeditionArray = new int[response.body().getStore().size()];
+                expeditionCode = new String[response.body().getStore().size()];
 
                 defaultVoucher();
                 mTotalPrice.setText("Rp "+grandTotalPrice+",-");
@@ -233,9 +275,10 @@ public class CheckoutForm extends AppCompatActivity {
         alertDialog.show();
     }
 
-    public void setExpedition(int cost, int position){
+    public void setExpedition(int cost, int position, String code){
         int totalExpedition = 0;
         expeditionArray[position] = cost;
+        expeditionCode[position] = code;
 
         Log.d(TAG, "setExpedition: "+position);
 
@@ -244,5 +287,46 @@ public class CheckoutForm extends AppCompatActivity {
         }
 
         this.expeditionPrice = totalExpedition;
+    }
+
+    private void processCheckout(){
+        int payment_id = 0;
+        for(PaymentMethod method : paymentMethods){
+            if (method.getName().equals(metodePembayaran)){
+                payment_id = method.getId();
+            }
+        }
+
+        //parse array to array list
+        ArrayList<String> expedition = new ArrayList<>();
+        for(String exp : expeditionCode){
+            expedition.add(exp);
+        }
+
+        Services service = Client.getClient(Client.BASE_URL).create(Services.class);
+        Call<ResponseBody> callCheckoutProcess = service.processCheckout(
+            SharedPreference.getRegisteredUsername(this),
+                mAddress.getText().toString(),
+                mPhone.getText().toString(),
+                this.store_id,
+                expedition,
+                expeditionPrice,
+                productPrice,
+                voucherPrice,
+                grandTotalPrice,
+                payment_id
+        );
+
+        callCheckoutProcess.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                Toast.makeText(CheckoutForm.this, "Berhasil Checkout", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                Log.d(TAG, "onFailure: "+t.toString());
+            }
+        });
     }
 }
