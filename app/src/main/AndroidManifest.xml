@@ -16,13 +16,7 @@
 
         </activity>
         <activity android:name=".CheckoutDone" />
-        <activity android:name=".CheckoutPayment">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+        <activity android:name=".CheckoutPayment" />
         <activity android:name=".CheckoutForm">
 
         </activity>
@@ -42,11 +36,11 @@
             android:name=".homeActivity"
             android:screenOrientation="portrait" />
         <activity android:name=".SplashScreenActivity">
-<!--            <intent-filter>-->
-<!--                <action android:name="android.intent.action.MAIN" />-->
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
-<!--                <category android:name="android.intent.category.LAUNCHER" />-->
-<!--            </intent-filter>-->
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity android:name=".MainActivity" />
     </application>
