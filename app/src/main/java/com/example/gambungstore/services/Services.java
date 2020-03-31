@@ -2,9 +2,11 @@ package com.example.gambungstore.services;
 
 import com.example.gambungstore.models.Login;
 import com.example.gambungstore.models.Profile;
+import com.example.gambungstore.models.RajaOngkir;
 import com.example.gambungstore.models.cart.Cart;
 import com.example.gambungstore.models.category.Category;
 import com.example.gambungstore.models.checkout.Checkout;
+import com.example.gambungstore.models.category.DataCategory;
 import com.example.gambungstore.models.product.DataProduct;
 import com.example.gambungstore.models.product.Product;
 import com.example.gambungstore.models.promo.Promo;
@@ -21,6 +23,7 @@ import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
+import retrofit2.http.Headers;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Part;
@@ -34,13 +37,14 @@ public interface Services {
     Call<ResponseBody> registerProses(
             @Field("username") String username,
             @Field("email") String email,
-            @Field("nama") String nama,
+            @Field("name") String name,
             @Field("password") String password,
             @Field("phone") String phone,
             @Field("address") String address,
-            @Field("city") int city,
+            @Field("city") String city,
             @Field("password_confirmation") String rePassword,
-            @Field("role") String role
+            @Field("role") String role,
+            @Field("birthday") String birthday
     );
 
     @FormUrlEncoded
@@ -70,8 +74,19 @@ public interface Services {
     @GET("category")
     Call<Category> getCategory();
 
+    @FormUrlEncoded
+    @POST("category/search")
+    Call<List<DataCategory>> searchCategory(
+            @Field("value") String key
+    );
+
     @GET("product")
     Call<Product> getProduct();
+
+    @GET("product/{id}")
+    Call<DataProduct> getProductById(
+            @Path("id") String id
+    );
 
     @FormUrlEncoded
     @POST("product/search")
@@ -84,14 +99,33 @@ public interface Services {
       @Query("username") String username
     );
 
+    @FormUrlEncoded
+    @POST("cart")
+    Call<ResponseBody> storeCart(
+            @Field("product_code") String product_code,
+            @Field("quantity") int quantity,
+            @Field("username") String username
+    );
+
     @GET("wishlist")
     Call<Wishlist> getWishlist();
+
 
     @GET("voucher")
     Call<Promo> getPromo();
 
     @DELETE("cart/{id}")
     Call<ResponseBody> deleteCart(
+            @Path("id") int id
+    );
+
+    @GET("wishlist")
+    Call<Wishlist> getWishlistByUserId(
+            @Query("user_id") int user_id
+    );
+
+    @DELETE("wishlist/{id}")
+    Call<ResponseBody> deleteWishlistById(
             @Path("id") int id
     );
 
@@ -127,4 +161,17 @@ public interface Services {
             @Field("grand_total") int grand_total,
             @Field("payment_method_id") int payment_method_id
     );
+
+    @POST("wishlist")
+    Call<ResponseBody> storeWishlist(
+            @Field("user_id") int user_id,
+            @Field("product_code") String product_code
+    );
+
+    @Headers("key: e2f076d77998bbb2921165ee490297a4")
+    @GET("city")
+    Call <RajaOngkir> getRajaongkir();
+
+    @GET("users")
+    Call<List<Profile>> getUsers();
 }

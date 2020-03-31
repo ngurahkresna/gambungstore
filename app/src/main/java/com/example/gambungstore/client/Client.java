@@ -17,4 +17,12 @@ public class Client {
         return retrofit;
     }
 
+    public static Retrofit getRajaongkir() {
+        retrofit = new Retrofit.Builder()
+                .baseUrl("https://api.rajaongkir.com/starter/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        return retrofit;
+    }
+
 }
