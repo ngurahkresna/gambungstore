@@ -47,9 +47,23 @@ public class homeActivity extends AppCompatActivity implements BottomNavigationV
 
         Log.d(TAG, "onCreate: apakah login ? "+isLogin());
 
+        //move to fragment
+        if (getIntent() != null){
+            String fragmentMoveTo = getIntent().getStringExtra("fragment");
+            if (fragmentMoveTo != null){
+                if (fragmentMoveTo.equals("cart")){
+                    Fragment fragment = new cartFragment();
+                    loadFragment(fragment);
+                    return;
+                }
+            }
+        }
+
         if (isLogin()){
             getProfile();
         }
+
+
 
     }
 

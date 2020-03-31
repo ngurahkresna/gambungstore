@@ -265,6 +265,9 @@ public class detailProduct extends AppCompatActivity {
                 // SHOW CART FRAGMENT
                 // GATAU LAGI
                 finish();
+                Intent intent = new Intent(detailProduct.this,homeActivity.class);
+                intent.putExtra("fragment","cart");
+                startActivity(intent);
             }
 
             @Override
