@@ -1,9 +1,15 @@
 <resources>
     <string name="app_name">GambungStore</string>
 
+    <string name="tab_onGoing">Sedang Berlangsung</string>
+    <string name="tab_history">Histori</string>
+
+
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="dialog_fire_missiles">Metode pembayaran transfer bank hanya melalui transfer ke nomor rekening Bumdes Pakis Sabilulungan</string>
     <string name="buy_now">Bayar Sekarang</string>
     <string name="cancel">Cancel</string>
+
 </resources>

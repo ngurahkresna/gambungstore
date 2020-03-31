@@ -10,6 +10,7 @@ import com.example.gambungstore.models.category.DataCategory;
 import com.example.gambungstore.models.product.DataProduct;
 import com.example.gambungstore.models.product.Product;
 import com.example.gambungstore.models.promo.Promo;
+import com.example.gambungstore.models.transaction.Transaction;
 import com.example.gambungstore.models.voucher.Voucher;
 import com.example.gambungstore.models.wishlist.Wishlist;
 
@@ -174,4 +175,9 @@ public interface Services {
 
     @GET("users")
     Call<List<Profile>> getUsers();
+
+    @GET("transaction")
+    Call<Transaction> getTransactionByUsername(
+        @Query("username") String username
+    );
 }
