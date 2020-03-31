@@ -7,6 +7,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.CountDownTimer;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -23,9 +25,11 @@ import okhttp3.RequestBody;
 import pl.aprilapps.easyphotopicker.EasyImage;
 
 public class CheckoutPayment extends AppCompatActivity {
-
+    private static final String TAG = "CheckoutPayment";
+    
     TextView mDiscountPrice,mProductPrice, mTotalPrice,mExpeditionPrice;
     Button mSubmitButtom,mBackButton;
+    TextView mTime;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,11 +42,14 @@ public class CheckoutPayment extends AppCompatActivity {
         mExpeditionPrice = findViewById(R.id.expeditionPrice);
         mSubmitButtom = findViewById(R.id.submitButton);
         mBackButton = findViewById(R.id.backButton);
+        mTime = findViewById(R.id.time);
 
         mProductPrice.setText("Rp "+Integer.toString(getIntent().getIntExtra("productPrice",0))+",-");
         mDiscountPrice.setText("Rp "+Integer.toString(getIntent().getIntExtra("discountPrice",0))+",-");
         mTotalPrice.setText("Rp "+Integer.toString(getIntent().getIntExtra("grandTotalPrice",0))+",-");
         mExpeditionPrice.setText("Rp "+Integer.toString(getIntent().getIntExtra("expeditionPrice",0))+",-");
+
+        countdownTime();
 
         mBackButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -60,10 +67,27 @@ public class CheckoutPayment extends AppCompatActivity {
 
     }
 
+    private void countdownTime(){
+        CountDownTimer timer = new CountDownTimer(86400000,1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                int seconds = (int) (millisUntilFinished / 1000) % 60 ;
+                int minutes = (int) ((millisUntilFinished / (1000*60)) % 60);
+                int hours   = (int) ((millisUntilFinished / (1000*60*60)) % 24);
+                mTime.setText(Integer.toString(hours)+":"+Integer.toString(minutes)+":"+Integer.toString(seconds));
+            }
+
+            @Override
+            public void onFinish() {
+                Log.d(TAG, "onFinish: ");
+            }
+        }.start();
+    }
+
     private void chooseImage(){
         CharSequence[] item = {"Kamera", "Galeri"};
         AlertDialog.Builder request = new AlertDialog.Builder(this)
-                .setTitle("Add Image")
+                .setTitle("Upload Bukti Pembayaran")
                 .setItems(item, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
