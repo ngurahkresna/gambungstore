@@ -137,6 +137,7 @@ public class CheckoutForm extends AppCompatActivity {
         }else if (metodePembayaran.equals("")){
             Toast.makeText(CheckoutForm.this, "Anda Belum Memilih Metode Pembayaran", Toast.LENGTH_SHORT).show();
         }else{
+            progressbar.startProgressBarGambung();
             processCheckout();
             Intent intent = new Intent(CheckoutForm.this, CheckoutPayment.class);
             intent.putExtra("productPrice", productPrice);
@@ -321,6 +322,7 @@ public class CheckoutForm extends AppCompatActivity {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 Toast.makeText(CheckoutForm.this, "Berhasil Checkout", Toast.LENGTH_SHORT).show();
+                progressbar.endProgressBarGambung();
             }
 
             @Override
