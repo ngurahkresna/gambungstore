@@ -3,6 +3,7 @@ package com.example.gambungstore.models.product;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.example.gambungstore.models.Store;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
@@ -20,6 +21,14 @@ public class DataProduct implements Parcelable {
     private String description;
     @SerializedName("price")
     private int price;
+    @SerializedName("stock")
+    private int stock;
+    @SerializedName("wish_list_count")
+    private int wish_list_count;
+    @SerializedName("transaction_count")
+    private int transaction_count;
+    @SerializedName("store")
+    private Store store;
     @SerializedName("images")
     private List<ProductImage> images;
 
@@ -103,6 +112,38 @@ public class DataProduct implements Parcelable {
     @Override
     public int describeContents() {
         return 0;
+    }
+
+    public int getStock() {
+        return stock;
+    }
+
+    public void setStock(int stock) {
+        this.stock = stock;
+    }
+
+    public int getWishListCount() {
+        return wish_list_count;
+    }
+
+    public void setWishListCount(int wish_list_count) {
+        this.wish_list_count = wish_list_count;
+    }
+
+    public int getTransactionCount() {
+        return transaction_count;
+    }
+
+    public void setTransactionCount(int transaction_count) {
+        this.transaction_count = transaction_count;
+    }
+
+    public Store getStore() {
+        return store;
+    }
+
+    public void setStore(Store store) {
+        this.store = store;
     }
 
     @Override

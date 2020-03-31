@@ -14,6 +14,7 @@ import java.util.List;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
+import retrofit2.http.DELETE;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
@@ -77,6 +78,11 @@ public interface Services {
     @GET("product")
     Call<Product> getProduct();
 
+    @GET("product/{id}")
+    Call<DataProduct> getProductById(
+            @Path("id") String id
+    );
+
     @FormUrlEncoded
     @POST("product/search")
     Call<List<DataProduct>> searchProduct(
@@ -88,8 +94,33 @@ public interface Services {
       @Query("username") String username
     );
 
+    @FormUrlEncoded
+    @POST("cart")
+    Call<ResponseBody> storeCart(
+            @Field("product_code") String product_code,
+            @Field("quantity") int quantity,
+            @Field("username") String username
+    );
+
     @GET("wishlist")
     Call<Wishlist> getWishlist();
+
+    @GET("wishlist")
+    Call<Wishlist> getWishlistByUserId(
+            @Query("user_id") int user_id
+    );
+
+    @DELETE("wishlist/{id}")
+    Call<ResponseBody> deleteWishlistById(
+            @Path("id") int id
+    );
+
+    @FormUrlEncoded
+    @POST("wishlist")
+    Call<ResponseBody> storeWishlist(
+            @Field("user_id") int user_id,
+            @Field("product_code") String product_code
+    );
 
     @Headers("key: e2f076d77998bbb2921165ee490297a4")
     @GET("city")
