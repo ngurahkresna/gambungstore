@@ -123,6 +123,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/space_double"
                     android:hint="Email"
+                    android:inputType="textEmailAddress"
                     android:textColor="@color/colorWhite" />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -165,7 +166,9 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/space_double"
                         android:hint="Kota"
-                        android:textColor="@color/colorWhite" />
+                        android:focusable="false"
+                        android:textColor="@color/colorWhite"
+                        android:onClick="showCity"/>
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -182,7 +185,9 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/space_double"
                         android:hint="Tanggal Lahir"
-                        android:textColor="@color/colorWhite" />
+                        android:textColor="@color/colorWhite"
+                        android:focusable="false"
+                        android:onClick="showDatePicker"/>
 
                 </com.google.android.material.textfield.TextInputLayout>
 

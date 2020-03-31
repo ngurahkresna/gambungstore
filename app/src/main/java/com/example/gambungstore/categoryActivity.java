@@ -7,8 +7,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.gambungstore.adapters.CategoryAdapter;
 import com.example.gambungstore.client.Client;
@@ -30,6 +34,7 @@ public class categoryActivity extends AppCompatActivity {
     private RecyclerView mCategoryRecyclerView;
     private LinearLayoutManager setLayoutManagerCategory;
     private CategoryAdapter categoryAdapter;
+    private EditText searchHint;
 
     private List<DataCategory> dataCategories;
 
@@ -39,6 +44,14 @@ public class categoryActivity extends AppCompatActivity {
         setContentView(R.layout.activity_category);
 
         mCategoryRecyclerView = findViewById(R.id.category);
+        searchHint = findViewById(R.id.searchHint);
+        searchHint.setOnEditorActionListener(new EditText.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {;
+                searchCategory(searchHint.getText().toString());
+                return true;
+            }
+        });
 
         buttonBack = findViewById(R.id.backButton);
 
@@ -80,5 +93,28 @@ public class categoryActivity extends AppCompatActivity {
                 Log.d(TAG, "onFailure: "+t.toString());
             }
         });
+    }
+
+    public void searchCategory(String key){
+        Services service = Client.getClient(Client.BASE_URL).create(Services.class);
+        Call<List<DataCategory>> callSearch = service.searchCategory(key);
+        callSearch.enqueue(new Callback<List<DataCategory>>() {
+            @Override
+            public void onResponse(Call<List<DataCategory>> call, Response<List<DataCategory>> response) {
+                List<DataCategory> dataCategories = response.body();
+                if (dataCategories.isEmpty()){
+                    Toast.makeText(categoryActivity.this, "Data Tidak Ditemukan", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                onViewCategory(dataCategories);
+            }
+
+            @Override
+            public void onFailure(Call<List<DataCategory>> call, Throwable t) {
+                Log.d(TAG, "onFailure: "+t.toString());
+            }
+        });
+
     }
 }

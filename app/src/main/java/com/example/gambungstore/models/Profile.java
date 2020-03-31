@@ -19,7 +19,7 @@ public class Profile {
     @SerializedName("address_1")
     private String address;
     @SerializedName("city")
-    private int city;
+    private String city;
 
     public int getId() {
         return id;
@@ -69,11 +69,11 @@ public class Profile {
         this.address = address;
     }
 
-    public int getCity() {
+    public String getCity() {
         return city;
     }
 
-    public void setCity(int city) {
+    public void setCity(String city) {
         this.city = city;
     }
 
