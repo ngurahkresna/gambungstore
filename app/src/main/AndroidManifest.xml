@@ -12,7 +12,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".CheckoutDone"></activity>
+        <activity android:name=".detailProduct">
+
+        </activity>
+        <activity android:name=".CheckoutDone" />
         <activity android:name=".CheckoutPayment" />
         <activity android:name=".CheckoutForm">
 
