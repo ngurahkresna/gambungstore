@@ -35,7 +35,7 @@ public class authOption extends AppCompatActivity {
         buttonBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(authOption.this, homeFragment.class));
+                onBackPressed();
             }
         });
     }

@@ -5,13 +5,20 @@ import com.example.gambungstore.models.Profile;
 import com.example.gambungstore.models.RajaOngkir;
 import com.example.gambungstore.models.cart.Cart;
 import com.example.gambungstore.models.category.Category;
+import com.example.gambungstore.models.checkout.Checkout;
 import com.example.gambungstore.models.category.DataCategory;
 import com.example.gambungstore.models.product.DataProduct;
 import com.example.gambungstore.models.product.Product;
+import com.example.gambungstore.models.promo.Promo;
+import com.example.gambungstore.models.transaction.Transaction;
+import com.example.gambungstore.models.voucher.Voucher;
 import com.example.gambungstore.models.wishlist.Wishlist;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.DELETE;
@@ -20,8 +27,10 @@ import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.Headers;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
+import retrofit2.http.Part;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 
@@ -105,6 +114,15 @@ public interface Services {
     @GET("wishlist")
     Call<Wishlist> getWishlist();
 
+
+    @GET("voucher")
+    Call<Promo> getPromo();
+
+    @DELETE("cart/{id}")
+    Call<ResponseBody> deleteCart(
+            @Path("id") int id
+    );
+
     @GET("wishlist")
     Call<Wishlist> getWishlistByUserId(
             @Query("user_id") int user_id
@@ -116,6 +134,46 @@ public interface Services {
     );
 
     @FormUrlEncoded
+    @POST("cart/checkout")
+    Call<ResponseBody> checkout(
+            @Field("cart_id[]") ArrayList<Integer> cart_id,
+            @Field("quantity[]") ArrayList<Integer> quantity,
+            @Field("username") String username
+    );
+
+    @GET("checkout")
+    Call<Checkout> getCheckout(
+            @Query("username") String username
+    );
+
+    @GET("voucher/{code}")
+    Call<Voucher> getVoucher(
+            @Path("code") String code
+    );
+
+    @FormUrlEncoded
+    @POST("checkout")
+    Call<ResponseBody> processCheckout(
+            @Field("username") String username,
+            @Field("address") String address,
+            @Field("phone") String phone,
+            @Field("store_id[]") ArrayList<Integer> store_id,
+            @Field("expedition[]") ArrayList<String> expedition,
+            @Field("total_shipping_charges") int total_shipping_charges,
+            @Field("total_product_amount") int total_product_amount,
+            @Field("total_discount_amount") int total_discount_amount,
+            @Field("grand_total") int grand_total,
+            @Field("payment_method_id") int payment_method_id
+    );
+
+    @Multipart
+    @POST("upload-proof")
+    Call<ResponseBody> uploadProof(
+            @Part("transaction_code")RequestBody transaction_code,
+            @Part MultipartBody.Part proof_image,
+            @Part("username") RequestBody username
+    );
+
     @POST("wishlist")
     Call<ResponseBody> storeWishlist(
             @Field("user_id") int user_id,
@@ -128,4 +186,9 @@ public interface Services {
 
     @GET("users")
     Call<List<Profile>> getUsers();
+
+    @GET("transaction")
+    Call<Transaction> getTransactionByUsername(
+        @Query("username") String username
+    );
 }

@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import com.example.gambungstore.client.Client;
 import com.example.gambungstore.models.Profile;
+import com.example.gambungstore.progressbar.ProgressBarGambung;
 import com.example.gambungstore.services.Services;
 import com.example.gambungstore.sharedpreference.SharedPreference;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -32,6 +33,8 @@ public class homeActivity extends AppCompatActivity implements BottomNavigationV
 
     private Services service;
 
+    protected ProgressBarGambung progressBar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,9 +47,23 @@ public class homeActivity extends AppCompatActivity implements BottomNavigationV
 
         Log.d(TAG, "onCreate: apakah login ? "+isLogin());
 
+        //move to fragment
+        if (getIntent() != null){
+            String fragmentMoveTo = getIntent().getStringExtra("fragment");
+            if (fragmentMoveTo != null){
+                if (fragmentMoveTo.equals("cart")){
+                    Fragment fragment = new cartFragment();
+                    loadFragment(fragment);
+                    return;
+                }
+            }
+        }
+
         if (isLogin()){
             getProfile();
         }
+
+
 
     }
 

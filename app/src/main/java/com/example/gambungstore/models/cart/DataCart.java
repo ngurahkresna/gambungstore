@@ -6,7 +6,7 @@ import com.google.gson.annotations.SerializedName;
 
 public class DataCart {
 
-    @SerializedName("jd")
+    @SerializedName("id")
     private int id;
     @SerializedName("quantity")
     private int quantity;
@@ -14,6 +14,16 @@ public class DataCart {
     private int price;
     @SerializedName("product")
     private DataProduct product;
+    @SerializedName("username")
+    private String username;
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
 
     public int getId() {
         return id;

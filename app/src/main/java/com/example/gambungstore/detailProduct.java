@@ -263,7 +263,11 @@ public class detailProduct extends AppCompatActivity {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 // SHOW CART FRAGMENT
-                // GATAU LAGI UY
+                // GATAU LAGI
+                finish();
+                Intent intent = new Intent(detailProduct.this,homeActivity.class);
+                intent.putExtra("fragment","cart");
+                startActivity(intent);
             }
 
             @Override

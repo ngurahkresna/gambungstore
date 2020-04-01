@@ -44,7 +44,6 @@
             android:layout_marginBottom="0dp"
             android:background="@drawable/button_primary_solid"
             android:gravity="end"
-            android:onClick="chooseExpedition"
             android:padding="8dp"
             android:text="Pilih Ekspedisi"
             android:textAllCaps="false"
