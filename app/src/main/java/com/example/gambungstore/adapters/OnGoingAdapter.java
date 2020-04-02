@@ -1,6 +1,8 @@
 package com.example.gambungstore.adapters;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -50,10 +52,14 @@ public class OnGoingAdapter extends RecyclerView.Adapter<OnGoingAdapter.OnGoingV
 
         holder.tvStatus.setText(transactionPosition.getDetailTransaction().getPayment().getUpdated_process().toString().toUpperCase());
 
+        if (transactionPosition.getDetailTransaction().getPayment().getUpdated_process().equals("pembayaran")){
+            holder.btnSelesai.setVisibility(View.GONE);
+        }
+
         holder.btnCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context, "cancel", Toast.LENGTH_SHORT).show();
+                alertdialog();
             }
         });
 
@@ -67,6 +73,7 @@ public class OnGoingAdapter extends RecyclerView.Adapter<OnGoingAdapter.OnGoingV
                     intent.putExtra("expeditionPrice",transactionPosition.getDetailTransaction().getShipping_charges());
                     intent.putExtra("grandTotalPrice",transactionPosition.getDetailTransaction().getGrand_total_amount());
                     intent.putExtra("transaction_code",transactionPosition.getCode());
+                    intent.putExtra("created_at",transactionPosition.getDetailTransaction().getCreated_at());
                     context.startActivity(intent);
                 }
             }
@@ -106,5 +113,24 @@ public class OnGoingAdapter extends RecyclerView.Adapter<OnGoingAdapter.OnGoingV
             btnCancel = itemView.findViewById(R.id.cancelButton);
             btnSelesai = itemView.findViewById(R.id.doneButton);
         }
+    }
+
+    private void alertdialog(){
+        AlertDialog.Builder alert = new AlertDialog.Builder(context);
+        alert.setMessage("Uang yang sudah dibayarkan tidak dapat ditarik kembali");
+        alert.setTitle("Apakah Anda Yakin ?");
+        alert.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Toast.makeText(context, "clicked", Toast.LENGTH_SHORT).show();
+            }
+        });
+        alert.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        });
+        alert.show();
     }
 }
