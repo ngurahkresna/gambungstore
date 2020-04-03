@@ -12,14 +12,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".detailProduct">
-
-        </activity>
+        <activity android:name=".Chat"></activity>
+        <activity android:name=".detailProduct"></activity>
         <activity android:name=".CheckoutDone" />
         <activity android:name=".CheckoutPayment" />
-        <activity android:name=".CheckoutForm">
-
-        </activity>
+        <activity android:name=".CheckoutForm"></activity>
         <activity android:name=".detailPromo" />
         <activity android:name=".transaction" />
         <activity android:name=".editProfile" />

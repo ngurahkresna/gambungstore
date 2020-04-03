@@ -45,13 +45,13 @@ public class homeActivity extends AppCompatActivity implements BottomNavigationV
         bottomNavigationView.setOnNavigationItemSelectedListener(this);
         bottomNavigationView.setSelectedItemId(R.id.home_menu);
 
-        Log.d(TAG, "onCreate: apakah login ? "+isLogin());
+        Log.d(TAG, "onCreate: apakah login ? " + isLogin());
 
         //move to fragment
-        if (getIntent() != null){
+        if (getIntent() != null) {
             String fragmentMoveTo = getIntent().getStringExtra("fragment");
-            if (fragmentMoveTo != null){
-                if (fragmentMoveTo.equals("cart")){
+            if (fragmentMoveTo != null) {
+                if (fragmentMoveTo.equals("cart")) {
                     Fragment fragment = new cartFragment();
                     loadFragment(fragment);
                     return;
@@ -59,10 +59,9 @@ public class homeActivity extends AppCompatActivity implements BottomNavigationV
             }
         }
 
-        if (isLogin()){
+        if (isLogin()) {
             getProfile();
         }
-
 
 
     }
@@ -92,44 +91,44 @@ public class homeActivity extends AppCompatActivity implements BottomNavigationV
                 break;
 
             case R.id.chat_menu:
-                fragment = new homeFragment();
+                fragment = new chatFragment();
                 break;
 
         }
         return loadFragment(fragment);
     }
 
-    private boolean isLogin(){
-        if (SharedPreference.getRegisteredToken(this).matches("")){
+    private boolean isLogin() {
+        if (SharedPreference.getRegisteredToken(this).matches("")) {
             return false;
-        }else{
+        } else {
             return true;
         }
     }
 
-    private void getProfile(){
+    private void getProfile() {
         service = Client.getClient(Client.BASE_URL).create(Services.class);
         Call<Profile> profileCall = service.getProfile(
-                "Bearer "+SharedPreference.getRegisteredToken(this)
+                "Bearer " + SharedPreference.getRegisteredToken(this)
         );
         profileCall.enqueue(new Callback<Profile>() {
             @Override
             public void onResponse(Call<Profile> call, Response<Profile> response) {
-                SharedPreference.setRegisteredId(getBaseContext(),response.body().getId());
-                SharedPreference.setRegisteredUsername(getBaseContext(),response.body().getUsername());
-                SharedPreference.setRegisteredName(getBaseContext(),response.body().getName());
+                SharedPreference.setRegisteredId(getBaseContext(), response.body().getId());
+                SharedPreference.setRegisteredUsername(getBaseContext(), response.body().getUsername());
+                SharedPreference.setRegisteredName(getBaseContext(), response.body().getName());
 
                 changeLoginLayout(response.body().getUsername(), response.body().getName());
             }
 
             @Override
             public void onFailure(Call<Profile> call, Throwable t) {
-                Log.d(TAG, "onFailure: "+t.toString());
+                Log.d(TAG, "onFailure: " + t.toString());
             }
         });
     }
 
-    public void changeLoginLayout(String username, String name){
+    public void changeLoginLayout(String username, String name) {
         TextView mWelcomeText = findViewById(R.id.welcomeText);
         TextView mButtonAuth = findViewById(R.id.buttonAuth);
 
@@ -144,7 +143,7 @@ public class homeActivity extends AppCompatActivity implements BottomNavigationV
 
     }
 
-    public void refreshMenu(){
+    public void refreshMenu() {
         findViewById(R.id.fragmentHome).setVisibility(View.VISIBLE);
         findViewById(R.id.bottomNavigation).setVisibility(View.VISIBLE);
         TextView mWelcomeText = findViewById(R.id.welcomeText);
@@ -154,11 +153,10 @@ public class homeActivity extends AppCompatActivity implements BottomNavigationV
         mButtonAuth.setText("Login/Register");
     }
 
-    public void removeBottomNavigation()
-    {
+    public void removeBottomNavigation() {
         sideBar fragment = new sideBar();
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.homeFragment,fragment);
+        transaction.replace(R.id.homeFragment, fragment);
         transaction.commit();
         findViewById(R.id.fragmentHome).setVisibility(View.GONE);
         findViewById(R.id.bottomNavigation).setVisibility(View.GONE);

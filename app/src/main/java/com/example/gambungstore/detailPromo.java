@@ -3,7 +3,9 @@ package com.example.gambungstore;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.gambungstore.models.promo.DataPromo;
 
@@ -33,5 +35,14 @@ public class detailPromo extends AppCompatActivity {
 
         mSyaratPromo.setText(promo.getTerms());
         mVoucherDate.setText(promo.getEnd_date());
+    }
+
+    public void copyCode(View view) {
+        String getCode = mCodePromo.getText().toString();
+        CharSequence text = "Code Promo " + getCode +" Tersalin";
+        int duration = Toast.LENGTH_SHORT;
+
+        Toast toast = Toast.makeText(this, text, duration);
+        toast.show();
     }
 }
