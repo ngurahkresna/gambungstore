@@ -3,8 +3,13 @@ package com.example.gambungstore.models.transaction;
 import com.example.gambungstore.models.product.DataProduct;
 import com.google.gson.annotations.SerializedName;
 
+import java.time.LocalDateTime;
+import java.util.Date;
+
 public class DetailTransaction {
 
+    @SerializedName("code")
+    private String code;
     @SerializedName("payment")
     private Payment payment;
     @SerializedName("shipping_charges")
@@ -15,6 +20,24 @@ public class DetailTransaction {
     private int discount_amount;
     @SerializedName("grand_total_amount")
     private int grand_total_amount;
+    @SerializedName("created_at")
+    private String created_at;
+
+    public String  getCreated_at() {
+        return created_at;
+    }
+
+    public void setCreated_at(String  created_at) {
+        this.created_at = created_at;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
 
     public int getShipping_charges() {
         return shipping_charges;

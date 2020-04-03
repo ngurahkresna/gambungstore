@@ -17,6 +17,7 @@ import com.example.gambungstore.adapters.OnGoingAdapter;
 import com.example.gambungstore.client.Client;
 import com.example.gambungstore.models.transaction.DataTransaction;
 import com.example.gambungstore.models.transaction.Transaction;
+import com.example.gambungstore.progressbar.ProgressBarGambung;
 import com.example.gambungstore.services.Services;
 import com.example.gambungstore.sharedpreference.SharedPreference;
 
@@ -26,17 +27,10 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link onGoingTransaction.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link onGoingTransaction#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class onGoingTransaction extends Fragment {
     private static final String TAG = "onGoingTransaction";
+
+    private ProgressBarGambung progressbar;
 
     RecyclerView recyclerView;
     LinearLayoutManager linearLayoutManager;
@@ -55,6 +49,7 @@ public class onGoingTransaction extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        progressbar = new ProgressBarGambung(getActivity());
         getData();
     }
 
@@ -67,6 +62,9 @@ public class onGoingTransaction extends Fragment {
     }
 
     private void getData(){
+
+        progressbar.startProgressBarGambung();
+
         Services service = Client.getClient(Client.BASE_URL).create(Services.class);
         Call<Transaction> callTransaction = service.getTransactionByUsername(
                 SharedPreference.getRegisteredUsername(getContext())
@@ -76,6 +74,7 @@ public class onGoingTransaction extends Fragment {
             public void onResponse(Call<Transaction> call, Response<Transaction> response) {
                 Log.d(TAG, "onResponse: "+response.raw());
                 transactionAdapter(response.body().getTransactions());
+                progressbar.endProgressBarGambung();
             }
 
             @Override

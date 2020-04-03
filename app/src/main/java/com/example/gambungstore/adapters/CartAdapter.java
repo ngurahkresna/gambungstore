@@ -3,6 +3,7 @@ package com.example.gambungstore.adapters;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,7 +21,10 @@ import com.bumptech.glide.Glide;
 import com.example.gambungstore.R;
 import com.example.gambungstore.cartFragment;
 import com.example.gambungstore.client.Client;
+import com.example.gambungstore.detailProduct;
+import com.example.gambungstore.homeActivity;
 import com.example.gambungstore.models.cart.DataCart;
+import com.example.gambungstore.progressbar.ProgressBarGambung;
 import com.example.gambungstore.services.Services;
 
 import java.net.ResponseCache;
@@ -36,10 +40,12 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
 
     private List<DataCart> dataCart;
     public Context context;
+    private ProgressBarGambung progressbar;
 
     public CartAdapter(List<DataCart> dataCart, Context context) {
         this.dataCart = dataCart;
         this.context = context;
+        progressbar = new ProgressBarGambung((homeActivity) context);
     }
 
     @NonNull
@@ -73,6 +79,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
                 alert.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+                        progressbar.startProgressBarGambung();
                         deleteCart(cartPosition.getId(), position);
                     }
                 });
@@ -121,7 +128,12 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
                 Log.d(TAG, "onResponse: "+response.body());
                 Log.d(TAG, "onResponse: "+response.raw());
                 dataCart.remove(position);
-                notifyDataSetChanged();
+                homeActivity home = (homeActivity) context;
+                home.finish();
+                Intent intent = new Intent(context, homeActivity.class);
+                intent.putExtra("fragment","cart");
+                context.startActivity(intent);
+                progressbar.endProgressBarGambung();
             }
 
             @Override

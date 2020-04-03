@@ -1,11 +1,14 @@
 package com.example.gambungstore;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.util.Log;
@@ -21,6 +24,12 @@ import com.example.gambungstore.sharedpreference.SharedPreference;
 
 import java.io.File;
 import java.io.IOException;
+import java.time.Duration;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.Period;
+import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
@@ -39,6 +48,7 @@ public class CheckoutPayment extends AppCompatActivity {
     Button mSubmitButtom,mBackButton;
     TextView mTime;
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,12 +67,29 @@ public class CheckoutPayment extends AppCompatActivity {
         mTotalPrice.setText("Rp "+Integer.toString(getIntent().getIntExtra("grandTotalPrice",0))+",-");
         mExpeditionPrice.setText("Rp "+Integer.toString(getIntent().getIntExtra("expeditionPrice",0))+",-");
 
-        countdownTime();
+        long timeall = 86400000;
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        String created = getIntent().getStringExtra("created_at");
+        LocalDateTime dateTime = LocalDateTime.parse(created, formatter);
+        LocalDateTime today = LocalDateTime.now();
+        Duration duration = Duration.between(today, dateTime);
+        long diff = 0;
+        if (duration.toMillis() > 0){
+            diff = timeall - duration.toMillis();
+        }else{
+            diff = 0;
+        }
+
+        Log.d(TAG, "onCreate: "+duration.toMinutes()+":"+duration.toMillis()+":");
+
+        countdownTime(diff);
 
         mBackButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onBackPressed();
+                finish();
+                Intent intent = new Intent(CheckoutPayment.this,homeActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -75,14 +102,19 @@ public class CheckoutPayment extends AppCompatActivity {
 
     }
 
-    private void countdownTime(){
-        CountDownTimer timer = new CountDownTimer(86400000,1000) {
+    private void countdownTime(long diff){
+        CountDownTimer timer = new CountDownTimer(diff,1000) {
             @Override
             public void onTick(long millisUntilFinished) {
                 int seconds = (int) (millisUntilFinished / 1000) % 60 ;
                 int minutes = (int) ((millisUntilFinished / (1000*60)) % 60);
                 int hours   = (int) ((millisUntilFinished / (1000*60*60)) % 24);
-                mTime.setText(Integer.toString(hours)+":"+Integer.toString(minutes)+":"+Integer.toString(seconds));
+                if (diff == 0){
+                    mTime.setText("00:00:00");
+                }else{
+                    mTime.setText(Integer.toString(hours)+":"+Integer.toString(minutes)+":"+Integer.toString(seconds));
+                }
+
             }
 
             @Override
@@ -102,11 +134,11 @@ public class CheckoutPayment extends AppCompatActivity {
                         switch (i){
                             case 0:
                                 //Membuka Kamera Untuk Mengambil Gambar
-                                EasyImage.openCamera(CheckoutPayment.this, 1);
+                                EasyImage.openGallery(CheckoutPayment.this, 001);
                                 break;
                             case 1:
                                 //Membuaka Galeri Untuk Mengambil Gambar
-                                EasyImage.openGallery(CheckoutPayment.this, 2);
+                                EasyImage.openGallery(CheckoutPayment.this, 002);
                                 break;
                         }
                     }
@@ -118,10 +150,13 @@ public class CheckoutPayment extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        EasyImage.handleActivityResult(requestCode, resultCode, data, CheckoutPayment.this,new EasyImage.Callbacks() {
+        Log.d(TAG, "onActivityResult: "+requestCode+" "+resultCode+" "+data);
+        EasyImage.handleActivityResult(requestCode, resultCode, data, this, new EasyImage.Callbacks() {
             @Override
-            public void onImagePickerError(Exception e, EasyImage.ImageSource source, int type) {
+            public void onImagePickerError(Exception e, EasyImage.ImageSource imageSource, int i) {
                 Toast.makeText(CheckoutPayment.this, "Gagal Memilih Gambar", Toast.LENGTH_SHORT).show();
+                e.printStackTrace();
+                Log.d(TAG, "onImagePickerError: "+e.getMessage());
             }
 
             @Override
@@ -135,7 +170,7 @@ public class CheckoutPayment extends AppCompatActivity {
             }
 
             @Override
-            public void onCanceled(EasyImage.ImageSource source, int type) {
+            public void onCanceled(EasyImage.ImageSource imageSource, int i) {
 
             }
         });

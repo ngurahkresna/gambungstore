@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.InputType;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -20,6 +21,7 @@ import com.example.gambungstore.client.Client;
 import com.example.gambungstore.models.checkout.Checkout;
 import com.example.gambungstore.models.checkout.PaymentMethod;
 import com.example.gambungstore.models.store.DataStore;
+import com.example.gambungstore.models.transaction.DetailTransaction;
 import com.example.gambungstore.models.voucher.Voucher;
 import com.example.gambungstore.progressbar.ProgressBarGambung;
 import com.example.gambungstore.services.Services;
@@ -41,7 +43,7 @@ public class CheckoutForm extends AppCompatActivity {
     RecyclerView mCheckoutCard;
 
     TextView mDiscountPrice,mProductPrice, mTotalPrice,mExpeditionPrice;
-    TextView mAddress, mPayment;
+    TextView mAddress, mPayment, mChangeAddress;
     EditText mPhone;
     EditText mPromo;
     Button mButtonCekVoucher;
@@ -64,6 +66,9 @@ public class CheckoutForm extends AppCompatActivity {
     String[] expeditionCode;
     List<PaymentMethod> paymentMethods;
 
+    String transaction_code;
+    String created_at;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,6 +87,7 @@ public class CheckoutForm extends AppCompatActivity {
         mDiscountPrice = findViewById(R.id.discountPrice);
         mTotalPrice = findViewById(R.id.totalPrice);
         mExpeditionPrice = findViewById(R.id.expeditionPrice);
+        mChangeAddress = findViewById(R.id.ubahAddress);
 
         getData();
 
@@ -89,6 +95,13 @@ public class CheckoutForm extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 cekVoucher();
+            }
+        });
+
+        mChangeAddress.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                changeAddress();
             }
         });
     }
@@ -139,18 +152,13 @@ public class CheckoutForm extends AppCompatActivity {
         }else{
             progressbar.startProgressBarGambung();
             processCheckout();
-            Intent intent = new Intent(CheckoutForm.this, CheckoutPayment.class);
-            intent.putExtra("productPrice", productPrice);
-            intent.putExtra("discountPrice", voucherPrice);
-            intent.putExtra("expeditionPrice",expeditionPrice);
-            intent.putExtra("grandTotalPrice",grandTotalPrice);
-            finish();
-            startActivity(intent);
         }
     }
 
     public void backToHome(View view) {
-        onBackPressed();
+        finish();
+        Intent intent = new Intent(CheckoutForm.this,homeActivity.class);
+        startActivity(intent);
     }
 
     public void getData(){
@@ -305,7 +313,7 @@ public class CheckoutForm extends AppCompatActivity {
         }
 
         Services service = Client.getClient(Client.BASE_URL).create(Services.class);
-        Call<ResponseBody> callCheckoutProcess = service.processCheckout(
+        Call<DetailTransaction> callCheckoutProcess = service.processCheckout(
             SharedPreference.getRegisteredUsername(this),
                 mAddress.getText().toString(),
                 mPhone.getText().toString(),
@@ -318,17 +326,57 @@ public class CheckoutForm extends AppCompatActivity {
                 payment_id
         );
 
-        callCheckoutProcess.enqueue(new Callback<ResponseBody>() {
+        callCheckoutProcess.enqueue(new Callback<DetailTransaction>() {
             @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+            public void onResponse(Call<DetailTransaction> call, Response<DetailTransaction> response) {
+                Log.d(TAG, "onResponse proses: "+response.raw());
+                Log.d(TAG, "onResponse proses: "+response.body().getCode());
                 Toast.makeText(CheckoutForm.this, "Berhasil Checkout", Toast.LENGTH_SHORT).show();
+                transaction_code = response.body().getCode();
+                created_at = response.body().getCreated_at();
+
+                Intent intent = new Intent(CheckoutForm.this, CheckoutPayment.class);
+                intent.putExtra("productPrice", productPrice);
+                intent.putExtra("discountPrice", voucherPrice);
+                intent.putExtra("expeditionPrice",expeditionPrice);
+                intent.putExtra("grandTotalPrice",grandTotalPrice);
+                intent.putExtra("transaction_code", transaction_code);
+                intent.putExtra("created_at",created_at);
+                finish();
+                startActivity(intent);
+
+
                 progressbar.endProgressBarGambung();
             }
 
             @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
+            public void onFailure(Call<DetailTransaction> call, Throwable t) {
                 Log.d(TAG, "onFailure: "+t.toString());
             }
         });
+    }
+
+    private void changeAddress(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Ubah Alamat");
+
+        final EditText input = new EditText(this);
+        input.setInputType(InputType.TYPE_CLASS_TEXT);
+        builder.setView(input);
+
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                mAddress.setText(input.getText().toString());
+            }
+        });
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+
+        builder.show();
     }
 }
