@@ -10,6 +10,7 @@ import com.example.gambungstore.models.category.DataCategory;
 import com.example.gambungstore.models.product.DataProduct;
 import com.example.gambungstore.models.product.Product;
 import com.example.gambungstore.models.promo.Promo;
+import com.example.gambungstore.models.transaction.DetailTransaction;
 import com.example.gambungstore.models.transaction.Transaction;
 import com.example.gambungstore.models.voucher.Voucher;
 import com.example.gambungstore.models.wishlist.Wishlist;
@@ -153,7 +154,7 @@ public interface Services {
 
     @FormUrlEncoded
     @POST("checkout")
-    Call<ResponseBody> processCheckout(
+    Call<DetailTransaction> processCheckout(
             @Field("username") String username,
             @Field("address") String address,
             @Field("phone") String phone,

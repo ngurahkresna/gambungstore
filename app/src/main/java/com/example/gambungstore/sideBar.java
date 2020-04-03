@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.example.gambungstore.progressbar.ProgressBarGambung;
 import com.example.gambungstore.sharedpreference.SharedPreference;
 
 import org.w3c.dom.Text;
@@ -30,6 +31,9 @@ import org.w3c.dom.Text;
  * create an instance of this fragment.
  */
 public class sideBar extends Fragment {
+
+    ProgressBarGambung mProgresBar;
+
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -79,6 +83,7 @@ public class sideBar extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        mProgresBar= new ProgressBarGambung(getActivity());
         return inflater.inflate(R.layout.fragment_side_bar, container, false);
     }
 
@@ -120,6 +125,11 @@ public class sideBar extends Fragment {
             public void onClick(View v) {
                 getFragmentManager().beginTransaction().remove(sideBar.this).commit();
                 ((homeActivity)getActivity()).refreshMenu();
+                mProgresBar.startProgressBarGambung();
+                Intent intent = new Intent(getContext(),homeActivity.class);
+                startActivity(intent);
+
+                getActivity().finish();
             }
         });
 

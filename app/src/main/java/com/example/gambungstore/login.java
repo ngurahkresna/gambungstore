@@ -53,6 +53,7 @@ public class login extends AppCompatActivity {
             public void onClick(View v) {
                 progressbar.startProgressBarGambung();
                 loginProcess();
+                progressbar.endProgressBarGambung();
             }
         });
     }
@@ -67,14 +68,16 @@ public class login extends AppCompatActivity {
     private void loginProcess(){
         if (mEmail.getText().toString().isEmpty()){
             Toast.makeText(this, "Username Belum Diisi", Toast.LENGTH_SHORT).show();
+            progressbar.endProgressBarGambung();
             return;
         }
         
         if (mPassword.getText().toString().isEmpty()){
             Toast.makeText(this, "Password Belum Diisi", Toast.LENGTH_SHORT).show();
+            progressbar.endProgressBarGambung();
             return;
         }
-            
+
         this.service = Client.getClient(Client.BASE_URL).create(Services.class);
         Call<Login> loginCall = service.loginProcess(
           mEmail.getText().toString(),

@@ -21,6 +21,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.gambungstore.adapters.CartAdapter;
 import com.example.gambungstore.adapters.ProductAdapter;
@@ -53,7 +54,7 @@ public class cartFragment extends Fragment {
 
     private ProgressBarGambung progressbar;
 
-    private List<DataCart> listCart;
+    private List<DataCart> listCart = new ArrayList<>();
 
     private Button mCheckout;
 
@@ -78,9 +79,18 @@ public class cartFragment extends Fragment {
         mCheckout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                checkout();
-                Intent intent = new Intent(getActivity(), CheckoutForm.class);
-                startActivity(intent);
+                if (SharedPreference.getRegisteredId(getContext()) != 0){
+                    if (listCart.size() != 0){
+                        checkout();
+                        Intent intent = new Intent(getActivity(), CheckoutForm.class);
+                        startActivity(intent);
+                    }else{
+                        Toast.makeText(getContext(), "Anda Belum Menambahkan Cart", Toast.LENGTH_SHORT).show();
+                    }
+                }else{
+                    Toast.makeText(getContext(), "Anda Belum Login", Toast.LENGTH_SHORT).show();
+                }
+
             }
         });
 

@@ -2,6 +2,7 @@ package com.example.gambungstore;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.media.Image;
 import android.os.Bundle;
 import android.util.Log;
@@ -43,7 +44,9 @@ public class editProfile extends AppCompatActivity {
         mBackArrow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onBackPressed();
+                finish();
+                Intent intent = new Intent(editProfile.this,homeActivity.class);
+                startActivity(intent);
             }
         });
         mButtonSubmit.setOnClickListener(new View.OnClickListener() {
@@ -114,6 +117,8 @@ public class editProfile extends AppCompatActivity {
                 Log.d(TAG, "onResponse: "+response.raw());
                 Toast.makeText(editProfile.this, "Berhasil Diubah", Toast.LENGTH_SHORT).show();
                 finish();
+                Intent intent = new Intent(editProfile.this,homeActivity.class);
+                startActivity(intent);
             }
 
             @Override

@@ -2,9 +2,12 @@ package com.example.gambungstore;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+
+import com.example.gambungstore.models.checkout.Checkout;
 
 public class CheckoutDone extends AppCompatActivity {
 
@@ -21,7 +24,9 @@ public class CheckoutDone extends AppCompatActivity {
         mBackButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onBackPressed();
+                finish();
+                Intent intent = new Intent(CheckoutDone.this,homeActivity.class);
+                startActivity(intent);
             }
         });
 

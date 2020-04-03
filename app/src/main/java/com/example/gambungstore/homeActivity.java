@@ -153,13 +153,17 @@ public class homeActivity extends AppCompatActivity implements BottomNavigationV
         mButtonAuth.setText("Login/Register");
     }
 
-    public void removeBottomNavigation() {
-        sideBar fragment = new sideBar();
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.homeFragment, fragment);
-        transaction.commit();
-        findViewById(R.id.fragmentHome).setVisibility(View.GONE);
-        findViewById(R.id.bottomNavigation).setVisibility(View.GONE);
+    public void removeBottomNavigation()
+    {
+        if (SharedPreference.getRegisteredId(this) != 0){
+            sideBar fragment = new sideBar();
+            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+            transaction.replace(R.id.homeFragment,fragment);
+            transaction.commit();
+            findViewById(R.id.fragmentHome).setVisibility(View.GONE);
+            findViewById(R.id.bottomNavigation).setVisibility(View.GONE);
+        }
+
     }
 
 }
