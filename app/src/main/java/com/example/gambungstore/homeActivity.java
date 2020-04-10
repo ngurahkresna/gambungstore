@@ -55,6 +55,10 @@ public class homeActivity extends AppCompatActivity implements BottomNavigationV
                     Fragment fragment = new cartFragment();
                     loadFragment(fragment);
                     return;
+                }else if(fragmentMoveTo.equals("transaction")){
+                    Fragment fragment = new onGoingTransaction();
+                    loadFragment(fragment);
+                    return;
                 }
             }
         }

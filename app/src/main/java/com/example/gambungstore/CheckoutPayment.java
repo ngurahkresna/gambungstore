@@ -19,6 +19,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.gambungstore.client.Client;
+import com.example.gambungstore.progressbar.ProgressBarGambung;
 import com.example.gambungstore.services.Services;
 import com.example.gambungstore.sharedpreference.SharedPreference;
 
@@ -48,6 +49,8 @@ public class CheckoutPayment extends AppCompatActivity {
     Button mSubmitButtom,mBackButton;
     TextView mTime;
 
+    ProgressBarGambung progressbar = new ProgressBarGambung(this);
+
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,8 +77,8 @@ public class CheckoutPayment extends AppCompatActivity {
         LocalDateTime today = LocalDateTime.now();
         Duration duration = Duration.between(today, dateTime);
         long diff = 0;
-        if (duration.toMillis() > 0){
-            diff = timeall - duration.toMillis();
+        if (duration.toMillis() < 0){
+            diff = timeall + duration.toMillis();
         }else{
             diff = 0;
         }
@@ -109,6 +112,7 @@ public class CheckoutPayment extends AppCompatActivity {
                 int seconds = (int) (millisUntilFinished / 1000) % 60 ;
                 int minutes = (int) ((millisUntilFinished / (1000*60)) % 60);
                 int hours   = (int) ((millisUntilFinished / (1000*60*60)) % 24);
+                Log.d(TAG, "onTick: "+diff);
                 if (diff == 0){
                     mTime.setText("00:00:00");
                 }else{
@@ -116,10 +120,10 @@ public class CheckoutPayment extends AppCompatActivity {
                 }
 
             }
-
             @Override
             public void onFinish() {
-                Log.d(TAG, "onFinish: ");
+                Log.d(TAG, "onFinish: sudah habis");
+                mTime.setText("00:00:00");
             }
         }.start();
     }
@@ -134,11 +138,11 @@ public class CheckoutPayment extends AppCompatActivity {
                         switch (i){
                             case 0:
                                 //Membuka Kamera Untuk Mengambil Gambar
-                                EasyImage.openGallery(CheckoutPayment.this, 001);
+                                EasyImage.openCamera(CheckoutPayment.this, 1);
                                 break;
                             case 1:
                                 //Membuaka Galeri Untuk Mengambil Gambar
-                                EasyImage.openGallery(CheckoutPayment.this, 002);
+                                EasyImage.openGallery(CheckoutPayment.this, 2);
                                 break;
                         }
                     }
@@ -178,6 +182,8 @@ public class CheckoutPayment extends AppCompatActivity {
 
     private void uploadProof(MultipartBody.Part image){
 
+        progressbar.startProgressBarGambung();
+
         RequestBody transaction_code =
                 RequestBody.create(MediaType.parse("text/plain"), getIntent().getStringExtra("transaction_code"));
         RequestBody username =
@@ -196,6 +202,7 @@ public class CheckoutPayment extends AppCompatActivity {
                 Intent intent = new Intent(CheckoutPayment.this, CheckoutDone.class);
                 startActivity(intent);
                 finish();
+                progressbar.endProgressBarGambung();
             }
 
             @Override
