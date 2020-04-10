@@ -228,7 +228,8 @@
                                 android:layout_height="30dp"
                                 android:layout_gravity="center_vertical"
                                 android:layout_marginRight="20dp"
-                                android:src="@drawable/ic_chat" />
+                                android:src="@drawable/ic_chat"
+                                android:onClick="showChat"/>
 
                         </LinearLayout>
 

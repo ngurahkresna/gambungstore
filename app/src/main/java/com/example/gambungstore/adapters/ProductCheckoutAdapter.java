@@ -55,7 +55,7 @@ public class ProductCheckoutAdapter extends RecyclerView.Adapter<ProductCheckout
                     holder.mProductName.setText(productPosition.getName());
                     holder.mProductPrice.setText("Rp "+Integer.toString(productPosition.getPrice())+",-");
                     holder.mStoreName.setText("");
-                    Glide.with(context).load(Client.IMAGE_URL+productPosition.getImages()).into(holder.mProductImage);
+                    Glide.with(context).load(Client.IMAGE_URL+productPosition.getImages().get(0).getImage_name()).into(holder.mProductImage);
                 }
             }
         }else{

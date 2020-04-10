@@ -59,6 +59,10 @@ public class homeActivity extends AppCompatActivity implements BottomNavigationV
                     Fragment fragment = new onGoingTransaction();
                     loadFragment(fragment);
                     return;
+                } else if(fragmentMoveTo.equals("chat")) {
+                    Fragment fragment = new chatFragment();
+                    loadFragment(fragment);
+                    return;
                 }
             }
         }

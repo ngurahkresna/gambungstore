@@ -276,4 +276,10 @@ public class detailProduct extends AppCompatActivity {
             }
         });
     }
+
+    public void showChat(View view) {
+        Intent intent = new Intent(detailProduct.this, homeActivity.class);
+        intent.putExtra("fragment", "chat");
+        startActivity(intent);
+    }
 }
