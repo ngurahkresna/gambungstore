@@ -50,7 +50,14 @@ public class onGoingTransaction extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         progressbar = new ProgressBarGambung(getActivity());
-        getData();
+        progressbar.startProgressBarGambung();
+        int id = SharedPreference.getRegisteredId(getContext());
+        if (id != 0){
+            getData();
+        }else{
+            progressbar.endProgressBarGambung();
+        }
+
     }
 
     private void transactionAdapter(List<DataTransaction> dataOnGoing) {
@@ -62,9 +69,6 @@ public class onGoingTransaction extends Fragment {
     }
 
     private void getData(){
-
-        progressbar.startProgressBarGambung();
-
         Services service = Client.getClient(Client.BASE_URL).create(Services.class);
         Call<Transaction> callTransaction = service.getTransactionByUsername(
                 SharedPreference.getRegisteredUsername(getContext())
