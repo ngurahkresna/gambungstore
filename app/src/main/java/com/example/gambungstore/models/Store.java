@@ -1,6 +1,9 @@
 package com.example.gambungstore.models;
 
+import com.example.gambungstore.models.product.DataProduct;
 import com.google.gson.annotations.SerializedName;
+
+import java.util.List;
 
 public class Store {
     @SerializedName("id")
@@ -25,6 +28,12 @@ public class Store {
     private String phone_2;
     @SerializedName("city")
     private String city;
+    @SerializedName("address")
+    private String address;
+    @SerializedName("users")
+    private Profile user;
+    @SerializedName("product")
+    private List<DataProduct> products;
 
     public int getId() {
         return id;
@@ -112,5 +121,29 @@ public class Store {
 
     public void setCity(String city) {
         this.city = city;
+    }
+
+    public String getAddress() {
+        return getAddress1() + " " + getCity();
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public Profile getUser() {
+        return user;
+    }
+
+    public void setUser(Profile user) {
+        this.user = user;
+    }
+
+    public List<DataProduct> getProducts() {
+        return products;
+    }
+
+    public void setProducts(List<DataProduct> products) {
+        this.products = products;
     }
 }
