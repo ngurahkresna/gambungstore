@@ -175,6 +175,7 @@ public interface Services {
             @Part("username") RequestBody username
     );
 
+    @FormUrlEncoded
     @POST("wishlist")
     Call<ResponseBody> storeWishlist(
             @Field("user_id") int user_id,
