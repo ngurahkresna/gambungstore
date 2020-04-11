@@ -193,4 +193,12 @@ public interface Services {
     Call<Transaction> getTransactionByUsername(
         @Query("username") String username
     );
+
+    @FormUrlEncoded
+    @POST("transaction/cancel")
+    Call<ResponseBody> cancelTransaction(
+            @Field("transaction_code") String transaction_code,
+            @Field("username") String username,
+            @Field("product_code") String product_code
+    );
 }

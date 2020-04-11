@@ -56,7 +56,7 @@ public class homeActivity extends AppCompatActivity implements BottomNavigationV
                     loadFragment(fragment);
                     return;
                 }else if(fragmentMoveTo.equals("transaction")){
-                    Fragment fragment = new onGoingTransaction();
+                    Fragment fragment = new transaction();
                     loadFragment(fragment);
                     return;
                 }
