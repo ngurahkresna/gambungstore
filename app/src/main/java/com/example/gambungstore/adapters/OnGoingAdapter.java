@@ -17,6 +17,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.gambungstore.CheckoutPayment;
 import com.example.gambungstore.OnGoingFragment;
 import com.example.gambungstore.R;
@@ -60,6 +61,10 @@ public class OnGoingAdapter extends RecyclerView.Adapter<OnGoingAdapter.OnGoingV
         holder.tvProduk.setText(transactionPosition.getProduct().getName().toString());
         holder.tvHarga.setText(String.valueOf(transactionPosition.getProduct().getPrice()));
         holder.tvQty.setText("("+String.valueOf(transactionPosition.getQuantity())+"pcs)");
+
+        Glide.with(context)
+                .load("http://gambungstore.id/assets/img/expeditions/tiki.png")
+                .into(holder.imgCourier);
 
         int total = transactionPosition.getProduct().getPrice()*transactionPosition.getQuantity();
         holder.tvTransactionTotal.setText(String.valueOf(total)+",-");
@@ -121,7 +126,7 @@ public class OnGoingAdapter extends RecyclerView.Adapter<OnGoingAdapter.OnGoingV
         public OnGoingViewHolder(@NonNull View itemView) {
             super(itemView);
             imgProduk = itemView.findViewById(R.id.transactionBackground);
-            imgCourier = itemView.findViewById(R.id.imgCourier);
+            imgCourier = itemView.findViewById(R.id.imgCourierTransaction);
             tvTanggal = itemView.findViewById(R.id.transaction_date);
             tvProduk = itemView.findViewById(R.id.transactionTitle);
             tvHarga = itemView.findViewById(R.id.transactionPrice);

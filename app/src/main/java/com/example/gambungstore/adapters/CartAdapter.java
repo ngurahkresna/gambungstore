@@ -61,7 +61,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
         DataCart cartPosition = dataCart.get(position);
         Log.d(TAG, "onBindViewHolder: "+cartPosition.getId());
         holder.mNameProduct.setText(cartPosition.getProduct().getName().toString());
-        holder.mPriceProduct.setText("Harga : Rp "+cartPosition.getPrice()+",-");
+        holder.mPriceProduct.setText("Harga : Rp "+cartPosition.getProduct().getPrice()+",-");
         holder.mQuantityProduct.setText("Kuantitas : "+cartPosition.getQuantity()+" pcs");
         if (cartPosition.getProduct().getImages() != null){
             if (!cartPosition.getProduct().getImages().isEmpty()) {
@@ -129,11 +129,10 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
                 Log.d(TAG, "onResponse: "+response.raw());
                 dataCart.remove(position);
                 homeActivity home = (homeActivity) context;
-                home.finish();
                 Intent intent = new Intent(context, homeActivity.class);
                 intent.putExtra("fragment","cart");
                 context.startActivity(intent);
-                progressbar.endProgressBarGambung();
+                home.finish();
             }
 
             @Override
