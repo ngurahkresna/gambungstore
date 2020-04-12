@@ -14,24 +14,32 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
-        <activity android:name=".Chat"></activity>
-        <activity android:name=".detailProduct"></activity>
+        <activity android:name=".jicashCheckoutDone"></activity>
+        <activity android:name=".jicashCheckoutPayment" />
+        <activity
+            android:name=".jicashAlert"
+            android:theme="@style/AppTheme.DialogPop" />
+        <activity android:name=".JicashCheckoutForm" />
+        <activity android:name=".TopUpJicash" />
+        <activity android:name=".jiCashHomeActivity" />
+        <activity android:name=".Chat" />
+        <activity android:name=".detailProduct" />
         <activity android:name=".CheckoutDone" />
         <activity android:name=".CheckoutPayment" />
-        <activity android:name=".CheckoutForm"></activity>
-
+        <activity android:name=".CheckoutForm" />
+        <activity android:name=".periodeActivity" />
 
         <provider
-            tools:replace="android:authorities"
             android:name="androidx.core.content.FileProvider"
             android:authorities="${applicationId}.easyphotopicker.fileprovider"
+            android:exported="false"
             android:grantUriPermissions="true"
-            android:exported="false">
+            tools:replace="android:authorities">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/filepaths" />
         </provider>
+
         <activity android:name=".detailPromo" />
         <activity android:name=".transaction" />
         <activity android:name=".editProfile" />
@@ -44,9 +52,7 @@
         <activity android:name=".register" />
         <activity android:name=".login" />
         <activity android:name=".authOption" />
-        <activity
-            android:name=".homeActivity"
-             />
+        <activity android:name=".homeActivity" />
         <activity android:name=".SplashScreenActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
