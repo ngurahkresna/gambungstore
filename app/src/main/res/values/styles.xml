@@ -9,4 +9,9 @@
         <item name="fontFamily">sans-serif</item>
     </style>
 
+    <style name="AppTheme.DialogPop">
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowCloseOnTouchOutside">true</item>
+        <item name = "android:windowBackground" > @android:color/transparent</item>
+    </style>
 </resources>

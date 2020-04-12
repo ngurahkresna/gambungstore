@@ -3,6 +3,11 @@
 
     <string name="tab_onGoing">Sedang Berlangsung</string>
     <string name="tab_history">Histori</string>
+    <array name="transaksi_jicash">
+        <item>Semua</item>
+        <item>Top Up Ji-Cash</item>
+        <item>Pemakaian Ji-Cash</item>
+    </array>
 
 
     <!-- TODO: Remove or change this placeholder text -->
