@@ -254,12 +254,14 @@ public class CheckoutForm extends AppCompatActivity {
     }
 
     public void refreshRincianHarga(){
-        grandTotalPrice = productPrice - voucherPrice + expeditionPrice;
-        if (voucherType.equals("")){
-            mDiscountPrice.setText("Rp "+Integer.toString(voucherPrice)+",-");
-        }else{
+        if (voucherType.equals("cashback")){
+            grandTotalPrice = productPrice + expeditionPrice;
             mDiscountPrice.setText("Rp "+Integer.toString(voucherPrice)+",- ("+voucherType.toUpperCase()+")");
+        }else{
+            grandTotalPrice = productPrice - voucherPrice + expeditionPrice;
+            mDiscountPrice.setText("Rp "+Integer.toString(voucherPrice)+",-");
         }
+
         mTotalPrice.setText("Rp "+Integer.toString(grandTotalPrice)+",-");
         mExpeditionPrice.setText("Rp "+Integer.toString(expeditionPrice)+",-");
     }
@@ -304,6 +306,8 @@ public class CheckoutForm extends AppCompatActivity {
             }
         }
 
+        Log.d(TAG, "processCheckout: "+payment_id+" "+metodePembayaran+" "+paymentMethods.get(0)+" "+paymentMethods.get(1));
+
         //parse array to array list
         ArrayList<String> expedition = new ArrayList<>();
         for(String exp : expeditionCode){
@@ -339,6 +343,7 @@ public class CheckoutForm extends AppCompatActivity {
                 intent.putExtra("expeditionPrice",expeditionPrice);
                 intent.putExtra("grandTotalPrice",grandTotalPrice);
                 intent.putExtra("transaction_code", transaction_code);
+                intent.putExtra("discountType", voucherType);
                 intent.putExtra("created_at",created_at);
                 finish();
                 startActivity(intent);

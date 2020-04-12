@@ -169,14 +169,29 @@ public class CheckoutPayment extends AppCompatActivity {
                 RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
                 String imageName = file.getName();
 
-                if (getIntent().getStringExtra("jicash").equals("jicash")){
-                    MultipartBody.Part body = MultipartBody.Part.createFormData("topup_proof", imageName, requestFile);
-                    uploadProofJicash(body);
-                }else{
-                    MultipartBody.Part body = MultipartBody.Part.createFormData("proof_image", imageName, requestFile);
-                    uploadProof(body);
+                MultipartBody.Part bodyJicash = MultipartBody.Part.createFormData("topup_proof", imageName, requestFile);
+                MultipartBody.Part body = MultipartBody.Part.createFormData("proof_image", imageName, requestFile);
+
+                boolean jicash = false;
+                if (getIntent().getStringExtra("jicash") != null) {
+                    jicash = true;
                 }
 
+                boolean cashback = false;
+                if (getIntent().getStringExtra("discountType") != null) {
+                    cashback = true;
+                }
+
+                Log.d(TAG, "onImagePicked: "+jicash+" "+cashback);
+
+                if (jicash){
+                    uploadProofJicash(bodyJicash,getIntent().getIntExtra("ammount",0));
+                }else{
+                    uploadProof(body);
+                    if (cashback){
+                        uploadProofJicash(bodyJicash,getIntent().getIntExtra("discountPrice",0));
+                    }
+                }
             }
 
             @Override
@@ -218,12 +233,12 @@ public class CheckoutPayment extends AppCompatActivity {
         });
     }
 
-    private void uploadProofJicash(MultipartBody.Part image){
+    private void uploadProofJicash(MultipartBody.Part image,int value){
 
         progressbar.startProgressBarGambung();
 
         RequestBody ammount =
-                RequestBody.create(MediaType.parse("text/plain"), String.valueOf(getIntent().getIntExtra("ammount",0)));
+                RequestBody.create(MediaType.parse("text/plain"), String.valueOf(value));
         RequestBody username =
                 RequestBody.create(MediaType.parse("text/plain"), SharedPreference.getRegisteredUsername(this));
 

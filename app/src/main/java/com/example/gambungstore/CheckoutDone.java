@@ -33,10 +33,10 @@ public class CheckoutDone extends AppCompatActivity {
         mSubmitButtom.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
                 Intent intent = new Intent(CheckoutDone.this,homeActivity.class);
                 intent.putExtra("fragment", "transaction");
                 startActivity(intent);
+                finish();
             }
         });
     }

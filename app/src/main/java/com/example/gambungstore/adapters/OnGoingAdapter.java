@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -38,6 +39,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class OnGoingAdapter extends RecyclerView.Adapter<OnGoingAdapter.OnGoingViewHolder> {
+    private static final String TAG = "OnGoingAdapter";
     private List<DataTransaction> dataOnGoings;
     public Context context;
 
@@ -57,6 +59,15 @@ public class OnGoingAdapter extends RecyclerView.Adapter<OnGoingAdapter.OnGoingV
     @Override
     public void onBindViewHolder(@NonNull OnGoingAdapter.OnGoingViewHolder holder, int position) {
         final DataTransaction transactionPosition = dataOnGoings.get(position);
+
+        Log.d(TAG, "onBindViewHolder: "+transactionPosition.getDetailTransaction().getHistory().isEmpty());
+        
+        if(!transactionPosition.getDetailTransaction().getHistory().isEmpty()){
+            holder.itemView.setVisibility(View.GONE);
+            holder.itemView.setLayoutParams(new RecyclerView.LayoutParams(0, 0));
+            return;
+        }
+
         holder.tvTanggal.setText(transactionPosition.getTanggal().toString());
         holder.tvProduk.setText(transactionPosition.getProduct().getName().toString());
         holder.tvHarga.setText(String.valueOf(transactionPosition.getProduct().getPrice()));
@@ -122,9 +133,11 @@ public class OnGoingAdapter extends RecyclerView.Adapter<OnGoingAdapter.OnGoingV
         ImageView imgProduk, imgCourier;
         TextView tvTanggal, tvProduk, tvHarga, tvQty, tvStatus, tvInvoice, tvTransactionTotal;
         Button btnConfirm, btnCancel, btnSelesai;
+        RelativeLayout card;
 
         public OnGoingViewHolder(@NonNull View itemView) {
             super(itemView);
+            card = itemView.findViewById(R.id.onGoingCard);
             imgProduk = itemView.findViewById(R.id.transactionBackground);
             imgCourier = itemView.findViewById(R.id.imgCourierTransaction);
             tvTanggal = itemView.findViewById(R.id.transaction_date);
@@ -164,8 +177,11 @@ public class OnGoingAdapter extends RecyclerView.Adapter<OnGoingAdapter.OnGoingV
                     public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                         Toast.makeText(context, "Berhasil Dibatalkan", Toast.LENGTH_SHORT).show();
                         dataOnGoings.remove(position);
-                        notifyItemChanged(position);
-                        progressbar.endProgressBarGambung();
+                        homeActivity home = (homeActivity) context;
+                        Intent intent = new Intent(context, homeActivity.class);
+                        intent.putExtra("fragment","transaction");
+                        context.startActivity(intent);
+                        home.finish();
                     }
 
                     @Override

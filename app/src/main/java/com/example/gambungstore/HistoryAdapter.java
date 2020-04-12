@@ -44,7 +44,8 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HistoryV
         DataTransaction transactionPosition = transactionList.get(position);
 
         if(transactionPosition.getDetailTransaction().getHistory().isEmpty()){
-            holder.card.setVisibility(View.GONE);
+            holder.itemView.setVisibility(View.GONE);
+            holder.itemView.setLayoutParams(new RecyclerView.LayoutParams(0, 0));
             return;
         }
 
@@ -56,7 +57,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HistoryV
         if(transactionPosition.getDetailTransaction().getHistory().get(0).getStatus().equals("accepted")){
             holder.tvStatus.setText("DITERIMA");
         }else{
-            holder.tvStatus.setText("SUDAH DIKIRIM");
+            holder.tvStatus.setText("DITOLAK");
         }
 
         int total = transactionPosition.getProduct().getPrice()*transactionPosition.getQuantity();
