@@ -1,178 +1,188 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_marginTop="@dimen/space_double"
     android:layout_margin="@dimen/space"
-    android:padding="@dimen/space"
+    android:layout_marginTop="@dimen/space_double"
     android:background="@drawable/category_background"
     android:clipToPadding="false"
     android:orientation="vertical"
-    >
+    android:padding="@dimen/space">
 
     <TextView
         android:id="@+id/transaction_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="10sp"
-        android:text="Tanggal Transaksi"
-        />
+        android:text="Tanggal Transaksi" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/containerProduct"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
-        
-        <androidx.cardview.widget.CardView
+        android:layout_below="@id/transaction_date"
+        app:cardCornerRadius="4dp">
+
+        <ImageView
+            android:id="@+id/transactionBackground"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:background="@drawable/product_backgorund"
+            android:scaleType="centerCrop" />
+    </androidx.cardview.widget.CardView>
+
+    <RelativeLayout
+        android:id="@+id/relativeLayoutdetailTransaksi"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_below="@id/transaction_date"
+        android:layout_toEndOf="@id/containerProduct">
+
+        <TextView
+            android:id="@+id/transactionTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="@dimen/space"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:text="Nama Produk"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/transactionPrice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:cardCornerRadius="4dp"
-            android:id="@+id/containerProduct">
+            android:layout_below="@id/transactionTitle"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:text="Rp 20.000"
+            android:textSize="14sp"
+            android:textStyle="bold" />
 
-            <ImageView
-                android:id="@+id/transactionBackground"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:scaleType="centerCrop"
-                android:background="@drawable/product_backgorund" />
-        </androidx.cardview.widget.CardView>
+        <TextView
+            android:id="@+id/statusTransactionLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/transactionTitle"
+            android:layout_alignParentEnd="true"
+            android:layout_gravity="center_horizontal"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:text="Status"
+            android:textSize="14sp"
+            android:textStyle="bold" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="@dimen/space_double"
-            android:orientation="vertical">
+        <TextView
+            android:id="@+id/transactionTotalLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/transactionPrice"
+            android:layout_marginTop="4dp"
+            android:text="Total belanja"
+            android:textSize="12sp" />
 
-            <TextView
-                android:id="@+id/transactionTitle"
-                android:layout_marginVertical="@dimen/space"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ellipsize="end"
-                android:maxLines="2"
-                android:text="Nama Produk"
-                android:textSize="20sp"
-                android:textStyle="bold"/>
-            <TableLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:stretchColumns="1"
-                >
-                <TableRow>
-                    <TextView
-                        android:id="@+id/transactionPrice"
+        <TextView
+            android:id="@+id/statusTransaction"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/statusTransactionLabel"
+            android:layout_alignParentEnd="true"
+            android:layout_gravity="center_horizontal"
+            android:textSize="12sp"
+            android:text="Sedang\nDikirim" />
 
-                        android:ellipsize="end"
-                        android:maxLines="2"
-                        android:text="Rp 20.000"
-                        android:textSize="14sp"
-                        android:textStyle="bold"/>
+        <TextView
+            android:id="@+id/rpLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/transactionTotalLabel"
+            android:layout_alignParentStart="true"
+            android:text="Rp." />
 
-                    <TextView
-                        android:id="@+id/statusTransactionLabel"
-                        android:layout_gravity="center_horizontal"
-                        android:layout_marginStart="30sp"
-                        android:ellipsize="end"
-                        android:maxLines="2"
-                        android:text="Status"
-                        android:textSize="14sp"
-                        android:textStyle="bold" />
-                </TableRow>
-                <TableRow>
-                    <TextView
-                        android:id="@+id/transactionTotalLabel"
-                        android:text="Total belanja"
-                        android:textSize="13sp"/>
-                    <TextView
-                        android:id="@+id/statusTransaction"
-                        android:layout_marginStart="30sp"
-                        android:layout_gravity="center_horizontal"
-                        android:text="Sedang Dikirim"/>
-                </TableRow>
-            </TableLayout>
-            <TableLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-                <TableRow>
-                    <TextView
-                        android:text="Rp."/>
-                    <TextView
-                        android:id="@+id/transactionTotal"
-                        android:paddingLeft="2sp"
-                        android:text="60.000"
-                        android:textColor="@color/colorPrimary"
-                        android:textStyle="bold"
-                        android:layout_gravity="left"
-                        />
-                    <TextView
-                        android:id="@+id/transactionQuantity"
-                        android:paddingLeft="5sp"
-                        android:text="(2 pcs)"
-                        android:textSize="10sp"
-                        android:textStyle="bold"
-                        />
-                </TableRow>
+        <TextView
+            android:id="@+id/transactionTotal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/transactionTotalLabel"
+            android:layout_gravity="left"
+            android:layout_toRightOf="@id/rpLabel"
+            android:paddingLeft="2sp"
+            android:text="60.000"
+            android:textColor="@color/colorPrimary"
+            android:textStyle="bold" />
 
-            </TableLayout>
+        <TextView
+            android:id="@+id/transactionQuantity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/transactionTotalLabel"
+            android:layout_marginTop="2dp"
+            android:layout_toEndOf="@id/transactionTotal"
+            android:paddingStart="4dp"
+            android:text="(2 pcs)"
+            android:textSize="10sp"
+            android:textStyle="bold" />
+    </RelativeLayout>
 
 
-        </LinearLayout>
-
-    </LinearLayout>
-    <TableLayout
+    <RelativeLayout
+        android:id="@+id/relativeLayoutbotomDetail"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <TableRow>
-            <TextView
-                android:layout_column="0"
-                android:id="@+id/invoiceTransaction"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="INVOICE"/>
-            <ImageView
-                android:layout_column="1"
-                android:layout_width="50dp"
-                android:layout_height="17dp"
-                android:scaleType="centerCrop"
-                android:background="@drawable/courier_image"
-                android:layout_gravity="center_vertical|right"
-                android:layout_marginStart="120sp"
-                />
+        android:layout_height="wrap_content"
+        android:layout_below="@id/relativeLayoutdetailTransaksi">
 
-        </TableRow>
-    </TableLayout>
+        <TextView
+            android:id="@+id/invoiceTransaction"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="INVOICE" />
+
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="17dp"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="8dp"
+            android:background="@drawable/courier_image"
+            android:scaleType="centerCrop" />
+    </RelativeLayout>
+
+
     <Button
         android:id="@+id/confirmButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
+        android:layout_below="@id/relativeLayoutbotomDetail"
+        android:background="@drawable/button_primary_solid"
         android:text="Confirm"
         android:textAllCaps="false"
-        android:textStyle="bold"
         android:textColor="@color/colorWhite"
-        android:background="@drawable/button_primary_solid"
-        />
+        android:textStyle="bold" />
+
     <Button
         android:id="@+id/cancelButton"
+        android:layout_below="@id/confirmButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
+        android:background="@drawable/button_red_solid"
         android:text="Cancel"
         android:textAllCaps="false"
-        android:textStyle="bold"
         android:textColor="@color/colorWhite"
-        android:background="@drawable/button_red_solid"
-        />
+        android:textStyle="bold" />
+
     <Button
         android:id="@+id/doneButton"
+        android:layout_below="@id/cancelButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
+        android:background="@drawable/button_green_stroke"
         android:text="Selesai"
         android:textAllCaps="false"
-        android:textStyle="bold"
         android:textColor="@color/colorPrimary"
-        android:background="@drawable/button_green_stroke"
-        />
-</LinearLayout>
+        android:textStyle="bold" />
+</RelativeLayout>

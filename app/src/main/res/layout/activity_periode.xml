@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFF"
+    tools:context=".periodeActivity"
+    android:padding="12dp">
+
+    <!-- TODO: Update blank fragment layout -->
+    <TextView
+        android:id="@+id/periodeLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Periode Transaksi"
+        android:textColor="#000000"
+        android:textStyle="bold"
+        />
+    <TextView
+        android:id="@+id/fromDateLabel"
+        android:layout_below="@id/periodeLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Dari Tanggal"
+        android:layout_marginTop="24dp"/>
+    <EditText
+        android:id="@+id/datePickerFrom"
+        android:layout_marginTop="8dp"
+        android:layout_below="@id/fromDateLabel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="12dp"
+        android:text="01-01-2001"
+        android:gravity="center|left"
+        android:background="@drawable/spinner_border"
+        android:drawableRight="@drawable/ic_date_range_24dp"
+        />
+
+    <TextView
+        android:id="@+id/untilDateLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/datePickerFrom"
+        android:text="Sampai tanggal :"
+        android:layout_marginTop="12dp"/>
+
+    <EditText
+        android:id="@+id/untilDateEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/untilDateLabel"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/spinner_border"
+        android:padding="12dp"
+        android:text="01-01-2001"
+        android:gravity="center|left"
+        android:drawableRight="@drawable/ic_date_range_24dp"/>
+
+    <Button
+        android:id="@+id/applyButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/untilDateEditText"
+        android:layout_marginTop="24dp"
+        android:background="@drawable/button_primary_solid"
+        android:text="Terapkan"
+        android:textAllCaps="false"
+        android:textColor="@color/colorWhite"
+        android:textSize="20sp"/>
+
+
+
+</RelativeLayout>

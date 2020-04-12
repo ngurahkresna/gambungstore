@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/cardViewHistory"
+    android:layout_gravity="center">
+    <RelativeLayout
+        android:background="@drawable/spinner_border"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="12dp">
+        <TextView
+            android:id="@+id/historyTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Top Up Ji-Cash Berhasil"
+            android:layout_alignParentStart="true"
+            android:textColor="#000"
+            android:textStyle="bold"
+            />
+        <TextView
+            android:id="@+id/historyDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/historyTitle"
+            android:text="31 Oktober 2019"
+            android:layout_alignParentStart="true"/>
+
+        <TextView
+            android:id="@+id/historyAmount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/historyTitle"
+            android:layout_alignParentEnd="true"
+            android:layout_centerInParent="true"
+            android:layout_marginTop="-8dp"
+            android:layout_marginEnd="4dp"
+            android:text="+Rp. 175.000"
+            android:textColor="@color/colorPrimary"
+            />
+
+    </RelativeLayout>
+
+</androidx.cardview.widget.CardView>

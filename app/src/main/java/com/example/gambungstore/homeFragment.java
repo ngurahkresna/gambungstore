@@ -19,6 +19,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.gambungstore.adapters.CategoryAdapter;
@@ -53,6 +54,7 @@ public class homeFragment extends Fragment{
     private TextView promos;
     private TextView products;
     private TextView categories;
+    private TextView jicashInfo;
     private LinearLayout searchHome;
 
     private RecyclerView promo;
@@ -62,7 +64,7 @@ public class homeFragment extends Fragment{
     private RecyclerView category;
     private LinearLayoutManager setLayoutManagerCategory;
     private CategoryAdapter categoryAdapter;
-
+    private RelativeLayout relativeLayout;
     private RecyclerView product;
     private GridLayoutManager setLayoutManagerProduct;
     private ProductAdapter productAdapter;
@@ -109,7 +111,8 @@ public class homeFragment extends Fragment{
         categories = view.findViewById(R.id.allCategory);
         product = view.findViewById(R.id.product);
         products = view.findViewById(R.id.allProduct);
-
+        jicashInfo = view.findViewById(R.id.jicashInfo);
+        relativeLayout = view.findViewById(R.id.relativeLayoutJicash);
         getCategory();
         getProduct();
         getPromo();
@@ -150,6 +153,20 @@ public class homeFragment extends Fragment{
             public void onClick(View view) {
                 startActivity(new Intent(getContext(), SearchActivity.class));
 //                getActivity().onBackPressed();
+            }
+        });
+
+        jicashInfo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getContext(), jiCashHomeActivity.class));
+            }
+        });
+
+        relativeLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getContext(), jiCashHomeActivity.class));
             }
         });
     }
@@ -259,5 +276,4 @@ public class homeFragment extends Fragment{
             }
         });
     }
-
 }

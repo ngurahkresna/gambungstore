@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.example.gambungstore">
 
     <uses-permission android:name="android.permission.INTERNET" />
@@ -14,12 +15,33 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".jicashCheckoutDone"></activity>
+        <activity android:name=".jicashCheckoutPayment" />
+        <activity
+            android:name=".jicashAlert"
+            android:theme="@style/AppTheme.DialogPop" />
+        <activity android:name=".JicashCheckoutForm" />
+        <activity android:name=".TopUpJicash" />
+        <activity android:name=".jiCashHomeActivity" />
+
         <activity android:name=".DetailStore"></activity>
         <activity android:name=".Chat" />
         <activity android:name=".detailProduct" />
         <activity android:name=".CheckoutDone" />
         <activity android:name=".CheckoutPayment" />
         <activity android:name=".CheckoutForm" />
+        <activity android:name=".periodeActivity" />
+
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.easyphotopicker.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true"
+            tools:replace="android:authorities">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/filepaths" />
+        </provider>
         <activity android:name=".detailPromo" />
         <activity android:name=".transaction" />
         <activity android:name=".editProfile" />

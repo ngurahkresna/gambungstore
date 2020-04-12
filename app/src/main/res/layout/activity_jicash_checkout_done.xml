@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/jicashCheckoutDoneLayout"
+    tools:context=".jicashCheckoutDone">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingBottom="24dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:paddingLeft="24dp"
+            android:paddingRight="24dp">
+
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Checkout"
+                android:textAlignment="center"
+                android:textColor="@color/colorFont"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:id="@+id/logo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/title"
+                android:layout_marginTop="25dp"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/formLogo"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:src="@drawable/form" />
+
+                <ImageView
+                    android:id="@+id/paymentLogo"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:layout_marginLeft="100dp"
+                    android:src="@drawable/card"
+                    android:visibility="visible" />
+
+                <ImageView
+                    android:id="@+id/doneLogoTr"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:layout_marginLeft="100dp"
+                    android:src="@drawable/done_transparent"
+                    android:visibility="visible" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/subTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/logo"
+                android:layout_marginTop="25dp"
+                android:text="Verifikasi"
+                android:textAlignment="center"
+                android:textColor="@color/colorFont"
+                android:textSize="18sp" />
+            <LinearLayout
+                android:layout_marginTop="16dp"
+                android:id="@+id/detailPayment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/subTitle"
+                android:background="@drawable/stroke_list"
+                android:orientation="vertical"
+                android:padding="15dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Sisa Waktu Bayar"
+                android:textAlignment="center"
+                android:textColor="@color/colorFont"
+                android:textSize="16sp" />
+
+
+            <TextView
+                android:id="@+id/time"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="25dp"
+                android:text="00 : 59 : 59"
+                android:textAlignment="center"
+                android:textColor="@color/colorAccent"
+                android:textSize="24sp" />
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Jam  Menit  Detik"
+                android:textAlignment="center"
+                android:textColor="@color/colorFont"
+                android:textSize="16sp" />
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="No Rekening"
+                android:textAlignment="center"
+                android:textColor="@color/colorFont"
+                android:textSize="16sp" />
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="0086197911100"
+                android:textAlignment="center"
+                android:textColor="@color/colorFont"
+                android:textSize="18sp" />
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Nama Bank"
+                android:textAlignment="center"
+                android:textColor="@color/colorFont"
+                android:textSize="16sp" />
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="a/n"
+                android:textAlignment="center"
+                android:textColor="@color/colorFont"
+                android:textSize="16sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="Bumdes Pakis Sabilulungan"
+                android:textAlignment="center"
+                android:textColor="@color/colorFont"
+                android:textSize="18sp" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/detailVerifikasiText"
+                android:layout_marginTop="16dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/detailPayment"
+                android:text="Transaksi anda sedang diproses, untuk mempercepat proses verifikasi, anda dapat mengupload bukti pembayaran dan tunggu hingga proses berhasil."
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Upload Bukti Bayar"
+                android:layout_below="@id/detailVerifikasiText"
+                android:layout_marginTop="24dp"
+                android:layout_alignParentStart="true"/>
+            <Button
+                android:id="@+id/buttonUpload"
+                android:layout_width="wrap_content"
+                android:layout_height="32dp"
+                android:layout_below="@id/detailVerifikasiText"
+                android:layout_marginTop="20dp"
+                android:layout_alignParentEnd="true"
+                android:text="Upload"
+                android:background="@drawable/button_primary_solid"
+                android:textColor="@color/colorWhite"
+                android:textAllCaps="false"/>
+
+            <Button
+                android:id="@+id/detailTransaksi"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/buttonUpload"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/button_green_stroke"
+                android:text="Lihat Detail Transaksi"
+                android:textColor="@color/colorPrimary"
+                android:textAllCaps="false"
+                android:textStyle="bold"
+                android:textSize="20sp"/>
+
+            <Button
+                android:id="@+id/backButton"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:layout_below="@id/detailTransaksi"
+                android:layout_marginTop="16dp"
+                android:background="?android:attr/selectableItemBackground"
+                android:padding="8dp"
+                android:text="Kembali ke Home"
+                android:textAlignment="center"
+                android:textAllCaps="false"
+                android:textColor="@color/colorPrimary" />
+        </RelativeLayout>
+    </LinearLayout>
+    </ScrollView>
+</RelativeLayout>
