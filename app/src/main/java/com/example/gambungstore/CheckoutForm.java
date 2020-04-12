@@ -262,8 +262,6 @@ public class CheckoutForm extends AppCompatActivity {
         }
         mTotalPrice.setText("Rp "+Integer.toString(grandTotalPrice)+",-");
         mExpeditionPrice.setText("Rp "+Integer.toString(expeditionPrice)+",-");
-
-
     }
 
     private void defaultVoucher(){

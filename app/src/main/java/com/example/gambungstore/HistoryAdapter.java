@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -14,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.gambungstore.models.transaction.DataOnGoing;
+import com.example.gambungstore.models.transaction.DataTransaction;
 import com.example.gambungstore.models.transaction.OnGoing;
 
 import java.util.ArrayList;
@@ -22,10 +24,13 @@ import java.util.List;
 public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HistoryViewHolder> {
 
     public Context context;
+    private List<DataTransaction> transactionList;
 
-    public HistoryAdapter(){
-
+    public HistoryAdapter(Context context, List<DataTransaction> transactionList) {
+        this.context = context;
+        this.transactionList = transactionList;
     }
+
     @NonNull
     @Override
     public HistoryAdapter.HistoryViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
@@ -36,19 +41,39 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HistoryV
 
     @Override
     public void onBindViewHolder(@NonNull HistoryAdapter.HistoryViewHolder holder, int position) {
+        DataTransaction transactionPosition = transactionList.get(position);
 
+        if(transactionPosition.getDetailTransaction().getHistory().isEmpty()){
+            holder.card.setVisibility(View.GONE);
+            return;
+        }
+
+        holder.tvTanggal.setText(transactionPosition.getTanggal().toString());
+        holder.tvProduk.setText(transactionPosition.getProduct().getName().toString());
+        holder.tvHarga.setText(String.valueOf(transactionPosition.getProduct().getPrice()));
+        holder.tvQty.setText("("+String.valueOf(transactionPosition.getQuantity())+"pcs)");
+
+        if(transactionPosition.getDetailTransaction().getHistory().get(0).getStatus().equals("accepted")){
+            holder.tvStatus.setText("DITERIMA");
+        }else{
+            holder.tvStatus.setText("SUDAH DIKIRIM");
+        }
+
+        int total = transactionPosition.getProduct().getPrice()*transactionPosition.getQuantity();
+        holder.tvTotal.setText(String.valueOf(total)+",-");
 
     }
 
     @Override
     public int getItemCount() {
-        return 1;
+        return transactionList.size();
     }
 
     public class HistoryViewHolder extends RecyclerView.ViewHolder {
         ImageView imgProduk, imgCourier;
-        TextView tvTanggal, tvProduk, tvHarga, tvQty, tvStatus, tvInvoice;
+        TextView tvTanggal, tvProduk, tvHarga, tvQty, tvStatus, tvInvoice, tvTotal;
         Button btnConfirm, btnCancel, btnSelesai;
+        LinearLayout card;
 
         public HistoryViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -56,13 +81,15 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HistoryV
             imgCourier = itemView.findViewById(R.id.imgCourier);
             tvTanggal = itemView.findViewById(R.id.transaction_date);
             tvProduk = itemView.findViewById(R.id.transactionTitle);
-            tvHarga = itemView.findViewById(R.id.productPrice);
-            tvQty = itemView.findViewById(R.id.transactionQuantity);
+            tvHarga = itemView.findViewById(R.id.transactionPriceHistory);
+            tvQty = itemView.findViewById(R.id.transactionQuantityHistory);
             tvStatus = itemView.findViewById(R.id.statusTransaction);
             tvInvoice = itemView.findViewById(R.id.invoiceTransaction);
             btnConfirm = itemView.findViewById(R.id.confirmButton);
             btnCancel = itemView.findViewById(R.id.cancelButton);
             btnSelesai = itemView.findViewById(R.id.doneButton);
+            card = itemView.findViewById(R.id.card_history_transaction);
+            tvTotal = itemView.findViewById(R.id.transactionTotal);
         }
     }
 }

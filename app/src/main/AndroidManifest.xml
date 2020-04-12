@@ -5,6 +5,7 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -22,6 +23,8 @@
         <activity android:name=".JicashCheckoutForm" />
         <activity android:name=".TopUpJicash" />
         <activity android:name=".jiCashHomeActivity" />
+
+        <activity android:name=".DetailStore"></activity>
         <activity android:name=".Chat" />
         <activity android:name=".detailProduct" />
         <activity android:name=".CheckoutDone" />
@@ -39,7 +42,6 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/filepaths" />
         </provider>
-
         <activity android:name=".detailPromo" />
         <activity android:name=".transaction" />
         <activity android:name=".editProfile" />

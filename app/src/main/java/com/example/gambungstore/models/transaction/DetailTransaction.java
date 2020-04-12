@@ -5,6 +5,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.List;
 
 public class DetailTransaction {
 
@@ -22,6 +23,16 @@ public class DetailTransaction {
     private int grand_total_amount;
     @SerializedName("created_at")
     private String created_at;
+    @SerializedName("history")
+    private List<History> history;
+
+    public List<History> getHistory() {
+        return history;
+    }
+
+    public void setHistory(List<History> history) {
+        this.history = history;
+    }
 
     public String  getCreated_at() {
         return created_at;

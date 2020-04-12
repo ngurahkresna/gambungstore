@@ -54,8 +54,12 @@ public class OnGoingAdapter extends RecyclerView.Adapter<OnGoingAdapter.OnGoingV
 
         if (transactionPosition.getDetailTransaction().getPayment().getUpdated_process().equals("pembayaran")){
             holder.btnSelesai.setVisibility(View.GONE);
+        }else{
+            holder.btnConfirm.setVisibility(View.GONE);
+            holder.btnCancel.setVisibility(View.GONE);
         }
 
+        //btn cancel
         holder.btnCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -63,6 +67,7 @@ public class OnGoingAdapter extends RecyclerView.Adapter<OnGoingAdapter.OnGoingV
             }
         });
 
+        //btn confirm
         holder.btnConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -79,6 +84,7 @@ public class OnGoingAdapter extends RecyclerView.Adapter<OnGoingAdapter.OnGoingV
             }
         });
 
+        //btn selesai
         holder.btnSelesai.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

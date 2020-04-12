@@ -3,6 +3,7 @@ package com.example.gambungstore.services;
 import com.example.gambungstore.models.Login;
 import com.example.gambungstore.models.Profile;
 import com.example.gambungstore.models.RajaOngkir;
+import com.example.gambungstore.models.Store;
 import com.example.gambungstore.models.cart.Cart;
 import com.example.gambungstore.models.category.Category;
 import com.example.gambungstore.models.checkout.Checkout;
@@ -175,6 +176,7 @@ public interface Services {
             @Part("username") RequestBody username
     );
 
+    @FormUrlEncoded
     @POST("wishlist")
     Call<ResponseBody> storeWishlist(
             @Field("user_id") int user_id,
@@ -191,5 +193,16 @@ public interface Services {
     @GET("transaction")
     Call<Transaction> getTransactionByUsername(
         @Query("username") String username
+    );
+
+    @GET("store/{id}")
+    Call<Store> getStoreById(
+            @Path("id") int id
+    );
+
+    @GET("product")
+    Call<Product> searchProductInStore(
+            @Query("store_code") String store_code,
+            @Query("product_name") String product_name
     );
 }

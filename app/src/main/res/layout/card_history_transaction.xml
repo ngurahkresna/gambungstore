@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/card_history_transaction"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -61,7 +62,7 @@
                 >
                 <TableRow>
                     <TextView
-                        android:id="@+id/transactionPrice"
+                        android:id="@+id/transactionPriceHistory"
 
                         android:ellipsize="end"
                         android:maxLines="2"
@@ -105,7 +106,7 @@
                         android:layout_gravity="left"
                         />
                     <TextView
-                        android:id="@+id/transactionQuantity"
+                        android:id="@+id/transactionQuantityHistory"
                         android:paddingLeft="5sp"
                         android:text="(2 pcs)"
                         android:textSize="10sp"
