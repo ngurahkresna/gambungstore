@@ -66,7 +66,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
         if (cartPosition.getProduct().getImages() != null){
             if (!cartPosition.getProduct().getImages().isEmpty()) {
                 Glide.with(context)
-                        .load(Client.IMAGE_URL + cartPosition.getProduct().getImages())
+                        .load(Client.IMAGE_URL + cartPosition.getProduct().getImages().get(0).getImage_name())
                         .into(holder.mImageProduct);
             }
         }

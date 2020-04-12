@@ -68,6 +68,8 @@ public class detailProduct extends AppCompatActivity {
     int user_id;
     boolean isWished = false;
     int wishListId;
+    int storeId;
+    String storeCode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -114,6 +116,9 @@ public class detailProduct extends AppCompatActivity {
                 for (ProductImage image : dataProduct.getImages()) {
                     mImages.add(image.getImage_name());
                 }
+
+                storeId = dataProduct.getStore().getId();
+                storeCode = dataProduct.getStore().getCode();
 
                 mCode = dataProduct.getCode();
                 mProductTitle.setText(dataProduct.getName());
@@ -276,5 +281,18 @@ public class detailProduct extends AppCompatActivity {
                 Log.d(TAG, "onFailure: " + t.toString());
             }
         });
+    }
+
+    public void showChat(View view) {
+        Intent intent = new Intent(detailProduct.this, homeActivity.class);
+        intent.putExtra("fragment", "chat");
+        startActivity(intent);
+    }
+
+    public void showStore(View view) {
+        Intent intent = new Intent(this, DetailStore.class);
+        intent.putExtra("store_id", storeId);
+        intent.putExtra("store_code", storeCode);
+        startActivity(intent);
     }
 }

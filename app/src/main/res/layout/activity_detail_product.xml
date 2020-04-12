@@ -166,7 +166,8 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@id/detail"
                     android:layout_marginTop="15dp"
-                    app:cardCornerRadius="10dp">
+                    app:cardCornerRadius="10dp"
+                    android:onClick="showStore">
 
                     <LinearLayout
                         android:id="@+id/storeField"
@@ -228,7 +229,8 @@
                                 android:layout_height="30dp"
                                 android:layout_gravity="center_vertical"
                                 android:layout_marginRight="20dp"
-                                android:src="@drawable/ic_chat" />
+                                android:src="@drawable/ic_chat"
+                                android:onClick="showChat"/>
 
                         </LinearLayout>
 
@@ -265,7 +267,7 @@
                     android:layout_below="@id/description"
                     android:layout_marginTop="15dp"
                     android:layout_marginBottom="10dp"
-                    android:text="Product Terkait"
+                    android:text="Produk Terkait"
                     android:textSize="18dp"
                     android:textStyle="bold" />
 

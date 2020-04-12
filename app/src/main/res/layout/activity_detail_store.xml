@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".promoFragment"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context=".DetailStore">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -30,11 +31,10 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Kategori"
+                android:text="Detail Toko"
                 android:textColor="@color/colorWhite"
                 android:textSize="24sp"
                 android:textStyle="bold" />
-
         </LinearLayout>
 
         <LinearLayout
@@ -43,7 +43,9 @@
             android:layout_marginTop="@dimen/space"
             android:background="@drawable/edit_text"
             android:orientation="horizontal"
-            android:padding="@dimen/space">
+            android:padding="@dimen/space"
+            android:descendantFocusability="beforeDescendants"
+            android:focusableInTouchMode="true">
 
             <EditText
                 android:id="@+id/searchHint"
@@ -51,11 +53,11 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:background="@android:color/white"
-                android:hint="Search"
+                android:hint="Cari barang di toko ini"
                 android:inputType="textShortMessage"
                 android:textColor="@color/colorFont"
                 android:textColorHint="@color/colorFont"
-                android:textSize="@dimen/font_small" />
+                android:textSize="@dimen/font_small"/>
 
             <LinearLayout
                 android:id="@+id/searchButton"
@@ -73,33 +75,80 @@
         </LinearLayout>
     </LinearLayout>
 
-    <!-- TODO: Update blank fragment layout -->
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent"
+        android:fillViewport="true">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/space_triple">
+                android:layout_marginTop="24dp"
+                android:layout_marginLeft="24dp"
+                android:layout_marginRight="24dp"
+                android:layout_marginBottom="8dp"
+                android:orientation="horizontal">
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/category"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                <ImageView
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:src="@drawable/ellipse" />
 
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="10dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/storeName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:text="Store Name"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="15dp"
+                            android:layout_height="20dp"
+                            android:src="@drawable/ic_location" />
+
+                        <TextView
+                            android:id="@+id/storeLocation"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="8dp"
+                            android:text="Store Location" />
+                    </LinearLayout>
+                </LinearLayout>
             </LinearLayout>
 
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/tab_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="24dp"
+                android:layout_marginLeft="24dp"/>
+
+            <androidx.viewpager.widget.ViewPager
+                android:id="@+id/pager"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="24dp"
+                android:layout_marginLeft="24dp"/>
 
         </LinearLayout>
-
-
     </ScrollView>
 </LinearLayout>

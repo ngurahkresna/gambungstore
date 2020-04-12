@@ -45,7 +45,7 @@ public class sideBar extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    private LinearLayout mBackButton, mWishlistMenu, mEditProfile, mLogoutButton;
+    private LinearLayout mBackButton, mWishlistMenu, mEditProfile, mLogoutButton, mChangePassword;
     TextView mUsernameSidebar;
 
     public sideBar() {
@@ -164,6 +164,18 @@ public class sideBar extends Fragment {
                 ((homeActivity)getActivity()).refreshMenu();
             }
         });
+
+        mChangePassword = getView().findViewById(R.id.changePasswordMenu);
+        mChangePassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), changePasswordActivity.class);
+                startActivity(intent);
+                getFragmentManager().beginTransaction().remove(sideBar.this).commit();
+                ((homeActivity)getActivity()).refreshMenu();
+            }
+        });
+
     }
 
     /**

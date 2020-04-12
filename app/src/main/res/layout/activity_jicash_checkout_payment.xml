@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".CheckoutForm">
+    tools:context=".jicashCheckoutPayment">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -70,7 +70,7 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/logo"
                     android:layout_marginTop="25dp"
-                    android:text="Pengisian Form"
+                    android:text="Pembayaran"
                     android:textAlignment="center"
                     android:textColor="@color/colorFont"
                     android:textSize="18sp" />
@@ -113,7 +113,7 @@
                             android:layout_width="fill_parent"
                             android:layout_height="wrap_content"
                             android:gravity="end"
-                            android:text="Rp 0,-"
+                            android:text="Rp. 30.000"
                             android:textColor="@color/colorFont"
                             android:textSize="12sp"
                             android:textStyle="bold" />
@@ -141,7 +141,8 @@
                             android:layout_width="fill_parent"
                             android:layout_height="wrap_content"
                             android:gravity="end"
-                            android:text="Rp 0,-"
+                            android:text="-"
+                            android:layout_marginEnd="24dp"
                             android:textColor="@color/colorFont"
                             android:textSize="12sp"
                             android:textStyle="bold" />
@@ -169,7 +170,8 @@
                             android:layout_width="fill_parent"
                             android:layout_height="wrap_content"
                             android:gravity="end"
-                            android:text="Rp 0,-"
+                            android:text="-"
+                            android:layout_marginEnd="24dp"
                             android:textColor="@color/colorFont"
                             android:textSize="12sp"
                             android:textStyle="bold" />
@@ -184,19 +186,22 @@
                         android:layout_marginTop="15dp"
                         android:background="#3F895E" />
 
-                    <LinearLayout
+                    <RelativeLayout
                         android:id="@+id/total"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/list"
-                        android:orientation="horizontal">
+                        android:orientation="horizontal"
+                        android:layout_marginTop="8dp">
 
                         <TextView
                             android:id="@+id/totalText"
+                            android:layout_centerHorizontal="true"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:gravity="center"
                             android:text="Total Harga"
+                            android:textStyle="bold"
                             android:textColor="@color/colorFont"
                             android:textSize="16sp" />
 
@@ -205,12 +210,12 @@
                             android:layout_width="fill_parent"
                             android:layout_height="wrap_content"
                             android:gravity="end"
-                            android:text="Rp 0,-"
+                            android:text="Rp30.000"
                             android:textColor="@color/colorPrimary"
                             android:textSize="16sp"
                             android:textStyle="bold" />
 
-                    </LinearLayout>
+                    </RelativeLayout>
 
                     <View
                         android:id="@+id/listBtm"
@@ -284,7 +289,7 @@
                             android:text="No Rekening"
                             android:textAlignment="center"
                             android:textColor="@color/colorFont"
-                            android:textSize="12sp" />
+                            android:textSize="16sp" />
 
 
                         <TextView
@@ -294,14 +299,13 @@
                             android:text="0086197911100"
                             android:textAlignment="center"
                             android:textColor="@color/colorFont"
-                            android:textSize="16sp"
-                            android:textStyle="bold"/>
+                            android:textSize="18sp" />
 
 
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Bank BJB"
+                            android:text="Nama Bank"
                             android:textAlignment="center"
                             android:textColor="@color/colorFont"
                             android:textSize="16sp" />
@@ -314,7 +318,7 @@
                             android:text="a/n"
                             android:textAlignment="center"
                             android:textColor="@color/colorFont"
-                            android:textSize="12sp" />
+                            android:textSize="16sp" />
 
                         <TextView
                             android:layout_width="match_parent"
@@ -361,4 +365,4 @@
 
     </ScrollView>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</RelativeLayout>

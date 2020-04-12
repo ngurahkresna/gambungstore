@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".TopUpJicash">
+    <ImageView
+        android:id="@+id/backButtonJiCash"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="24dp"
+        android:background="@drawable/ic_back" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:text="Ji-Cash"
+        android:id="@+id/jicashTitle"
+        android:layout_marginTop="24dp"
+        android:textSize="20sp"
+        android:textColor="#000000"/>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:layout_below="@id/jicashTitle"
+        app:cardElevation="10dp"
+        app:cardCornerRadius="8dp"
+        >
+        <RelativeLayout
+            android:padding="12dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+            <TextView
+                android:id="@+id/topuplabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Top-up G-Pay"
+                android:layout_marginTop="4dp"
+                android:textColor="#000000"
+                android:textSize="16sp"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/nominallabel"
+                android:text="Nominal Top Up"
+                android:layout_marginTop="12dp"
+                android:layout_below="@id/topuplabel"/>
+            <EditText
+                android:id="@+id/etAmount"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/nominallabel"
+                android:text="Rp."
+                android:hint="(Min. 10.000)"/>
+            <Button
+                android:id="@+id/btnTopUp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/etAmount"
+                android:background="@color/colorPrimary"
+                android:text="Top Up"
+                android:textColor="@color/colorWhite"
+                android:textAllCaps="false"
+                android:textSize="20sp"/>
+
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
+
+</RelativeLayout>

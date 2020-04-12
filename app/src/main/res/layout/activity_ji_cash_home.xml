@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".jiCashHomeActivity"
+    android:id="@+id/containerJicashHome"
+    >
+
+    <ImageView
+        android:id="@+id/backButtonJiCash"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="24dp"
+        android:background="@drawable/ic_back" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:text="Ji-Cash"
+        android:layout_marginTop="24dp"
+        android:textSize="20sp"
+        android:textColor="#000000"/>
+    <FrameLayout
+        android:id="@+id/frameLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_alignParentEnd="true"
+        android:background="#FFFF"
+        />
+    <LinearLayout
+        android:id="@+id/linearlayout1"
+        android:layout_marginTop="24dp"
+        android:layout_below="@id/backButtonJiCash"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:ignore="UselessParent"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"
+        android:orientation="horizontal"
+        ><LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_weight="3"
+        android:layout_marginEnd="10dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/spinner_border">
+        <Spinner
+            android:id="@+id/spinnerbar"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:backgroundTint="@color/colorPrimary"
+            android:spinnerMode="dialog"
+            />
+    </LinearLayout>
+
+        <Button
+            android:id="@+id/periodeButton"
+            android:background="@drawable/spinner_border"
+            android:layout_weight="2"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:text="Periode"
+            android:onClick="periodeWindow"
+            android:textColor="@color/colorPrimary"
+            android:textAllCaps="false"
+            />
+    </LinearLayout>
+    <RelativeLayout
+        android:id="@+id/relativeLayoutbalance"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/linearlayout1"
+        android:layout_marginTop="12dp"
+        android:background="@color/colorPrimary"
+        android:padding="20dp"
+        >
+        <TextView
+            android:id="@+id/jicashLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:text="Saldo Ji-Cash Anda :"
+            android:textSize="16sp"
+            android:textColor="@color/colorWhite"
+            />
+        <TextView
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="12dp"
+            android:layout_below="@id/jicashLabel"
+            android:layout_centerHorizontal="true"
+            android:id="@+id/jicashBalance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Rp. 350.000"
+            android:textStyle="bold"
+            android:textColor="@color/colorWhite"
+            android:textSize="36sp"/>
+        <Button
+            android:id="@+id/topupjicash"
+            android:layout_below="@id/jicashBalance"
+            android:layout_centerHorizontal="true"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:textColor="@color/colorPrimary"
+            android:text="Top up Ji-Cash"
+            android:background="@drawable/spinner_border"
+            android:textAllCaps="false"/>
+    </RelativeLayout>
+    <ScrollView
+        android:layout_below="@id/relativeLayoutbalance"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/jicashHistoyRecyclerView"
+            android:padding="16dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    </ScrollView>
+
+
+
+</RelativeLayout>

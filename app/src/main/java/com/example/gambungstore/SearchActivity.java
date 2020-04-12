@@ -10,6 +10,7 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.example.gambungstore.client.Client;
@@ -28,6 +29,7 @@ public class SearchActivity extends AppCompatActivity {
     
     private ImageView buttonBack;
     private EditText mSearchHint;
+    private LinearLayout btnSearch;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +38,15 @@ public class SearchActivity extends AppCompatActivity {
 
         buttonBack = findViewById(R.id.backButton);
         mSearchHint = findViewById(R.id.searchHint);
+
+        btnSearch = findViewById(R.id.searchButton);
+
+        btnSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                searchProduct(mSearchHint.getText().toString());
+            }
+        });
 
         buttonBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -65,6 +76,10 @@ public class SearchActivity extends AppCompatActivity {
                 List<DataProduct> dataProducts = response.body();
                 if (dataProducts.isEmpty()){
                     Toast.makeText(SearchActivity.this, "Data Tidak Ditemukan", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(SearchActivity.this, productActivity.class);
+                    intent.putExtra("status", "search");
+                    intent.putParcelableArrayListExtra("dataproduct", (ArrayList<? extends Parcelable>) dataProducts);
+                    startActivity(intent);
                     return;
                 }
                 Intent intent = new Intent(SearchActivity.this, productActivity.class);
