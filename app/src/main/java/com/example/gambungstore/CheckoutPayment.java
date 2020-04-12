@@ -168,9 +168,15 @@ public class CheckoutPayment extends AppCompatActivity {
                 File file = new File(String.valueOf(imageFile));
                 RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
                 String imageName = file.getName();
-                MultipartBody.Part body = MultipartBody.Part.createFormData("proof_image", imageName, requestFile);
 
-                uploadProof(body);
+                if (getIntent().getStringExtra("jicash").equals("jicash")){
+                    MultipartBody.Part body = MultipartBody.Part.createFormData("topup_proof", imageName, requestFile);
+                    uploadProofJicash(body);
+                }else{
+                    MultipartBody.Part body = MultipartBody.Part.createFormData("proof_image", imageName, requestFile);
+                    uploadProof(body);
+                }
+
             }
 
             @Override
@@ -211,4 +217,38 @@ public class CheckoutPayment extends AppCompatActivity {
             }
         });
     }
+
+    private void uploadProofJicash(MultipartBody.Part image){
+
+        progressbar.startProgressBarGambung();
+
+        RequestBody ammount =
+                RequestBody.create(MediaType.parse("text/plain"), String.valueOf(getIntent().getIntExtra("ammount",0)));
+        RequestBody username =
+                RequestBody.create(MediaType.parse("text/plain"), SharedPreference.getRegisteredUsername(this));
+
+        Services service = Client.getClient(Client.BASE_URL).create(Services.class);
+        Call<ResponseBody> callUploadProof = service.uploadProofJicash(
+                ammount,
+                image,
+                username
+        );
+        callUploadProof.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                Log.d(TAG, "onResponse: "+response.raw());
+                Intent intent = new Intent(CheckoutPayment.this, CheckoutDone.class);
+                startActivity(intent);
+                finish();
+                progressbar.endProgressBarGambung();
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                Log.d(TAG, "onFailure: "+t.toString());
+            }
+        });
+    }
+
+
 }

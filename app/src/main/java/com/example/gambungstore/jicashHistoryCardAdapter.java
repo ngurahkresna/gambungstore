@@ -1,5 +1,6 @@
 package com.example.gambungstore;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,11 +9,20 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.gambungstore.models.jicash.Jicash;
+
+import java.util.List;
+
 public class jicashHistoryCardAdapter extends RecyclerView.Adapter<jicashHistoryCardAdapter.CardViewViewHolder> {
 
-    public jicashHistoryCardAdapter(){
+    private Context context;
+    private List<Jicash> jicashList;
 
+    public jicashHistoryCardAdapter(Context context, List<Jicash> jicashList) {
+        this.context = context;
+        this.jicashList = jicashList;
     }
+
     @NonNull
     @Override
     public jicashHistoryCardAdapter.CardViewViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -23,12 +33,19 @@ public class jicashHistoryCardAdapter extends RecyclerView.Adapter<jicashHistory
 
     @Override
     public void onBindViewHolder(@NonNull jicashHistoryCardAdapter.CardViewViewHolder holder, int position) {
-
+        final Jicash jicashPosition = jicashList.get(position);
+        holder.historyTitle.setText(jicashPosition.getTransaction_type());
+        if (jicashPosition.getTransaction_type().equals("Pembayaran Transaksi")){
+            holder.historyAmount.setText("+Rp. "+Integer.toString(jicashPosition.getAmount()));
+        }else{
+            holder.historyAmount.setText("-Rp. "+Integer.toString(jicashPosition.getAmount()));
+        }
+        holder.historyDate.setText(jicashPosition.getDate());
     }
 
     @Override
     public int getItemCount() {
-        return 1;
+        return this.jicashList.size();
     }
 
     public class CardViewViewHolder extends RecyclerView.ViewHolder {

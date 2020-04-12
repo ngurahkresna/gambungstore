@@ -8,6 +8,7 @@ import com.example.gambungstore.models.cart.Cart;
 import com.example.gambungstore.models.category.Category;
 import com.example.gambungstore.models.checkout.Checkout;
 import com.example.gambungstore.models.category.DataCategory;
+import com.example.gambungstore.models.jicash.Jicash;
 import com.example.gambungstore.models.product.DataProduct;
 import com.example.gambungstore.models.product.Product;
 import com.example.gambungstore.models.promo.DataPromo;
@@ -234,5 +235,18 @@ public interface Services {
             @Field("transaction_code") String transaction_code,
             @Field("username") String username,
             @Field("product_code") String product_code
+    );
+
+    @GET("jicash/history")
+    Call<List<Jicash>> getHistoryJicash(
+            @Query("username") String username
+    );
+
+    @Multipart
+    @POST("jicash/topup")
+    Call<ResponseBody> uploadProofJicash(
+            @Part("ammount") RequestBody ammount,
+            @Part MultipartBody.Part topup_proof,
+            @Part("username") RequestBody username
     );
 }

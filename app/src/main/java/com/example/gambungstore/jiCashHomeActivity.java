@@ -19,6 +19,16 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.example.gambungstore.R;
+import com.example.gambungstore.client.Client;
+import com.example.gambungstore.models.jicash.Jicash;
+import com.example.gambungstore.services.Services;
+import com.example.gambungstore.sharedpreference.SharedPreference;
+
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class jiCashHomeActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     RecyclerView rvHistory;
@@ -37,10 +47,11 @@ public class jiCashHomeActivity extends AppCompatActivity implements AdapterView
                 R.array.transaksi_jicash, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource
                 (android.R.layout.simple_spinner_dropdown_item);
-// Apply the adapter to the spinner.
+
         if (spinner != null) {
             spinner.setAdapter(adapter);
         }
+
         btnTopup = findViewById(R.id.topupjicash);
         btnTopup.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -49,6 +60,7 @@ public class jiCashHomeActivity extends AppCompatActivity implements AdapterView
                 startActivity(intent);
             }
         });
+
         backView = findViewById(R.id.backButtonJiCash);
         backView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -56,6 +68,7 @@ public class jiCashHomeActivity extends AppCompatActivity implements AdapterView
                 onBackPressed();
             }
         });
+
         btnPeriode = findViewById(R.id.periodeButton);
         btnPeriode.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -64,15 +77,33 @@ public class jiCashHomeActivity extends AppCompatActivity implements AdapterView
                 startActivity(intent);
             }
         });
-        historyCardAdapter();
+        getData();
     }
 
-    public void historyCardAdapter(){
+    public void historyCardAdapter(List<Jicash> jicashList){
         rvHistory = findViewById(R.id.jicashHistoyRecyclerView);
         linearLayoutManager = new LinearLayoutManager(this);
         rvHistory.setLayoutManager(linearLayoutManager);
-        jicashHistoryCardAdapter jicashHistoryCardAdapter = new jicashHistoryCardAdapter();
+        jicashHistoryCardAdapter jicashHistoryCardAdapter = new jicashHistoryCardAdapter(this,jicashList);
         rvHistory.setAdapter(jicashHistoryCardAdapter);
+    }
+
+    private void getData(){
+        Services service = Client.getClient(Client.BASE_URL).create(Services.class);
+        Call<List<Jicash>>  callHistory = service.getHistoryJicash(
+                SharedPreference.getRegisteredUsername(this)
+        );
+        callHistory.enqueue(new Callback<List<Jicash>>() {
+            @Override
+            public void onResponse(Call<List<Jicash>> call, Response<List<Jicash>> response) {
+                historyCardAdapter(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<List<Jicash>> call, Throwable t) {
+
+            }
+        });
     }
 
     @Override

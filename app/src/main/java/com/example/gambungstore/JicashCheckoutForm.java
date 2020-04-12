@@ -8,11 +8,21 @@ import android.view.View;
 import android.widget.TextView;
 
 public class JicashCheckoutForm extends AppCompatActivity {
-    TextView backToHome;
+    TextView backToHome, mAmmount, mTotal;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_jicash_checkout_form);
+
+        mAmmount = findViewById(R.id.jicashTopupAmount);
+        mTotal = findViewById(R.id.totalJicastTopupAmount);
+
+        if (getIntent() != null) {
+            mAmmount.setText("Rp. " + getIntent().getIntExtra("ammount",0));
+            mTotal.setText("Rp. " + getIntent().getIntExtra("ammount",0));
+        }
+
         backToHome = findViewById(R.id.backToHome);
         backToHome.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -26,6 +36,8 @@ public class JicashCheckoutForm extends AppCompatActivity {
 
     public void bayarJicash(View view) {
         Intent intent = new Intent(JicashCheckoutForm.this, jicashAlert.class);
+        int ammount = getIntent().getIntExtra("ammount",0);
+        intent.putExtra("ammount", ammount);
         startActivity(intent);
     }
 }
