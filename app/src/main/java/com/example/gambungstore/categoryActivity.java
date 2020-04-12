@@ -11,6 +11,7 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -35,6 +36,7 @@ public class categoryActivity extends AppCompatActivity {
     private LinearLayoutManager setLayoutManagerCategory;
     private CategoryAdapter categoryAdapter;
     private EditText searchHint;
+    private LinearLayout btnSearch;
 
     private List<DataCategory> dataCategories;
 
@@ -45,6 +47,15 @@ public class categoryActivity extends AppCompatActivity {
 
         mCategoryRecyclerView = findViewById(R.id.category);
         searchHint = findViewById(R.id.searchHint);
+        btnSearch = findViewById(R.id.searchButton);
+
+        btnSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                searchCategory(searchHint.getText().toString());
+            }
+        });
+
         searchHint.setOnEditorActionListener(new EditText.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {;
@@ -104,6 +115,7 @@ public class categoryActivity extends AppCompatActivity {
                 List<DataCategory> dataCategories = response.body();
                 if (dataCategories.isEmpty()){
                     Toast.makeText(categoryActivity.this, "Data Tidak Ditemukan", Toast.LENGTH_SHORT).show();
+                    onViewCategory(dataCategories);
                     return;
                 }
 

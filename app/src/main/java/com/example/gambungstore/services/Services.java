@@ -10,6 +10,7 @@ import com.example.gambungstore.models.checkout.Checkout;
 import com.example.gambungstore.models.category.DataCategory;
 import com.example.gambungstore.models.product.DataProduct;
 import com.example.gambungstore.models.product.Product;
+import com.example.gambungstore.models.promo.DataPromo;
 import com.example.gambungstore.models.promo.Promo;
 import com.example.gambungstore.models.transaction.DetailTransaction;
 import com.example.gambungstore.models.transaction.Transaction;
@@ -67,6 +68,21 @@ public interface Services {
     );
 
     @FormUrlEncoded
+    @POST("check-password")
+    Call<ResponseBody> checkOldPass(
+            @Header("Authorization") String token,
+            @Field("password") String password
+    );
+
+    @FormUrlEncoded
+    @POST("update-password")
+    Call<ResponseBody> updatePass(
+            @Header("Authorization") String token,
+            @Field("password") String password,
+            @Field("password_confirmation") String confirmPassword
+    );
+
+    @FormUrlEncoded
     @PUT("users/{id}")
     Call<ResponseBody> updateProfile(
             @Path("id") int id,
@@ -97,12 +113,12 @@ public interface Services {
     @FormUrlEncoded
     @POST("product/search")
     Call<List<DataProduct>> searchProduct(
-      @Field("value") String key
+            @Field("value") String key
     );
 
     @GET("cart")
     Call<Cart> getCart(
-      @Query("username") String username
+            @Query("username") String username
     );
 
     @FormUrlEncoded
@@ -119,6 +135,12 @@ public interface Services {
 
     @GET("voucher")
     Call<Promo> getPromo();
+
+    @FormUrlEncoded
+    @POST("voucher/search")
+    Call<List<DataPromo>> searchPromo(
+            @Field("value") String value
+    );
 
     @DELETE("cart/{id}")
     Call<ResponseBody> deleteCart(
@@ -171,7 +193,7 @@ public interface Services {
     @Multipart
     @POST("upload-proof")
     Call<ResponseBody> uploadProof(
-            @Part("transaction_code")RequestBody transaction_code,
+            @Part("transaction_code") RequestBody transaction_code,
             @Part MultipartBody.Part proof_image,
             @Part("username") RequestBody username
     );
@@ -185,14 +207,14 @@ public interface Services {
 
     @Headers("key: e2f076d77998bbb2921165ee490297a4")
     @GET("city")
-    Call <RajaOngkir> getRajaongkir();
+    Call<RajaOngkir> getRajaongkir();
 
     @GET("users")
     Call<List<Profile>> getUsers();
 
     @GET("transaction")
     Call<Transaction> getTransactionByUsername(
-        @Query("username") String username
+            @Query("username") String username
     );
 
     @GET("store/{id}")

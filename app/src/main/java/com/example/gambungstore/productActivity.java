@@ -17,6 +17,7 @@ import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -42,6 +43,8 @@ public class productActivity extends AppCompatActivity {
     private GridLayoutManager setLayoutManagerProduct;
     private ProductAdapter productAdapter;
     private EditText searchHint;
+    private LinearLayout btnSearch;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +54,15 @@ public class productActivity extends AppCompatActivity {
         product = findViewById(R.id.product);
         buttonBack = findViewById(R.id.backButton);
         searchHint = findViewById(R.id.searchHint);
+
+        btnSearch = findViewById(R.id.searchButton);
+
+        btnSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                searchProduct(searchHint.getText().toString());
+            }
+        });
 
         searchHint.setOnEditorActionListener(new EditText.OnEditorActionListener() {
             @Override

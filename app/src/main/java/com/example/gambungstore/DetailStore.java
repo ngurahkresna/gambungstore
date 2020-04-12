@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -45,6 +46,7 @@ public class DetailStore extends AppCompatActivity {
     TextView storeLocation;
     private ImageView buttonBack;
     private EditText searchHint;
+    private LinearLayout btnSearch;
 
     ViewPager viewPager;
     StorePagerAdapter adapter;
@@ -69,6 +71,16 @@ public class DetailStore extends AppCompatActivity {
 
         storeId = getIntent().getIntExtra("store_id", 0);
         storeCode = getIntent().getStringExtra("store_code");
+
+        btnSearch = findViewById(R.id.searchButton);
+
+        btnSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                searchProduct(searchHint.getText().toString());
+            }
+        });
+
 
         searchHint = findViewById(R.id.searchHint);
         searchHint.setOnEditorActionListener(new EditText.OnEditorActionListener() {
