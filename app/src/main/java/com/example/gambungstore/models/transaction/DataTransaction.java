@@ -9,6 +9,8 @@ public class DataTransaction {
     private int id;
     @SerializedName("transaction_code")
     private String code;
+    @SerializedName("expedition")
+    private String expedition;
     @SerializedName("quantity")
     private int quantity;
     @SerializedName("price")
@@ -23,6 +25,14 @@ public class DataTransaction {
     private DetailTransaction detailTransaction;
     @SerializedName("product")
     private DataProduct product;
+
+    public String getExpedition() {
+        return expedition;
+    }
+
+    public void setExpedition(String expedition) {
+        this.expedition = expedition;
+    }
 
     public String getTanggal() {
         return tanggal;

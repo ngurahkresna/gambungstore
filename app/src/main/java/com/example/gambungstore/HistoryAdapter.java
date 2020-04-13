@@ -54,6 +54,16 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HistoryV
         holder.tvHarga.setText(String.valueOf(transactionPosition.getProduct().getPrice()));
         holder.tvQty.setText("("+String.valueOf(transactionPosition.getQuantity())+"pcs)");
 
+        if (transactionPosition.getExpedition().equals("tiki")){
+            Glide.with(context)
+                    .load("http://gambungstore.id/assets/img/expeditions/tiki.png")
+                    .into(holder.imgCourier);
+        }else if(transactionPosition.getExpedition().equals("jne")){
+            Glide.with(context)
+                    .load("http://gambungstore.id/assets/img/expeditions/jne.png")
+                    .into(holder.imgCourier);
+        }
+
         if(transactionPosition.getDetailTransaction().getHistory().get(0).getStatus().equals("accepted")){
             holder.tvStatus.setText("DITERIMA");
         }else{

@@ -73,9 +73,15 @@ public class OnGoingAdapter extends RecyclerView.Adapter<OnGoingAdapter.OnGoingV
         holder.tvHarga.setText(String.valueOf(transactionPosition.getProduct().getPrice()));
         holder.tvQty.setText("("+String.valueOf(transactionPosition.getQuantity())+"pcs)");
 
-        Glide.with(context)
-                .load("http://gambungstore.id/assets/img/expeditions/tiki.png")
-                .into(holder.imgCourier);
+        if (transactionPosition.getExpedition().equals("tiki")){
+            Glide.with(context)
+                    .load("http://gambungstore.id/assets/img/expeditions/tiki.png")
+                    .into(holder.imgCourier);
+        }else if(transactionPosition.getExpedition().equals("jne")){
+            Glide.with(context)
+                    .load("http://gambungstore.id/assets/img/expeditions/jne.png")
+                    .into(holder.imgCourier);
+        }
 
         int total = transactionPosition.getProduct().getPrice()*transactionPosition.getQuantity();
         holder.tvTransactionTotal.setText(String.valueOf(total)+",-");
@@ -118,7 +124,7 @@ public class OnGoingAdapter extends RecyclerView.Adapter<OnGoingAdapter.OnGoingV
         holder.btnSelesai.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context, "selesai", Toast.LENGTH_SHORT).show();
+                alertdialogSelesai(transactionPosition.getCode(), transactionPosition.getProduct().getCode(), position);
             }
         });
 
@@ -176,6 +182,53 @@ public class OnGoingAdapter extends RecyclerView.Adapter<OnGoingAdapter.OnGoingV
                     @Override
                     public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                         Toast.makeText(context, "Berhasil Dibatalkan", Toast.LENGTH_SHORT).show();
+                        dataOnGoings.remove(position);
+                        homeActivity home = (homeActivity) context;
+                        Intent intent = new Intent(context, homeActivity.class);
+                        intent.putExtra("fragment","transaction");
+                        context.startActivity(intent);
+                        home.finish();
+                    }
+
+                    @Override
+                    public void onFailure(Call<ResponseBody> call, Throwable t) {
+                        Toast.makeText(context, t.toString(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+        });
+        alert.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        });
+        alert.show();
+    }
+
+    private void alertdialogSelesai(String transaction_code, String product_code, int position){
+        AlertDialog.Builder alert = new AlertDialog.Builder(context);
+        alert.setMessage("Dengan menekan tombol selesai, maka anda menyatakan bahwa barang sudah sampai");
+        alert.setTitle("Apakah Anda Yakin ?");
+        alert.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+                ProgressBarGambung progressbar = new ProgressBarGambung((homeActivity) context);
+                progressbar.startProgressBarGambung();
+
+                Services service = Client.getClient(Client.BASE_URL).create(Services.class);
+                Call<ResponseBody> callCancel = service.acceptTransaction(
+                        transaction_code,
+                        SharedPreference.getRegisteredUsername(context),
+                        product_code
+
+                );
+
+                callCancel.enqueue(new Callback<ResponseBody>() {
+                    @Override
+                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                        Toast.makeText(context, "Berhasil Dikonfirmasi", Toast.LENGTH_SHORT).show();
                         dataOnGoings.remove(position);
                         homeActivity home = (homeActivity) context;
                         Intent intent = new Intent(context, homeActivity.class);

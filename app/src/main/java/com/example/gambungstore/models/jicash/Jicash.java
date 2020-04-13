@@ -2,26 +2,18 @@ package com.example.gambungstore.models.jicash;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.List;
+
 public class Jicash {
 
     @SerializedName("id")
     private int id;
-    @SerializedName("ji_cash_id")
-    private int ji_cash_id;
-    @SerializedName("transaction_type")
-    private String transaction_type;
-    @SerializedName("amount")
-    private int amount;
-    @SerializedName("created_at")
-    private String date;
-
-    public Jicash(int id, int ji_cash_id, String transaction_type, int amount, String date) {
-        this.id = id;
-        this.ji_cash_id = ji_cash_id;
-        this.transaction_type = transaction_type;
-        this.amount = amount;
-        this.date = date;
-    }
+    @SerializedName("username")
+    private String username;
+    @SerializedName("balance")
+    private String balance;
+    @SerializedName("history")
+    private List<HistoryJicash> history;
 
     public int getId() {
         return id;
@@ -31,35 +23,27 @@ public class Jicash {
         this.id = id;
     }
 
-    public int getJi_cash_id() {
-        return ji_cash_id;
+    public String getUsername() {
+        return username;
     }
 
-    public void setJi_cash_id(int ji_cash_id) {
-        this.ji_cash_id = ji_cash_id;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
-    public String getTransaction_type() {
-        return transaction_type;
+    public String getBalance() {
+        return balance;
     }
 
-    public void setTransaction_type(String transaction_type) {
-        this.transaction_type = transaction_type;
+    public void setBalance(String balance) {
+        this.balance = balance;
     }
 
-    public int getAmount() {
-        return amount;
+    public List<HistoryJicash> getHistory() {
+        return history;
     }
 
-    public void setAmount(int amount) {
-        this.amount = amount;
-    }
-
-    public String getDate() {
-        return date;
-    }
-
-    public void setDate(String date) {
-        this.date = date;
+    public void setHistory(List<HistoryJicash> history) {
+        this.history = history;
     }
 }

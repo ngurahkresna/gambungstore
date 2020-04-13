@@ -1,8 +1,6 @@
 package com.example.gambungstore;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -14,13 +12,13 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.example.gambungstore.R;
 import com.example.gambungstore.client.Client;
+import com.example.gambungstore.models.jicash.HistoryJicash;
 import com.example.gambungstore.models.jicash.Jicash;
+import com.example.gambungstore.progressbar.ProgressBarGambung;
 import com.example.gambungstore.services.Services;
 import com.example.gambungstore.sharedpreference.SharedPreference;
 
@@ -35,10 +33,16 @@ public class jiCashHomeActivity extends AppCompatActivity implements AdapterView
     LinearLayoutManager linearLayoutManager;
     ImageView backView;
     Button btnTopup, btnPeriode;
+    TextView jicashBalance;
+    ProgressBarGambung progressBar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ji_cash_home);
+
+        progressBar = new ProgressBarGambung(this);
+        progressBar.startProgressBarGambung();
+
         Spinner spinner = findViewById(R.id.spinnerbar);
         if (spinner != null) {
             spinner.setOnItemSelectedListener(this);
@@ -51,6 +55,8 @@ public class jiCashHomeActivity extends AppCompatActivity implements AdapterView
         if (spinner != null) {
             spinner.setAdapter(adapter);
         }
+
+        jicashBalance = findViewById(R.id.jicashBalance);
 
         btnTopup = findViewById(R.id.topupjicash);
         btnTopup.setOnClickListener(new View.OnClickListener() {
@@ -80,9 +86,9 @@ public class jiCashHomeActivity extends AppCompatActivity implements AdapterView
         getData();
     }
 
-    public void historyCardAdapter(List<Jicash> jicashList){
+    public void historyCardAdapter(List<HistoryJicash> jicashList){
         rvHistory = findViewById(R.id.jicashHistoyRecyclerView);
-        linearLayoutManager = new LinearLayoutManager(this);
+        linearLayoutManager = new LinearLayoutManager(this,RecyclerView.VERTICAL, false);
         rvHistory.setLayoutManager(linearLayoutManager);
         jicashHistoryCardAdapter jicashHistoryCardAdapter = new jicashHistoryCardAdapter(this,jicashList);
         rvHistory.setAdapter(jicashHistoryCardAdapter);
@@ -90,13 +96,16 @@ public class jiCashHomeActivity extends AppCompatActivity implements AdapterView
 
     private void getData(){
         Services service = Client.getClient(Client.BASE_URL).create(Services.class);
-        Call<List<Jicash>>  callHistory = service.getHistoryJicash(
+        Call<List<Jicash>>  callHistory = service.getJicash(
                 SharedPreference.getRegisteredUsername(this)
         );
         callHistory.enqueue(new Callback<List<Jicash>>() {
             @Override
             public void onResponse(Call<List<Jicash>> call, Response<List<Jicash>> response) {
-                historyCardAdapter(response.body());
+                historyCardAdapter(response.body().get(0).getHistory());
+                jicashBalance.setText("Rp. "+response.body().get(0).getBalance()+",-");
+                progressBar.endProgressBarGambung();
+
             }
 
             @Override
