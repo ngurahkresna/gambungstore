@@ -33,6 +33,7 @@ import com.example.gambungstore.models.product.Product;
 import com.example.gambungstore.models.product.ProductImage;
 import com.example.gambungstore.models.wishlist.DataWishlist;
 import com.example.gambungstore.models.wishlist.Wishlist;
+import com.example.gambungstore.progressbar.ProgressBarGambung;
 import com.example.gambungstore.services.Services;
 import com.example.gambungstore.sharedpreference.SharedPreference;
 import com.synnapps.carouselview.CarouselView;
@@ -71,10 +72,15 @@ public class detailProduct extends AppCompatActivity {
     int storeId;
     String storeCode;
 
+    private ProgressBarGambung progressbar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_product);
+
+        progressbar = new ProgressBarGambung(this);
+        progressbar.startProgressBarGambung();
 
         suggestProduct = findViewById(R.id.suggestProduct);
         mProductTitle = findViewById(R.id.productTitle);
@@ -174,6 +180,7 @@ public class detailProduct extends AppCompatActivity {
                             return;
                         }
                     }
+                    progressbar.endProgressBarGambung();
                 }
 
                 @Override
@@ -260,6 +267,15 @@ public class detailProduct extends AppCompatActivity {
     }
 
     public void storeToCart(View view) {
+        progressbar.startProgressBarGambung();
+
+        int stock = Integer.valueOf(mAvailableCount.getText().toString());
+        if (stock <= 0){
+            Toast.makeText(this, "Barang Sudah Habis!", Toast.LENGTH_SHORT).show();
+            progressbar.endProgressBarGambung();
+            return;
+        }
+
         int quantity = Integer.parseInt(String.valueOf(mQuantity.getText()));
         String username = SharedPreference.getRegisteredUsername(this);
 
@@ -267,8 +283,6 @@ public class detailProduct extends AppCompatActivity {
         storeCart.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                // SHOW CART FRAGMENT
-                // GATAU LAGI
                 Intent intent = new Intent(detailProduct.this,homeActivity.class);
                 intent.putExtra("fragment","cart");
                 startActivity(intent);
