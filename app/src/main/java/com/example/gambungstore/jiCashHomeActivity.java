@@ -102,10 +102,15 @@ public class jiCashHomeActivity extends AppCompatActivity implements AdapterView
         callHistory.enqueue(new Callback<List<Jicash>>() {
             @Override
             public void onResponse(Call<List<Jicash>> call, Response<List<Jicash>> response) {
-                historyCardAdapter(response.body().get(0).getHistory());
-                jicashBalance.setText("Rp. "+response.body().get(0).getBalance()+",-");
-                progressBar.endProgressBarGambung();
+                if (response.body().size()!=0) {
+                    historyCardAdapter(response.body().get(0).getHistory());
+                    jicashBalance.setText("Rp. " + response.body().get(0).getBalance() + ",-");
 
+                }
+                else{
+                    jicashBalance.setText("Rp. 0");
+                }
+                progressBar.endProgressBarGambung();
             }
 
             @Override

@@ -21,6 +21,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.gambungstore.adapters.CategoryAdapter;
 import com.example.gambungstore.adapters.ProductAdapter;
@@ -172,14 +173,24 @@ public class homeFragment extends Fragment{
         jicashInfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getContext(), jiCashHomeActivity.class));
+                if (isLogin()) {
+                    startActivity(new Intent(getContext(), jiCashHomeActivity.class));
+                }
+                else{
+                    Toast.makeText(getActivity(), "Silahkan login terlebih dahulu", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
         relativeLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getContext(), jiCashHomeActivity.class));
+                if (isLogin()) {
+                    startActivity(new Intent(getContext(), jiCashHomeActivity.class));
+                }
+                else{
+                    Toast.makeText(getActivity(), "Silahkan login terlebih dahulu", Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }
@@ -296,7 +307,12 @@ public class homeFragment extends Fragment{
         callJicash.enqueue(new Callback<List<Jicash>>() {
             @Override
             public void onResponse(Call<List<Jicash>> call, Response<List<Jicash>> response) {
-                jicashBalance.setText("Rp. "+response.body().get(0).getBalance().toString()+",-");
+                if (response.body().size() != 0) {
+                    jicashBalance.setText("Rp. " + response.body().get(0).getBalance().toString() + ",-");
+                }
+                else {
+                    jicashBalance.setText("Rp. 0");
+                }
                 service4 = true;
                 if(service1 && service2 && service3 && service4){
                     progressBar.endProgressBarGambung();

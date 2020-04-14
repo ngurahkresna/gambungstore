@@ -446,7 +446,13 @@ public class CheckoutForm extends AppCompatActivity {
         jicashCall.enqueue(new Callback<List<Jicash>>() {
             @Override
             public void onResponse(Call<List<Jicash>> call, Response<List<Jicash>> response) {
-                jicash = Double.valueOf(response.body().get(0).getBalance());
+                if(response.body().size()!=0) {
+
+                    jicash = Double.valueOf(response.body().get(0).getBalance());
+                }
+                else{
+                    jicash = 0;
+                }
             }
 
             @Override
