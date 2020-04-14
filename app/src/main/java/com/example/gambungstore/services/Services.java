@@ -191,7 +191,8 @@ public interface Services {
             @Field("grand_total") int grand_total,
             @Field("payment_method_id") int payment_method_id,
             @Field("product_code[]") ArrayList<String> product_code,
-            @Field("message[]") ArrayList<String> message
+            @Field("message[]") ArrayList<String> message,
+            @Field("voucher") String voucher
     );
 
     @Multipart
