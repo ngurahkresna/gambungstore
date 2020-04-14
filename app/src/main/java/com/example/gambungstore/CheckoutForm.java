@@ -364,7 +364,8 @@ public class CheckoutForm extends AppCompatActivity {
                 grandTotalPrice,
                 payment_id,
                 product_code,
-                messages
+                messages,
+                mPromo.getText().toString()
         );
 
         callCheckoutProcess.enqueue(new Callback<DetailTransaction>() {

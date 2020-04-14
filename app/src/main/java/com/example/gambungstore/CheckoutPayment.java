@@ -177,20 +177,12 @@ public class CheckoutPayment extends AppCompatActivity {
                     jicash = true;
                 }
 
-                boolean cashback = false;
-                if (getIntent().getStringExtra("discountType") != null) {
-                    cashback = true;
-                }
-
-                Log.d(TAG, "onImagePicked: "+jicash+" "+cashback+ " "+getIntent().getStringExtra("discountType"));
+                Log.d(TAG, "onImagePicked: "+jicash+" "+getIntent().getStringExtra("discountType"));
 
                 if (jicash){
                     uploadProofJicash(bodyJicash,getIntent().getIntExtra("productPrice",0));
                 }else{
                     uploadProof(body);
-                    if (cashback){
-                        uploadProofJicash(bodyJicash,getIntent().getIntExtra("discountPrice",0));
-                    }
                 }
             }
 
