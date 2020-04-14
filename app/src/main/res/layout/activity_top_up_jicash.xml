@@ -51,7 +51,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/nominallabel"
-                android:text="Nominal Top Up"
+                android:text="Nominal Top Up (Rp)"
                 android:layout_marginTop="12dp"
                 android:layout_below="@id/topuplabel"/>
             <EditText
@@ -59,7 +59,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/nominallabel"
-                android:text="Rp."
+                android:text=""
+                android:inputType="number"
                 android:hint="(Min. 10.000)"/>
             <Button
                 android:id="@+id/btnTopUp"

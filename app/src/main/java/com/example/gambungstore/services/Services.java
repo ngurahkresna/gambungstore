@@ -8,6 +8,8 @@ import com.example.gambungstore.models.cart.Cart;
 import com.example.gambungstore.models.category.Category;
 import com.example.gambungstore.models.checkout.Checkout;
 import com.example.gambungstore.models.category.DataCategory;
+import com.example.gambungstore.models.jicash.HistoryJicash;
+import com.example.gambungstore.models.jicash.Jicash;
 import com.example.gambungstore.models.product.DataProduct;
 import com.example.gambungstore.models.product.Product;
 import com.example.gambungstore.models.promo.DataPromo;
@@ -187,7 +189,9 @@ public interface Services {
             @Field("total_product_amount") int total_product_amount,
             @Field("total_discount_amount") int total_discount_amount,
             @Field("grand_total") int grand_total,
-            @Field("payment_method_id") int payment_method_id
+            @Field("payment_method_id") int payment_method_id,
+            @Field("product_code[]") ArrayList<String> product_code,
+            @Field("message[]") ArrayList<String> message
     );
 
     @Multipart
@@ -226,5 +230,39 @@ public interface Services {
     Call<Product> searchProductInStore(
             @Query("store_code") String store_code,
             @Query("product_name") String product_name
+    );
+
+    @FormUrlEncoded
+    @POST("transaction/cancel")
+    Call<ResponseBody> cancelTransaction(
+            @Field("transaction_code") String transaction_code,
+            @Field("username") String username,
+            @Field("product_code") String product_code
+    );
+
+    @FormUrlEncoded
+    @POST("transaction/accept")
+    Call<ResponseBody> acceptTransaction(
+            @Field("transaction_code") String transaction_code,
+            @Field("username") String username,
+            @Field("product_code") String product_code
+    );
+
+    @GET("jicash/history")
+    Call<List<HistoryJicash>> getHistoryJicash(
+            @Query("username") String username
+    );
+
+    @Multipart
+    @POST("jicash/topup")
+    Call<ResponseBody> uploadProofJicash(
+            @Part("amount") RequestBody ammount,
+            @Part MultipartBody.Part topup_proof,
+            @Part("username") RequestBody username
+    );
+
+    @GET("jicash")
+    Call<List<Jicash>> getJicash(
+        @Query("username") String username
     );
 }

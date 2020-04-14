@@ -29,6 +29,7 @@ import com.example.gambungstore.client.Client;
 import com.example.gambungstore.models.Profile;
 import com.example.gambungstore.models.category.Category;
 import com.example.gambungstore.models.category.DataCategory;
+import com.example.gambungstore.models.jicash.Jicash;
 import com.example.gambungstore.models.product.DataProduct;
 import com.example.gambungstore.models.product.Product;
 import com.example.gambungstore.models.promo.DataPromo;
@@ -55,6 +56,7 @@ public class homeFragment extends Fragment{
     private TextView products;
     private TextView categories;
     private TextView jicashInfo;
+    private TextView jicashBalance;
     private LinearLayout searchHome;
 
     private RecyclerView promo;
@@ -112,7 +114,18 @@ public class homeFragment extends Fragment{
         product = view.findViewById(R.id.product);
         products = view.findViewById(R.id.allProduct);
         jicashInfo = view.findViewById(R.id.jicashInfo);
+        jicashBalance = view.findViewById(R.id.jicashBalance);
         relativeLayout = view.findViewById(R.id.relativeLayoutJicash);
+
+        if (isLogin()) {
+            getJicash();
+        }else{
+            jicashBalance.setText("Login Untuk Melihat Jicash");
+            service4 = true;
+            if(service1 && service2 && service3 && service4){
+                progressBar.endProgressBarGambung();
+            }
+        }
         getCategory();
         getProduct();
         getPromo();
@@ -190,7 +203,7 @@ public class homeFragment extends Fragment{
         promoAdapter = new PromoAdapter(dataPromos, getContext());
         promo.setAdapter(promoAdapter);
         service1 = true;
-        if(service1 && service2 && service3){
+        if(service1 && service2 && service3 && service4){
             progressBar.endProgressBarGambung();
         }
     }
@@ -206,7 +219,7 @@ public class homeFragment extends Fragment{
         categoryAdapter = new CategoryAdapter(categories, getContext(),"HomeFragment");
         category.setAdapter(categoryAdapter);
         service2 = true;
-        if(service1 && service2 && service3){
+        if(service1 && service2 && service3 && service4){
             progressBar.endProgressBarGambung();
         }
     }
@@ -223,10 +236,9 @@ public class homeFragment extends Fragment{
         product.setAdapter(productAdapter);
 
         service3 = true;
-        if(service1 && service2 && service3){
+        if(service1 && service2 && service3 && service4){
             progressBar.endProgressBarGambung();
         }
-//        progressBar.endProgressBarGambung();
     }
 
     private void getCategory(){
@@ -272,6 +284,28 @@ public class homeFragment extends Fragment{
 
             @Override
             public void onFailure(Call<Promo> call, Throwable t) {
+                Log.d(TAG, "onFailure: "+t.toString());
+            }
+        });
+    }
+
+    private void getJicash(){
+        Call<List<Jicash>> callJicash = service.getJicash(
+                SharedPreference.getRegisteredUsername(getContext())
+        );
+        callJicash.enqueue(new Callback<List<Jicash>>() {
+            @Override
+            public void onResponse(Call<List<Jicash>> call, Response<List<Jicash>> response) {
+                jicashBalance.setText("Rp. "+response.body().get(0).getBalance().toString()+",-");
+                service4 = true;
+                if(service1 && service2 && service3 && service4){
+                    progressBar.endProgressBarGambung();
+                }
+                Log.d(TAG, "onResponse: "+response.raw());
+            }
+
+            @Override
+            public void onFailure(Call<List<Jicash>> call, Throwable t) {
                 Log.d(TAG, "onFailure: "+t.toString());
             }
         });

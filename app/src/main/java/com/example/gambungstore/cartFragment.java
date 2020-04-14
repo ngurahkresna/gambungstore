@@ -109,7 +109,7 @@ public class cartFragment extends Fragment {
         callCart.enqueue(new Callback<Cart>() {
             @Override
             public void onResponse(Call<Cart> call, Response<Cart> response) {
-                if (!response.body().getDataCart().isEmpty()) {
+                if (!response.body().getDataCart().isEmpty() && (getView() != null)) {
                     getView().findViewById(R.id.cartEmpty).setVisibility(View.GONE);
                     getView().findViewById(R.id.cartEmptyText).setVisibility(View.GONE);
                     getView().findViewById(R.id.cartRecycleView).setVisibility(View.VISIBLE);
@@ -144,7 +144,7 @@ public class cartFragment extends Fragment {
     private String getTotalHarga(List<DataCart> dataCarts){
         int harga = 0;
         for (int i = 0; i < dataCarts.size(); i++){
-            harga += (Integer.valueOf(dataCarts.get(i).getPrice())*dataCarts.get(i).getQuantity());
+            harga += (Integer.valueOf(dataCarts.get(i).getProduct().getPrice())*dataCarts.get(i).getQuantity());
         }
         return Integer.toString(harga);
     }

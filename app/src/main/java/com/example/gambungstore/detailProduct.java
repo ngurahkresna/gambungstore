@@ -269,10 +269,11 @@ public class detailProduct extends AppCompatActivity {
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 // SHOW CART FRAGMENT
                 // GATAU LAGI
-                finish();
                 Intent intent = new Intent(detailProduct.this,homeActivity.class);
                 intent.putExtra("fragment","cart");
                 startActivity(intent);
+                finish();
+                Toast.makeText(detailProduct.this, "Berhasil Dimasukan Keranjang", Toast.LENGTH_SHORT).show();
             }
 
             @Override

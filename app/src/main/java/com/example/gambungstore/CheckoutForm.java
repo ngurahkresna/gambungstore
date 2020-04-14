@@ -16,10 +16,13 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.example.gambungstore.adapters.ExpeditionCheckoutAdapter;
 import com.example.gambungstore.client.Client;
 import com.example.gambungstore.models.checkout.Checkout;
 import com.example.gambungstore.models.checkout.PaymentMethod;
+import com.example.gambungstore.models.jicash.Jicash;
+import com.example.gambungstore.models.product.DataProduct;
 import com.example.gambungstore.models.store.DataStore;
 import com.example.gambungstore.models.transaction.DetailTransaction;
 import com.example.gambungstore.models.voucher.Voucher;
@@ -49,6 +52,7 @@ public class CheckoutForm extends AppCompatActivity {
     Button mButtonCekVoucher;
 
     ArrayList<String> paymentMethod = new ArrayList<>();
+    ArrayList<String> product_code = new ArrayList<>();
 
     //global variable
     public int productPrice = 0;
@@ -60,6 +64,7 @@ public class CheckoutForm extends AppCompatActivity {
 
     //expedition array
     public int[] expeditionArray;
+    public String[] messageArray;
 
     //checkout detail
     ArrayList<Integer> store_id = new ArrayList<>();
@@ -68,7 +73,7 @@ public class CheckoutForm extends AppCompatActivity {
 
     String transaction_code;
     String created_at;
-
+    double jicash;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,6 +95,7 @@ public class CheckoutForm extends AppCompatActivity {
         mChangeAddress = findViewById(R.id.ubahAddress);
 
         getData();
+        getJicash();
 
         mButtonCekVoucher.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -188,8 +194,25 @@ public class CheckoutForm extends AppCompatActivity {
                     store_id.add(store.getId());
                 }
 
+                //get all product code
+                int count = 0;
+                for(DataStore store : response.body().getStore()) {
+                    for (DataProduct product : store.getProducts()) {
+                        if (product.getCarts().size() != 0) {
+                            for (int i = 0; i < product.getCarts().size(); i++) {
+                                if (product.getCarts().get(i).getUsername().equals(SharedPreference.getRegisteredUsername(CheckoutForm.this))) {
+                                    product_code.add(product.getCode());
+                                    Log.d(TAG, "onResponse: " + product.getCode()+" "+count);
+                                    count++;
+                                }
+                            }
+                        }
+                    }
+                }
+
                 expeditionArray = new int[response.body().getStore().size()];
                 expeditionCode = new String[response.body().getStore().size()];
+                messageArray = new String[count];
 
                 defaultVoucher();
                 mTotalPrice.setText("Rp "+grandTotalPrice+",-");
@@ -254,12 +277,14 @@ public class CheckoutForm extends AppCompatActivity {
     }
 
     public void refreshRincianHarga(){
-        grandTotalPrice = productPrice - voucherPrice + expeditionPrice;
-        if (voucherType.equals("")){
-            mDiscountPrice.setText("Rp "+Integer.toString(voucherPrice)+",-");
-        }else{
+        if (voucherType.equals("cashback")){
+            grandTotalPrice = productPrice + expeditionPrice;
             mDiscountPrice.setText("Rp "+Integer.toString(voucherPrice)+",- ("+voucherType.toUpperCase()+")");
+        }else{
+            grandTotalPrice = productPrice - voucherPrice + expeditionPrice;
+            mDiscountPrice.setText("Rp "+Integer.toString(voucherPrice)+",-");
         }
+
         mTotalPrice.setText("Rp "+Integer.toString(grandTotalPrice)+",-");
         mExpeditionPrice.setText("Rp "+Integer.toString(expeditionPrice)+",-");
     }
@@ -297,17 +322,33 @@ public class CheckoutForm extends AppCompatActivity {
     }
 
     private void processCheckout(){
-        int payment_id = 0;
+        int temp = 0;
         for(PaymentMethod method : paymentMethods){
             if (method.getName().equals(metodePembayaran)){
-                payment_id = method.getId();
+                temp = method.getId();
             }
         }
+        final int payment_id = temp;
+        if (payment_id == 1){
+            if (grandTotalPrice > jicash){
+                Toast.makeText(this, "Saldo Jicash anda tidak cukup", Toast.LENGTH_SHORT).show();
+                progressbar.endProgressBarGambung();
+                return;
+            }
+        }
+
+        Log.d(TAG, "processCheckout: "+payment_id+" "+metodePembayaran+" "+paymentMethods.get(0)+" "+paymentMethods.get(1));
 
         //parse array to array list
         ArrayList<String> expedition = new ArrayList<>();
         for(String exp : expeditionCode){
             expedition.add(exp);
+            Log.d(TAG, "processCheckout: "+exp);
+        }
+
+        ArrayList<String> messages = new ArrayList<>();
+        for (String mes : messageArray){
+            messages.add(mes);
         }
 
         Services service = Client.getClient(Client.BASE_URL).create(Services.class);
@@ -321,17 +362,27 @@ public class CheckoutForm extends AppCompatActivity {
                 productPrice,
                 voucherPrice,
                 grandTotalPrice,
-                payment_id
+                payment_id,
+                product_code,
+                messages
         );
 
         callCheckoutProcess.enqueue(new Callback<DetailTransaction>() {
             @Override
             public void onResponse(Call<DetailTransaction> call, Response<DetailTransaction> response) {
                 Log.d(TAG, "onResponse proses: "+response.raw());
-                Log.d(TAG, "onResponse proses: "+response.body().getCode());
+                Log.d(TAG, "onResponse proses: "+response.body().getCreated_at());
                 Toast.makeText(CheckoutForm.this, "Berhasil Checkout", Toast.LENGTH_SHORT).show();
                 transaction_code = response.body().getCode();
                 created_at = response.body().getCreated_at();
+
+                if (payment_id == 1){
+                    Intent intent = new Intent(CheckoutForm.this, CheckoutDone.class);
+                    finish();
+                    startActivity(intent);
+                    progressbar.endProgressBarGambung();
+                    return;
+                }
 
                 Intent intent = new Intent(CheckoutForm.this, CheckoutPayment.class);
                 intent.putExtra("productPrice", productPrice);
@@ -339,7 +390,8 @@ public class CheckoutForm extends AppCompatActivity {
                 intent.putExtra("expeditionPrice",expeditionPrice);
                 intent.putExtra("grandTotalPrice",grandTotalPrice);
                 intent.putExtra("transaction_code", transaction_code);
-                intent.putExtra("created_at",created_at);
+                intent.putExtra("discountType", voucherType);
+                intent.putExtra("created_at",response.body().getCreated_at());
                 finish();
                 startActivity(intent);
 
@@ -376,5 +428,31 @@ public class CheckoutForm extends AppCompatActivity {
         });
 
         builder.show();
+    }
+
+    public void getMessage(String text, int position){
+        messageArray[position] = text;
+
+        Log.d(TAG, "setMessage: "+position);
+        Log.d(TAG, "getMessage: "+text);
+    }
+
+    private void getJicash(){
+
+        Services service = Client.getClient(Client.BASE_URL).create(Services.class);
+        Call<List<Jicash>> jicashCall = service.getJicash(
+                SharedPreference.getRegisteredUsername(this)
+        );
+        jicashCall.enqueue(new Callback<List<Jicash>>() {
+            @Override
+            public void onResponse(Call<List<Jicash>> call, Response<List<Jicash>> response) {
+                jicash = Double.valueOf(response.body().get(0).getBalance());
+            }
+
+            @Override
+            public void onFailure(Call<List<Jicash>> call, Throwable t) {
+
+            }
+        });
     }
 }

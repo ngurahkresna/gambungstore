@@ -52,11 +52,13 @@ public class homeActivity extends AppCompatActivity implements BottomNavigationV
             String fragmentMoveTo = getIntent().getStringExtra("fragment");
             if (fragmentMoveTo != null) {
                 if (fragmentMoveTo.equals("cart")) {
+                    bottomNavigationView.setSelectedItemId(R.id.cart_menu);
                     Fragment fragment = new cartFragment();
                     loadFragment(fragment);
                     return;
                 }else if(fragmentMoveTo.equals("transaction")){
-                    Fragment fragment = new onGoingTransaction();
+                    bottomNavigationView.setSelectedItemId(R.id.transaction_menu);
+                    Fragment fragment = new transaction();
                     loadFragment(fragment);
                     return;
                 } else if(fragmentMoveTo.equals("chat")) {

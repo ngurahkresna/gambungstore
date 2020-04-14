@@ -48,7 +48,7 @@ public class ExpeditionCheckoutAdapter extends RecyclerView.Adapter<ExpeditionCh
     @Override
     public void onBindViewHolder(@NonNull ExpeditionCheckoutAdapter.MyViewHolder holder, int position) {
         final DataStore storePosition = dataStores.get(position);
-        productAdapterCheckout(holder, storePosition.getProducts());
+        productAdapterCheckout(holder, storePosition.getProducts(), position);
 
         holder.mExpeditionButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -105,8 +105,8 @@ public class ExpeditionCheckoutAdapter extends RecyclerView.Adapter<ExpeditionCh
         }
     }
 
-    public void productAdapterCheckout(@NonNull ExpeditionCheckoutAdapter.MyViewHolder holder, List<DataProduct> listProducts) {
-        ProductCheckoutAdapter productAdapter = new ProductCheckoutAdapter(listProducts,context);
+    public void productAdapterCheckout(@NonNull ExpeditionCheckoutAdapter.MyViewHolder holder, List<DataProduct> listProducts, int position) {
+        ProductCheckoutAdapter productAdapter = new ProductCheckoutAdapter(listProducts,context,position);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context, RecyclerView.VERTICAL, false);
         holder.product.setLayoutManager(linearLayoutManager);
         holder.product.setAdapter(productAdapter);
