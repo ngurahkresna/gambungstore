@@ -159,9 +159,14 @@ public class sideBar extends Fragment {
         mLogoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                ProgressBarGambung progresbar = new ProgressBarGambung(getActivity());
+                progresbar.startProgressBarGambung();
+
                 logoutProcess();
                 getFragmentManager().beginTransaction().remove(sideBar.this).commit();
                 ((homeActivity)getActivity()).refreshMenu();
+                Intent intent = new Intent(getActivity(),homeActivity.class);
+                startActivity(intent);
             }
         });
 
