@@ -386,6 +386,7 @@ public class CheckoutForm extends AppCompatActivity {
                 }
 
                 Intent intent = new Intent(CheckoutForm.this, CheckoutPayment.class);
+                intent.putExtra("flag","checkoutform");
                 intent.putExtra("productPrice", productPrice);
                 intent.putExtra("discountPrice", voucherPrice);
                 intent.putExtra("expeditionPrice",expeditionPrice);
