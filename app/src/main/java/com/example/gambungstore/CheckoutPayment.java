@@ -70,20 +70,20 @@ public class CheckoutPayment extends AppCompatActivity {
         mTotalPrice.setText("Rp "+Integer.toString(getIntent().getIntExtra("grandTotalPrice",0))+",-");
         mExpeditionPrice.setText("Rp "+Integer.toString(getIntent().getIntExtra("expeditionPrice",0))+",-");
 
-        long timeall = 86400000;
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-        String created = getIntent().getStringExtra("created_at");
-        LocalDateTime dateTime = LocalDateTime.parse(created, formatter);
-        LocalDateTime today = LocalDateTime.now();
-        Duration duration = Duration.between(today, dateTime);
         long diff = 0;
-        if (duration.toMillis() < 0){
-            diff = timeall + duration.toMillis();
-        }else{
-            diff = 0;
-        }
+        long timeall = 86400000;
 
-        Log.d(TAG, "onCreate: "+duration.toMinutes()+":"+duration.toMillis()+":");
+            Log.d(TAG, "onCreate: "+getIntent().getStringExtra("flag"));
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+            String created = getIntent().getStringExtra("created_at");
+            LocalDateTime dateTime = LocalDateTime.parse(created, formatter);
+            LocalDateTime today = LocalDateTime.now();
+            Duration duration = Duration.between(today, dateTime);
+            if (duration.toMillis() < 0){
+                diff = timeall + duration.toMillis();
+            }else{
+                diff = timeall - duration.toMillis();
+            }
 
         countdownTime(diff);
 
