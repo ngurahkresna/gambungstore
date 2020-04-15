@@ -98,6 +98,7 @@ public class detailProduct extends AppCompatActivity {
         service = Client.getClient(Client.BASE_URL).create(Services.class);
         mId = getIntent().getStringExtra("product_id");
         getProduct();
+        progressbar.endProgressBarGambung();
     }
 
     public void setSuggestProduct(List<DataProduct> dataProducts) {
@@ -288,6 +289,7 @@ public class detailProduct extends AppCompatActivity {
                 startActivity(intent);
                 finish();
                 Toast.makeText(detailProduct.this, "Berhasil Dimasukan Keranjang", Toast.LENGTH_SHORT).show();
+                progressbar.endProgressBarGambung();
             }
 
             @Override
