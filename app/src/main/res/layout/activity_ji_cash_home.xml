@@ -64,8 +64,7 @@
             android:layout_weight="2"
             android:layout_width="0dp"
             android:layout_height="48dp"
-            android:text="Periode"
-            android:onClick="periodeWindow"
+            android:text="Filter"
             android:textColor="@color/colorPrimary"
             android:textAllCaps="false"
             />
@@ -96,7 +95,7 @@
             android:id="@+id/jicashBalance"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Rp. 350.000"
+            android:text="Loading.."
             android:textStyle="bold"
             android:textColor="@color/colorWhite"
             android:textSize="36sp"/>
