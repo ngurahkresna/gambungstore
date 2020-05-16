@@ -51,6 +51,7 @@ public class cartFragment extends Fragment {
     private RecyclerView cart;
     private LinearLayoutManager setLayoutManagerCart;
     private CartAdapter cartAdapter;
+    public TextView mTotal;
 
     private ProgressBarGambung progressbar;
 
@@ -76,6 +77,7 @@ public class cartFragment extends Fragment {
         progressbar.startProgressBarGambung();
 
         mCheckout = getView().findViewById(R.id.checkoutButton);
+        mTotal = getView().findViewById(R.id.cartTotal);
         mCheckout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -114,7 +116,7 @@ public class cartFragment extends Fragment {
                     getView().findViewById(R.id.cartEmptyText).setVisibility(View.GONE);
                     getView().findViewById(R.id.cartRecycleView).setVisibility(View.VISIBLE);
                     viewRecyclerCart(response.body().getDataCart());
-                    TextView mTotal = getView().findViewById(R.id.cartTotal);
+
                     mTotal.setText("Rp "+getTotalHarga(response.body().getDataCart())+",-");
                     listCart = response.body().getDataCart();
                 }
@@ -137,7 +139,7 @@ public class cartFragment extends Fragment {
         cart.setLayoutManager(setLayoutManagerCart);
 
         // specify an adapter (see also next example)
-        cartAdapter = new CartAdapter(dataCarts,getContext());
+        cartAdapter = new CartAdapter(dataCarts, getContext(), this);
         cart.setAdapter(cartAdapter);
     }
 
@@ -152,12 +154,12 @@ public class cartFragment extends Fragment {
     public void checkout(){
         progressbar.startProgressBarGambung();
 
+        List<DataCart> dataCarts = cartAdapter.getDataCart();
         ArrayList<Integer> cart_id = new ArrayList<Integer>();
         ArrayList<Integer> quantity = new ArrayList<Integer>();
-        for (int i = 0; i < listCart.size(); i++) {
-            Log.d(TAG, "checkout: "+i);
-            cart_id.add(listCart.get(i).getId());
-            quantity.add(listCart.get(i).getQuantity());
+        for (int i = 0; i < dataCarts.size(); i++) {
+            cart_id.add(dataCarts.get(i).getId());
+            quantity.add(dataCarts.get(i).getQuantity());
         }
 
         Services service = Client.getClient(Client.BASE_URL).create(Services.class);

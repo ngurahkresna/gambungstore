@@ -16,14 +16,14 @@
 
         <androidx.cardview.widget.CardView
             android:layout_width="100dp"
-            android:layout_height="120dp"
+            android:layout_height="125dp"
             app:cardCornerRadius="4dp"
             android:id="@+id/containerProduct">
 
             <ImageView
                 android:id="@+id/cartBackground"
                 android:layout_width="100dp"
-                android:layout_height="120dp"
+                android:layout_height="125dp"
                 android:scaleType="centerCrop"
                 android:background="@drawable/product_backgorund" />
         </androidx.cardview.widget.CardView>
@@ -46,16 +46,6 @@
                 android:textStyle="bold"/>
 
             <TextView
-                android:id="@+id/cartQuantity"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/containerProduct"
-                android:ellipsize="end"
-                android:maxLines="2"
-                android:text="Quantity : 2"
-                android:textSize="14sp"/>
-
-            <TextView
                 android:id="@+id/cartPrice"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -65,13 +55,73 @@
                 android:text="Total Price : Rp 20.000"
                 android:textSize="14sp"/>
 
-            <Button
-                android:id="@+id/deleteButton"
+            <TextView
+                android:id="@+id/productStock"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:backgroundTint="@color/colorAccent"
-                android:textColor="@color/colorWhite"
-                android:text="Delete" />
+                android:layout_below="@+id/containerProduct"
+                android:ellipsize="end"
+                android:maxLines="2"
+                android:text="Tersisa x stok"
+                android:textSize="14sp"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <Button
+                        android:id="@+id/decreaseQty"
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:layout_gravity="center_vertical"
+                        android:background="@drawable/border_button"
+                        android:text="-"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/quantity"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginRight="15dp"
+                        android:text="1"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+
+                    <Button
+                        android:id="@+id/increaseQty"
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:layout_gravity="center_vertical"
+                        android:background="@drawable/button_primary_solid"
+                        android:text="+"
+                        android:textColor="@color/colorWhite"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="end">
+
+                    <Button
+                        android:id="@+id/deleteButton"
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
+                        android:background="@drawable/ic_delete_white"
+                        android:backgroundTint="@color/colorRed" />
+                </LinearLayout>
+            </LinearLayout>
 
         </LinearLayout>
 
