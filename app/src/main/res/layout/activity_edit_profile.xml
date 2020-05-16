@@ -4,38 +4,36 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".editProfile"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context=".editProfile">
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:padding="@dimen/space_triple">
 
-        <LinearLayout
-            android:layout_width="120dp"
-            android:layout_height="70dp"
-            android:background="@drawable/back_background_shape"
-            android:padding="@dimen/space_double">
-
-            <ImageView
-                android:id="@+id/backArrow"
-                android:layout_width="32dp"
-                android:layout_height="32dp"
-                android:layout_marginTop="@dimen/space_half"
-                android:src="@drawable/ic_arrow_back_black_24dp"
-                android:tint="@color/colorWhite" />
-        </LinearLayout>
+        <ImageView
+            android:id="@+id/backArrow"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:src="@drawable/ic_arrow_back_black_24dp"
+            android:tint="@color/colorFont"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginLeft="@dimen/space_xtra"
             android:text="Edit Profile"
+            android:textAlignment="center"
             android:textColor="@color/colorFont"
             android:textSize="24sp"
-            android:textStyle="bold" />
-    </LinearLayout>
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <ScrollView
         android:layout_width="match_parent"
@@ -110,16 +108,16 @@
 
             <LinearLayout
                 android:id="@+id/cityNBirthDate"
-                android:layout_below="@id/phoneField"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                >
+                android:layout_below="@id/phoneField">
+
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/cityField"
                     android:layout_width="172dp"
-                    android:layout_marginRight="@dimen/space"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/space">
+                    android:layout_marginTop="@dimen/space"
+                    android:layout_marginRight="@dimen/space">
 
                     <EditText
                         android:id="@+id/city"
@@ -159,61 +157,61 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/space_double"
-                    android:hint="Alamat Lengkap"/>
+                    android:hint="Alamat Lengkap" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
             <LinearLayout
                 android:id="@+id/passwordNConfirm"
-                android:layout_below="@id/addressField"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                >
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/passwordField"
-                android:layout_width="156dp"
-                android:layout_marginRight="@dimen/space_half"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/space">
+                android:layout_below="@id/addressField">
 
-                <EditText
-                    android:id="@+id/password"
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/passwordField"
                     android:layout_width="156dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/space_double"
-                    android:hint="Password"
-                    android:inputType="textPassword"/>
+                    android:layout_marginTop="@dimen/space"
+                    android:layout_marginRight="@dimen/space_half">
 
-            </com.google.android.material.textfield.TextInputLayout>
+                    <EditText
+                        android:id="@+id/password"
+                        android:layout_width="156dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/space_double"
+                        android:hint="Password"
+                        android:inputType="textPassword" />
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/confirmPassField"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/space">
+                </com.google.android.material.textfield.TextInputLayout>
 
-                <EditText
-                    android:id="@+id/confirmPass"
-                    android:layout_width="fill_parent"
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/confirmPassField"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/space_double"
-                    android:hint="Konfirmasi Password"
-                    android:inputType="textPassword"/>
+                    android:layout_marginTop="@dimen/space">
 
-            </com.google.android.material.textfield.TextInputLayout>
+                    <EditText
+                        android:id="@+id/confirmPass"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/space_double"
+                        android:hint="Konfirmasi Password"
+                        android:inputType="textPassword" />
+
+                </com.google.android.material.textfield.TextInputLayout>
             </LinearLayout>
 
             <Button
                 android:id="@+id/buttonSubmit"
-                android:layout_below="@+id/passwordNConfirm"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Simpan Perubahan"
+                android:layout_below="@+id/passwordNConfirm"
+                android:layout_marginTop="@dimen/space_triple"
                 android:background="@drawable/button_primary_solid"
-                android:textColor="@color/colorWhite"
-                android:textStyle="bold"
+                android:text="Simpan Perubahan"
                 android:textAllCaps="false"
-                android:layout_marginTop="@dimen/space_triple"/>
+                android:textColor="@color/colorWhite"
+                android:textStyle="bold" />
 
         </RelativeLayout>
     </ScrollView>
