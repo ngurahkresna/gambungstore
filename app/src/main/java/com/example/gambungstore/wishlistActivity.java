@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -35,7 +36,9 @@ public class wishlistActivity extends AppCompatActivity {
         findViewById(R.id.backButton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onBackPressed();
+                finish();
+                Intent intent = new Intent(wishlistActivity.this,homeActivity.class);
+                startActivity(intent);
             }
         });
 

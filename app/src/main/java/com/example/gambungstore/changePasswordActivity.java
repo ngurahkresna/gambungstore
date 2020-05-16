@@ -43,7 +43,9 @@ public class changePasswordActivity extends AppCompatActivity {
         mbackBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                onBackPressed();
+                finish();
+                Intent intent = new Intent(changePasswordActivity.this,homeActivity.class);
+                startActivity(intent);
             }
         });
     }
