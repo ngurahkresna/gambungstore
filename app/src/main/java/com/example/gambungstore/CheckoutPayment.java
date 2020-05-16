@@ -248,6 +248,7 @@ public class CheckoutPayment extends AppCompatActivity {
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 Log.d(TAG, "onResponse: "+response.raw());
                 Intent intent = new Intent(CheckoutPayment.this, CheckoutDone.class);
+                intent.putExtra("payment","transfer");
                 startActivity(intent);
                 finish();
                 progressbar.endProgressBarGambung();
@@ -282,6 +283,7 @@ public class CheckoutPayment extends AppCompatActivity {
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 Log.d(TAG, "onResponse: "+response.raw());
                 Intent intent = new Intent(CheckoutPayment.this, CheckoutDone.class);
+                intent.putExtra("payment","jicash");
                 startActivity(intent);
                 finish();
                 progressbar.endProgressBarGambung();

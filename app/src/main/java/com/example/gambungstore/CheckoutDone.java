@@ -33,10 +33,17 @@ public class CheckoutDone extends AppCompatActivity {
         mSubmitButtom.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(CheckoutDone.this,homeActivity.class);
-                intent.putExtra("fragment", "transaction");
-                startActivity(intent);
-                finish();
+                if (getIntent().getStringExtra("payment").equals("jicash")){
+                    Intent intent = new Intent(CheckoutDone.this,jiCashHomeActivity.class);
+                    startActivity(intent);
+                    finish();
+                }else{
+                    Intent intent = new Intent(CheckoutDone.this,homeActivity.class);
+                    intent.putExtra("fragment", "transaction");
+                    startActivity(intent);
+                    finish();
+                }
+
             }
         });
     }
