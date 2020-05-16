@@ -47,11 +47,15 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyViewHo
         holder.mId = String.valueOf(productPosition.getId());
         if (productPosition.getImages() != null) {
             if (!productPosition.getImages().isEmpty()) {
-                Log.d(TAG, "onBindViewHolder: " + productPosition.getName());
                 Glide.with(context)
                         .load(Client.IMAGE_URL + productPosition.getImages().get(0).getImage_name())
                         .into(holder.mImageView);
             }
+        }
+
+        if (productPosition.getStock() < 1) {
+            holder.mImageView.setAlpha((float) 0.5);
+            holder.mOutOfStockText.setVisibility(View.VISIBLE);
         }
 
         holder.mImageView.setOnClickListener(new View.OnClickListener() {
@@ -74,12 +78,14 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyViewHo
         TextView mTitle;
         TextView mPrice;
         String mId;
+        TextView mOutOfStockText;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             mImageView = itemView.findViewById(R.id.productBackground);
             mTitle = itemView.findViewById(R.id.productTitle);
             mPrice = itemView.findViewById(R.id.productPrice);
+            mOutOfStockText = itemView.findViewById(R.id.outOfStockText);
         }
     }
 }
