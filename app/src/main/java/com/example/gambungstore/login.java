@@ -91,7 +91,9 @@ public class login extends AppCompatActivity {
                 Log.d(TAG, "onResponse: "+response.raw());
                 if (response.code() == 422){
                     Toast.makeText(login.this, "Username/Password Anda Salah", Toast.LENGTH_SHORT).show();
-                }else{
+                }else if(response.body().getVerified() == null){
+                    Toast.makeText(login.this, "Anda belum verifikasi email, silahkan verifikasi terlebih dahulu!", Toast.LENGTH_SHORT).show();
+                } else{
                     Log.d(TAG, "onResponse: "+response.body().getToken());
                     SharedPreference.setRegisteredToken(getApplicationContext(),response.body().getToken());
                     Intent intent = new Intent(login.this, homeActivity.class);// New activity
