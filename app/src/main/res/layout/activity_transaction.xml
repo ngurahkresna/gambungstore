@@ -7,8 +7,25 @@
     tools:context=".transaction"
     android:background="#FFFF"
     >
-
+    <TextView
+        android:id="@+id/transaction_label"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Transaksi"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:textColor="@color/colorFont"
+        android:paddingTop="16dp"
+        android:paddingBottom="16dp"
+        android:gravity="center"/>
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tab_layout"
+        android:layout_below="@id/transaction_label"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        />
     <ScrollView
+        android:layout_below="@id/tab_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -16,32 +33,11 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:padding="@dimen/space_triple">
-
-            <TextView
-                android:id="@+id/transaction_label"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Transaksi"
-                android:textSize="24sp"
-                android:textStyle="bold"
-                android:textColor="@color/colorFont"
-                android:gravity="center"/>
-
-            <com.google.android.material.tabs.TabLayout
-                android:id="@+id/tab_layout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/transaction_label"
-                />
-
             <androidx.viewpager.widget.ViewPager
                 android:id="@+id/pager"
                 android:layout_width="match_parent"
-                android:layout_height="720sp"
-                android:layout_below="@id/tab_layout" />
-
+                android:layout_height="wrap_content" />
         </RelativeLayout>
-
     </ScrollView>
 
 </RelativeLayout>
