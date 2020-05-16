@@ -4,38 +4,36 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".wishlistActivity"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context=".wishlistActivity">
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:padding="@dimen/space_triple">
 
-        <LinearLayout
+        <ImageView
             android:id="@+id/backButton"
-            android:layout_width="120dp"
-            android:layout_height="70dp"
-            android:background="@drawable/back_background_shape"
-            android:padding="@dimen/space_double">
-
-            <ImageView
-                android:layout_width="32dp"
-                android:layout_height="32dp"
-                android:layout_marginTop="@dimen/space_half"
-                android:src="@drawable/ic_arrow_back_black_24dp"
-                android:tint="@color/colorWhite" />
-        </LinearLayout>
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:src="@drawable/ic_arrow_back_black_24dp"
+            android:tint="@color/colorFont"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginLeft="@dimen/space_xtra"
             android:text="Wishlist"
+            android:textAlignment="center"
             android:textColor="@color/colorFont"
             android:textSize="24sp"
-            android:textStyle="bold" />
-    </LinearLayout>
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <ScrollView
         android:layout_width="match_parent"
