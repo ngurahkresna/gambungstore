@@ -15,9 +15,11 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.example.gambungstore.client.Client;
 import com.example.gambungstore.progressbar.ProgressBarGambung;
 import com.example.gambungstore.services.Services;
@@ -51,6 +53,12 @@ public class CheckoutPayment extends AppCompatActivity {
 
     ProgressBarGambung progressbar = new ProgressBarGambung(this);
 
+    File file;
+    RequestBody requestFile;
+    String imageName;
+    ImageView mImageProof;
+    boolean isUpload = false;
+
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +72,7 @@ public class CheckoutPayment extends AppCompatActivity {
         mSubmitButtom = findViewById(R.id.submitButton);
         mBackButton = findViewById(R.id.backButton);
         mTime = findViewById(R.id.time);
+        mImageProof = findViewById(R.id.image_proof);
 
         mProductPrice.setText("Rp "+Integer.toString(getIntent().getIntExtra("productPrice",0))+",-");
         mDiscountPrice.setText("Rp "+Integer.toString(getIntent().getIntExtra("discountPrice",0))+",-");
@@ -99,7 +108,11 @@ public class CheckoutPayment extends AppCompatActivity {
         mSubmitButtom.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                chooseImage();
+                if (isUpload){
+                    process_upload();
+                }else{
+                    chooseImage();
+                }
             }
         });
 
@@ -165,10 +178,32 @@ public class CheckoutPayment extends AppCompatActivity {
 
             @Override
             public void onImagePicked(File imageFile, EasyImage.ImageSource source, int type) {
-                File file = new File(String.valueOf(imageFile));
-                RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
-                String imageName = file.getName();
+                file = new File(String.valueOf(imageFile));
+                requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
+                imageName = file.getName();
 
+                Glide.with(CheckoutPayment.this)
+                        .load(imageFile)
+                        .into(mImageProof);
+                mSubmitButtom.setText("Konfirmasi Pembayaran");
+                isUpload = true;
+            }
+
+            @Override
+            public void onCanceled(EasyImage.ImageSource imageSource, int i) {
+
+            }
+        });
+    }
+
+    private void process_upload(){
+
+        android.app.AlertDialog.Builder alert = new android.app.AlertDialog.Builder(this);
+        alert.setMessage("Pastikan bukti pembayaran sudah benar, karena tidak dapat dikirim ulang!");
+        alert.setTitle("Apakah Anda Yakin ?");
+        alert.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
                 MultipartBody.Part bodyJicash = MultipartBody.Part.createFormData("topup_proof", imageName, requestFile);
                 MultipartBody.Part body = MultipartBody.Part.createFormData("proof_image", imageName, requestFile);
 
@@ -177,20 +212,20 @@ public class CheckoutPayment extends AppCompatActivity {
                     jicash = true;
                 }
 
-                Log.d(TAG, "onImagePicked: "+jicash+" "+getIntent().getStringExtra("discountType"));
-
                 if (jicash){
                     uploadProofJicash(bodyJicash,getIntent().getIntExtra("productPrice",0));
                 }else{
                     uploadProof(body);
                 }
             }
-
+        });
+        alert.setNegativeButton("No", new DialogInterface.OnClickListener() {
             @Override
-            public void onCanceled(EasyImage.ImageSource imageSource, int i) {
+            public void onClick(DialogInterface dialog, int which) {
 
             }
         });
+        alert.show();
     }
 
     private void uploadProof(MultipartBody.Part image){

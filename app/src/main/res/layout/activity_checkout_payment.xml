@@ -328,15 +328,23 @@
 
                     </LinearLayout>
 
+                    <ImageView
+                        android:layout_marginTop="20dp"
+                        android:id="@+id/image_proof"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/detailPayment"
+                        />
+
                     <Button
                         android:id="@+id/submitButton"
                         android:layout_width="match_parent"
                         android:layout_height="35dp"
-                        android:layout_below="@id/detailPayment"
+                        android:layout_below="@id/image_proof"
                         android:layout_marginTop="20dp"
                         android:background="@drawable/button_primary_solid"
                         android:padding="8dp"
-                        android:text="Konfirmasi Pembayaran"
+                        android:text="Upload Bukti Pembayaran"
                         android:textAlignment="center"
                         android:textAllCaps="false"
                         android:textColor="@color/colorWhite" />
