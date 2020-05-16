@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
@@ -26,7 +27,7 @@ public class changePasswordActivity extends AppCompatActivity {
     private EditText mNewPassword;
     private EditText mConfirmPassword;
 
-    private LinearLayout mbackBtn;
+    private ImageView mbackBtn;
 
     private Services service;
 
