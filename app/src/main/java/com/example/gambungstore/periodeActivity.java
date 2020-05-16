@@ -1,5 +1,6 @@
 package com.example.gambungstore;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -14,22 +15,28 @@ public class periodeActivity extends AppCompatActivity implements DatePickerFrag
     EditText fromDate, untilDate;
     Button applyButton;
 
+    boolean isFrom, isUntil;
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_periode);
+
         fromDate = findViewById(R.id.datePickerFrom);
         fromDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                isFrom = true;
+                isUntil = false;
                 showDatePicker(v);
             }
         });
 
-        // Masih terduplikat jika di apply tanggal nya
         untilDate = findViewById(R.id.untilDateEditText);
         untilDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                isFrom = false;
+                isUntil = true;
                 showDatePicker(v);
             }
         });
@@ -39,7 +46,11 @@ public class periodeActivity extends AppCompatActivity implements DatePickerFrag
             @Override
             public void onClick(View v) {
                 Toast.makeText(periodeActivity.this, "Berhasil diterapkan!", Toast.LENGTH_SHORT).show();
-                onBackPressed();
+                Intent intent = new Intent();
+                intent.putExtra("from_date", fromDate.getText().toString());
+                intent.putExtra("until_date", untilDate.getText().toString());
+                setResult(RESULT_OK, intent);
+                finish();
             }
         });
     }
@@ -53,8 +64,10 @@ public class periodeActivity extends AppCompatActivity implements DatePickerFrag
     }
     @Override
     public void returnDate(String date) {
-        fromDate.setText(date);
-        untilDate.setText(date);
+        if (isFrom)
+            fromDate.setText(date);
+        if (isUntil)
+            untilDate.setText(date);
     }
 
 
