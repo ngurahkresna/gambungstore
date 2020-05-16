@@ -1,5 +1,6 @@
 package com.example.gambungstore;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -7,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -29,12 +31,17 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class jiCashHomeActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+    private static final String TAG = "jiCashHomeActivity";
     RecyclerView rvHistory;
     LinearLayoutManager linearLayoutManager;
     ImageView backView;
     Button btnTopup, btnPeriode;
     TextView jicashBalance;
     ProgressBarGambung progressBar;
+
+    String filter = "Semua";
+    String from_date = null, until_date = null;
+    int counter = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -80,7 +87,7 @@ public class jiCashHomeActivity extends AppCompatActivity implements AdapterView
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(jiCashHomeActivity.this, periodeActivity.class);
-                startActivity(intent);
+                startActivityForResult(intent,1);
             }
         });
         getData();
@@ -90,7 +97,7 @@ public class jiCashHomeActivity extends AppCompatActivity implements AdapterView
         rvHistory = findViewById(R.id.jicashHistoyRecyclerView);
         linearLayoutManager = new LinearLayoutManager(this,RecyclerView.VERTICAL, false);
         rvHistory.setLayoutManager(linearLayoutManager);
-        jicashHistoryCardAdapter jicashHistoryCardAdapter = new jicashHistoryCardAdapter(this,jicashList);
+        jicashHistoryCardAdapter jicashHistoryCardAdapter = new jicashHistoryCardAdapter(this,jicashList,this.filter,this.from_date,this.until_date);
         rvHistory.setAdapter(jicashHistoryCardAdapter);
     }
 
@@ -125,6 +132,12 @@ public class jiCashHomeActivity extends AppCompatActivity implements AdapterView
         ((TextView) parent.getChildAt(0)).setTextColor(Color.parseColor("#388A6B"));
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
                 R.array.transaksi_jicash, android.R.layout.simple_spinner_item);
+        Log.d(TAG, "onItemSelected: " + adapter.getItem(position));
+        if (this.counter++ != 0){
+            progressBar.startProgressBarGambung();
+            this.filter = adapter.getItem(position).toString();
+            this.getData();
+        }
     }
 
     @Override
@@ -135,5 +148,17 @@ public class jiCashHomeActivity extends AppCompatActivity implements AdapterView
     @Override
     public void onPointerCaptureChanged(boolean hasCapture) {
 
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1){
+            if(resultCode == RESULT_OK) {
+                this.from_date = data.getStringExtra("from_date");
+                this.until_date = data.getStringExtra("until_date");
+                this.getData();
+            }
+        }
     }
 }
