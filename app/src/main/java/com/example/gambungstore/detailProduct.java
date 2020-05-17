@@ -203,6 +203,13 @@ public class detailProduct extends AppCompatActivity {
 
     public void increaseQuantity(View view) {
         int q = Integer.parseInt(String.valueOf(mQuantity.getText()));
+
+        int stock = Integer.parseInt(mAvailableCount.getText().toString());
+        if (stock <= q){
+            Toast.makeText(this, "Stok hanya tersedia " + mAvailableCount.getText().toString(), Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         q++;
 
         mQuantity.setText(String.valueOf(q));
@@ -270,7 +277,7 @@ public class detailProduct extends AppCompatActivity {
     public void storeToCart(View view) {
         progressbar.startProgressBarGambung();
 
-        int stock = Integer.valueOf(mAvailableCount.getText().toString());
+        int stock = Integer.parseInt(mAvailableCount.getText().toString());
         if (stock <= 0){
             Toast.makeText(this, "Barang Sudah Habis!", Toast.LENGTH_SHORT).show();
             progressbar.endProgressBarGambung();

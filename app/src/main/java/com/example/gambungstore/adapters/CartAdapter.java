@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentManager;
@@ -27,7 +28,9 @@ import com.example.gambungstore.models.cart.DataCart;
 import com.example.gambungstore.progressbar.ProgressBarGambung;
 import com.example.gambungstore.services.Services;
 
+import java.lang.reflect.Array;
 import java.net.ResponseCache;
+import java.util.ArrayList;
 import java.util.List;
 
 import okhttp3.ResponseBody;
@@ -35,17 +38,21 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder>  {
+public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> {
     private static final String TAG = "CartAdapter";
 
     private List<DataCart> dataCart;
     public Context context;
     private ProgressBarGambung progressbar;
+    private ArrayList<Integer> cartIds;
+    private ArrayList<Integer> cartQuantities;
+    private cartFragment fragment;
 
-    public CartAdapter(List<DataCart> dataCart, Context context) {
+    public CartAdapter(List<DataCart> dataCart, Context context, cartFragment fragment) {
         this.dataCart = dataCart;
         this.context = context;
         progressbar = new ProgressBarGambung((homeActivity) context);
+        this.fragment = fragment;
     }
 
     @NonNull
@@ -59,17 +66,20 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
     @Override
     public void onBindViewHolder(@NonNull CartAdapter.MyViewHolder holder, int position) {
         DataCart cartPosition = dataCart.get(position);
-        Log.d(TAG, "onBindViewHolder: "+cartPosition.getId());
+
+        int productStock = cartPosition.getProduct().getStock();
         holder.mNameProduct.setText(cartPosition.getProduct().getName().toString());
-        holder.mPriceProduct.setText("Harga : Rp "+cartPosition.getProduct().getPrice()+",-");
-        holder.mQuantityProduct.setText("Kuantitas : "+cartPosition.getQuantity()+" pcs");
-        if (cartPosition.getProduct().getImages() != null){
+        holder.mPriceProduct.setText("Harga : Rp " + cartPosition.getProduct().getPrice() + ",-");
+        holder.mProductStock.setText("Tersisa " + productStock + " pcs");
+        holder.mQuantity.setText(String.valueOf(cartPosition.getQuantity()));
+        if (cartPosition.getProduct().getImages() != null) {
             if (!cartPosition.getProduct().getImages().isEmpty()) {
                 Glide.with(context)
                         .load(Client.IMAGE_URL + cartPosition.getProduct().getImages().get(0).getImage_name())
                         .into(holder.mImageProduct);
             }
         }
+
         holder.mDeleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -94,6 +104,46 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
 
             }
         });
+
+        holder.mDecreaseQuantity.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int q = Integer.parseInt(String.valueOf(holder.mQuantity.getText()));
+
+                if (q == 1) {
+                    Toast.makeText(v.getContext(), "Kuantitas Minimal 1", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                q--;
+
+                holder.mQuantity.setText(String.valueOf(q));
+                cartPosition.setQuantity(q);
+
+                String totalPrice = getTotalPrice(dataCart);
+                fragment.mTotal.setText("Rp " + totalPrice + ",-");
+            }
+        });
+
+        holder.mIncreaseQuantity.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int q = Integer.parseInt(String.valueOf(holder.mQuantity.getText()));
+
+                if (productStock <= q) {
+                    Toast.makeText(v.getContext(), "Stok hanya tersedia " + productStock, Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                q++;
+
+                holder.mQuantity.setText(String.valueOf(q));
+                cartPosition.setQuantity(q);
+
+                String totalPrice = getTotalPrice(dataCart);
+                fragment.mTotal.setText("Rp " + totalPrice + ",-");
+            }
+        });
     }
 
     @Override
@@ -101,23 +151,30 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
         return dataCart.size();
     }
 
+    public List<DataCart> getDataCart() {
+        return dataCart;
+    }
+
     public class MyViewHolder extends RecyclerView.ViewHolder {
 
-        TextView mNameProduct, mQuantityProduct, mPriceProduct;
+        TextView mNameProduct, mProductStock, mPriceProduct, mQuantity;
         ImageView mImageProduct;
-        Button mDeleteButton;
+        Button mDeleteButton, mIncreaseQuantity, mDecreaseQuantity;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             mNameProduct = itemView.findViewById(R.id.cartTitle);
-            mQuantityProduct = itemView.findViewById(R.id.cartQuantity);
+            mProductStock = itemView.findViewById(R.id.productStock);
             mPriceProduct = itemView.findViewById(R.id.cartPrice);
             mImageProduct = itemView.findViewById(R.id.cartBackground);
             mDeleteButton = itemView.findViewById(R.id.deleteButton);
+            mIncreaseQuantity = itemView.findViewById(R.id.increaseQty);
+            mDecreaseQuantity = itemView.findViewById(R.id.decreaseQty);
+            mQuantity = itemView.findViewById(R.id.quantity);
         }
     }
 
-    private void deleteCart(int id, int position){
+    private void deleteCart(int id, int position) {
         Services service = Client.getClient(Client.BASE_URL).create(Services.class);
         Call<ResponseBody> callCart = service.deleteCart(
                 id
@@ -125,20 +182,26 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
         callCart.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                Log.d(TAG, "onResponse: "+response.body());
-                Log.d(TAG, "onResponse: "+response.raw());
                 dataCart.remove(position);
                 homeActivity home = (homeActivity) context;
                 Intent intent = new Intent(context, homeActivity.class);
-                intent.putExtra("fragment","cart");
+                intent.putExtra("fragment", "cart");
                 context.startActivity(intent);
                 home.finish();
             }
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
-                Log.d(TAG, "onFailure: "+t.toString());
+                Log.d(TAG, "onFailure: " + t.toString());
             }
         });
+    }
+
+    private String getTotalPrice(List<DataCart> dataCarts) {
+        int harga = 0;
+        for (int i = 0; i < dataCarts.size(); i++) {
+            harga += (dataCarts.get(i).getProduct().getPrice() * dataCarts.get(i).getQuantity());
+        }
+        return Integer.toString(harga);
     }
 }
