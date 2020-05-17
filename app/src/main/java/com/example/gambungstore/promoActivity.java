@@ -16,6 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.gambungstore.adapters.PromoAdapter;
+import com.example.gambungstore.adapters.PromoAdapterMatchParent;
 import com.example.gambungstore.client.Client;
 import com.example.gambungstore.models.category.DataCategory;
 import com.example.gambungstore.models.promo.DataPromo;
@@ -34,7 +35,7 @@ public class promoActivity extends AppCompatActivity {
     private ImageView buttonBack;
     private RecyclerView promo;
     private LinearLayoutManager setLayoutManager;
-    private PromoAdapter promoAdapter;
+    private PromoAdapterMatchParent promoAdapter;
     private LinearLayout btnSearch;
 
     private EditText searchHint;
@@ -87,7 +88,7 @@ public class promoActivity extends AppCompatActivity {
         promo.setLayoutManager(setLayoutManager);
 
         // specify an adapter (see also next example)
-        promoAdapter = new PromoAdapter(dataPromos, this);
+        promoAdapter = new PromoAdapterMatchParent(dataPromos, this);
         promo.setAdapter(promoAdapter);
     }
 

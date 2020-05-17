@@ -17,12 +17,13 @@ import com.google.android.material.tabs.TabLayout;
 public class transaction extends Fragment {
 
     TabLayout tabLayout;
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
+
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.activity_transaction, container, false);
         return root;
     }
 
-    public void onViewCreated(View view, Bundle savedInstanceState){
+    public void onViewCreated(View view, Bundle savedInstanceState) {
         tabLayout = getView().findViewById(R.id.tab_layout);
         tabLayout.addTab(tabLayout.newTab().setText(R.string.tab_onGoing));
         tabLayout.addTab(tabLayout.newTab().setText(R.string.tab_history));
@@ -56,4 +57,4 @@ public class transaction extends Fragment {
                                                        }
                                                    });
     }
-    }
+}
