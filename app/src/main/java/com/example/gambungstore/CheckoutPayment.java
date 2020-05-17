@@ -257,6 +257,7 @@ public class CheckoutPayment extends AppCompatActivity {
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
                 Log.d(TAG, "onFailure: "+t.toString());
+                progressbar.endProgressBarGambung();
             }
         });
     }

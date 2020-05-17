@@ -78,6 +78,7 @@
                         android:layout_gravity="center_vertical"
                         android:gravity="end">
                         <Button
+                            android:id="@+id/btn_copy"
                             android:layout_width="32dp"
                             android:layout_height="32dp"
                             android:padding="@dimen/space"
