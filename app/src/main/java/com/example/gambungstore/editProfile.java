@@ -1,7 +1,10 @@
 package com.example.gambungstore;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.DialogFragment;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.media.Image;
 import android.os.Bundle;
@@ -15,31 +18,46 @@ import android.widget.Toast;
 
 import com.example.gambungstore.client.Client;
 import com.example.gambungstore.models.Profile;
+import com.example.gambungstore.models.RajaOngkir;
+import com.example.gambungstore.models.ResultCities;
+import com.example.gambungstore.progressbar.ProgressBarGambung;
 import com.example.gambungstore.services.Services;
 import com.example.gambungstore.sharedpreference.SharedPreference;
+
+import java.util.ArrayList;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class editProfile extends AppCompatActivity {
+public class editProfile extends AppCompatActivity implements DatePickerFragment.TheListener {
 
     private static final String TAG = "editProfile";
 
     private EditText mNama,mUsername,mEmail,mPhone,mTglLahir,mAlamat,mPassword,mRepassword,mCity;
     private Button mButtonSubmit;
     private ImageView mBackArrow;
+    private String mCityId;
 
     private Services service;
+
+    private ArrayList<String> SpinnerNameCities = new ArrayList<>();
+    private ArrayList<Integer> SpinnerIdCities = new ArrayList<>();
+
+    private ProgressBarGambung progressBarGambung;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_profile);
 
+        progressBarGambung = new ProgressBarGambung(this);
+        progressBarGambung.startProgressBarGambung();
+
         this.getXml();
         this.getProfile();
+        this.callCitiesApi();
 
         mBackArrow.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -56,6 +74,7 @@ public class editProfile extends AppCompatActivity {
             }
         });
 
+        progressBarGambung.endProgressBarGambung();
     }
 
     private void getProfile(){
@@ -73,7 +92,8 @@ public class editProfile extends AppCompatActivity {
                 mPhone.setText(response.body().getPhone());
                 mTglLahir.setText(response.body().getBirthday());
                 mAlamat.setText(response.body().getAddress());
-                mCity.setText(response.body().getCity());
+                mCityId = response.body().getCity();
+//                mCity.setText(response.body().getCity());
 
                 //disabled
                 mUsername.setKeyListener(null);
@@ -109,7 +129,7 @@ public class editProfile extends AppCompatActivity {
                 this.mPhone.getText().toString(),
                 this.mTglLahir.getText().toString(),
                 this.mAlamat.getText().toString(),
-                Integer.parseInt(this.mCity.getText().toString())
+                Integer.parseInt(this.mCityId)
         );
         updateProfilCall.enqueue(new Callback<ResponseBody>() {
             @Override
@@ -124,6 +144,58 @@ public class editProfile extends AppCompatActivity {
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
                 Log.d(TAG, "onFailure: "+t.toString());
+            }
+        });
+    }
+
+    public void showDatePicker(View view) {
+        DialogFragment datePicker = new DatePickerFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString("dateAsText", mTglLahir.getText().toString());
+        datePicker.setArguments(bundle);
+        datePicker.show(getSupportFragmentManager(),"datePicker");
+    }
+
+    @Override
+    public void returnDate(String date) {
+        mTglLahir.setText(date);
+    }
+
+    public void showCity(View view) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(editProfile.this);
+        builder.setTitle("Pilih Kota");
+
+        builder.setItems(SpinnerNameCities.toArray(new String[0]), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                mCity.setText(SpinnerNameCities.get(which));
+                mCityId = String.valueOf(SpinnerIdCities.get(which));
+            }
+        });
+
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
+
+    private void callCitiesApi() {
+        this.service = Client.getRajaongkir().create(Services.class);
+        Call<RajaOngkir> dataCities = service.getRajaongkir();
+        dataCities.enqueue(new Callback<RajaOngkir>() {
+            @Override
+            public void onResponse(Call<RajaOngkir> call, Response<RajaOngkir> response) {
+                RajaOngkir RajaOngkirCities = response.body();
+                for(ResultCities rs : RajaOngkirCities.getCities().getResult()){
+                    if (mCityId.equals(Integer.toString(rs.getCityId()))){
+                        mCity.setText(rs.getCityName());
+                    }
+                    SpinnerNameCities.add(rs.getCityName());
+                    SpinnerIdCities.add(rs.getCityId());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<RajaOngkir> call, Throwable t) {
+                Log.d(TAG, "onFailure: "+t);
             }
         });
     }

@@ -379,6 +379,7 @@ public class CheckoutForm extends AppCompatActivity {
 
                 if (payment_id == 1){
                     Intent intent = new Intent(CheckoutForm.this, CheckoutDone.class);
+                    intent.putExtra("payment","transfer");
                     finish();
                     startActivity(intent);
                     progressbar.endProgressBarGambung();
