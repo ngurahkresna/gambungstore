@@ -13,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.gambungstore.R;
 import com.example.gambungstore.client.Client;
@@ -54,9 +55,8 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyViewHo
         if (productPosition.getImages() != null) {
             if (!productPosition.getImages().isEmpty()) {
                 Glide.with(context)
-                        .asBitmap()
-                        .apply(myOptions)
                         .load(Client.IMAGE_URL + productPosition.getImages().get(0).getImage_name())
+                        .thumbnail(/*sizeMultiplier=*/ 0.25f)
                         .into(holder.mImageView);
             }
         }
