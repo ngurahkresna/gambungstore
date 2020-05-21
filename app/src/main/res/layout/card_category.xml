@@ -7,6 +7,7 @@
     android:layout_marginEnd="24dp"
     android:layout_marginBottom="@dimen/space_double"
     android:padding="@dimen/space"
+    android:id="@+id/categoryCardTitle"
     android:background="@drawable/category_background">
 
 
