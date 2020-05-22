@@ -1,9 +1,11 @@
 package com.example.gambungstore.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -11,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.gambungstore.R;
 import com.example.gambungstore.models.category.DataCategory;
+import com.example.gambungstore.productActivity;
 
 import java.util.List;
 
@@ -45,6 +48,16 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.MyView
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         DataCategory categoryPosition = category.get(position);
         holder.mCategoryWidth.setText(categoryPosition.getName());
+
+        holder.mCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, productActivity.class);
+                intent.putExtra("status", "category");
+                intent.putExtra("key", categoryPosition.getCode());
+                context.startActivity(intent);
+            }
+        });
     }
 
     @Override
@@ -55,13 +68,16 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.MyView
     public class MyViewHolder extends RecyclerView.ViewHolder {
 
         TextView mCategoryWidth;
+        RelativeLayout mCard;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             if (flag.equals("CategoryActivity")) {
                 this.mCategoryWidth = itemView.findViewById(R.id.categoryWidth);
+                this.mCard = itemView.findViewById(R.id.categoryCardWidth);
             }else{
                 this.mCategoryWidth = itemView.findViewById(R.id.categoryTitle);
+                this.mCard = itemView.findViewById(R.id.categoryCardTitle);
             }
         }
     }
