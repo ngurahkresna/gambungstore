@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">GambungStore</string>
+    <string name="app_name">Gambung Store</string>
 
     <string name="tab_onGoing">Sedang Berlangsung</string>
     <string name="tab_history">Histori</string>
