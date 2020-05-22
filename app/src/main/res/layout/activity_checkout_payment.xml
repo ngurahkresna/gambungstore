@@ -70,7 +70,7 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/logo"
                     android:layout_marginTop="25dp"
-                    android:text="Upload Bukti Pembayaran Top-Up"
+                    android:text="Upload Bukti Pembayaran"
                     android:textAlignment="center"
                     android:textColor="@color/colorFont"
                     android:textSize="18sp" />
@@ -87,7 +87,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="center"
-                        android:text="Rincian Top-Up"
+                        android:text="Rincian Pembayaran"
                         android:textColor="@color/colorFont"
                         android:textSize="16sp"
                         android:textStyle="bold" />
@@ -104,7 +104,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:gravity="center"
-                            android:text="Nominal Top-Up"
+                            android:text="Harga Produk"
                             android:textColor="@color/colorFont"
                             android:textSize="12sp" />
 
@@ -135,7 +135,6 @@
                             android:text="Diskon"
                             android:textColor="@color/colorFont"
                             android:textSize="12sp"
-                            android:visibility="gone"
                             />
 
                         <TextView
@@ -147,7 +146,6 @@
                             android:textColor="@color/colorFont"
                             android:textSize="12sp"
                             android:textStyle="bold"
-                            android:visibility="gone"
                             />
 
                     </LinearLayout>
@@ -167,7 +165,6 @@
                             android:text="Biaya Ekspedisi"
                             android:textColor="@color/colorFont"
                             android:textSize="12sp"
-                            android:visibility="gone"
                             />
 
                         <TextView
@@ -179,7 +176,6 @@
                             android:textColor="@color/colorFont"
                             android:textSize="12sp"
                             android:textStyle="bold"
-                            android:visibility="gone"
                             />
 
                     </LinearLayout>
@@ -205,7 +201,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:gravity="center"
-                            android:text="Total Top-Up"
+                            android:text="Total Harga"
                             android:textColor="@color/colorFont"
                             android:textSize="16sp" />
 
