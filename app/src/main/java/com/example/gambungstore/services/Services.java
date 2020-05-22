@@ -118,6 +118,12 @@ public interface Services {
             @Field("value") String key
     );
 
+    @FormUrlEncoded
+    @POST("product/search")
+    Call<List<DataProduct>> searchProductbyCategory(
+            @Field("value[]") ArrayList<String> key
+    );
+
     @GET("cart")
     Call<Cart> getCart(
             @Query("username") String username

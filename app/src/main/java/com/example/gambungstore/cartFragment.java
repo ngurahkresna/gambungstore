@@ -84,8 +84,6 @@ public class cartFragment extends Fragment {
                 if (SharedPreference.getRegisteredId(getContext()) != 0){
                     if (listCart.size() != 0){
                         checkout();
-                        Intent intent = new Intent(getActivity(), CheckoutForm.class);
-                        startActivity(intent);
                     }else{
                         Toast.makeText(getContext(), "Anda Belum Menambahkan Cart", Toast.LENGTH_SHORT).show();
                     }
@@ -152,6 +150,11 @@ public class cartFragment extends Fragment {
     }
 
     public void checkout(){
+        if (cartAdapter.isEmptyProductStock()) {
+            Toast.makeText(getContext(), "Silakan Hapus Produk yang Habis", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         progressbar.startProgressBarGambung();
 
         List<DataCart> dataCarts = cartAdapter.getDataCart();
@@ -172,8 +175,9 @@ public class cartFragment extends Fragment {
         callCheckout.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                Log.d(TAG, "onResponse: "+response.body());
                 progressbar.endProgressBarGambung();
+                Intent intent = new Intent(getActivity(), CheckoutForm.class);
+                startActivity(intent);
             }
 
             @Override

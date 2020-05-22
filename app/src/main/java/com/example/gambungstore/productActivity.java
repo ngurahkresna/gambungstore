@@ -84,6 +84,8 @@ public class productActivity extends AppCompatActivity {
             if (getIntent().getStringExtra("status").equals("search")){
                 List<DataProduct> parseDataProduct = getIntent().getParcelableArrayListExtra("dataproduct");
                 onViewProduct(parseDataProduct);
+            }else if(getIntent().getStringExtra("status").equals("category")){
+                searchProductbyCategory(getIntent().getStringExtra("key"));
             }
         }else{
             getProduct();
@@ -131,7 +133,6 @@ public class productActivity extends AppCompatActivity {
                     Toast.makeText(productActivity.this, "Data Tidak Ditemukan", Toast.LENGTH_SHORT).show();
                     return;
                 }
-
                 onViewProduct(dataProducts);
             }
 
@@ -140,6 +141,31 @@ public class productActivity extends AppCompatActivity {
                 Log.d(TAG, "onFailure: "+t.toString());
             }
         });
+    }
 
+    public void searchProductbyCategory(String key){
+
+        ArrayList<String> keyArray = new ArrayList<>();
+        keyArray.add(key);
+
+        Services service = Client.getClient(Client.BASE_URL).create(Services.class);
+        Call<List<DataProduct>> callSearch = service.searchProductbyCategory(keyArray);
+        callSearch.enqueue(new Callback<List<DataProduct>>() {
+            @Override
+            public void onResponse(Call<List<DataProduct>> call, Response<List<DataProduct>> response) {
+                List<DataProduct> dataProducts = response.body();
+                if (dataProducts.isEmpty()){
+                    Toast.makeText(productActivity.this, "Data Tidak Ditemukan", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                Log.d(TAG, "onResponse: "+response.body().size());
+                onViewProduct(dataProducts);
+            }
+
+            @Override
+            public void onFailure(Call<List<DataProduct>> call, Throwable t) {
+                Log.d(TAG, "onFailure: "+t.toString());
+            }
+        });
     }
 }
