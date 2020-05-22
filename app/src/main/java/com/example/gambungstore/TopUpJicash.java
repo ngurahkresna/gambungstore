@@ -8,8 +8,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 public class TopUpJicash extends AppCompatActivity {
+    static TopUpJicash topUpJicash;
     Button topUpbtn;
     ImageView backButton;
     EditText mAmmount;
@@ -17,6 +19,7 @@ public class TopUpJicash extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_top_up_jicash);
+        topUpJicash = this;
 
         mAmmount = findViewById(R.id.etAmount);
 
@@ -33,10 +36,22 @@ public class TopUpJicash extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(TopUpJicash.this, JicashCheckoutForm.class);
-                int ammount = Integer.valueOf(mAmmount.getText().toString());
-                intent.putExtra("ammount", ammount);
-                startActivity(intent);
+                if (mAmmount.getText().toString().equals("")){
+                    Toast.makeText(TopUpJicash.this, "Jumlah Top-Up tidak boleh kosong!", Toast.LENGTH_SHORT).show();
+                } else {
+                    int ammount = Integer.valueOf(mAmmount.getText().toString());
+                    if (ammount < 10000){
+                        Toast.makeText(TopUpJicash.this, "Jumlah Top-up minimal Rp. 10.000", Toast.LENGTH_SHORT).show();
+                    } else {
+                        intent.putExtra("ammount", ammount);
+                        startActivity(intent);
+                    }
+                }
             }
         });
+    }
+
+    public static TopUpJicash getInstance(){
+        return topUpJicash;
     }
 }

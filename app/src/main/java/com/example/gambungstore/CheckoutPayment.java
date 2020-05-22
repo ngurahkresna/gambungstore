@@ -109,6 +109,8 @@ public class CheckoutPayment extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (isUpload){
+                    TopUpJicash.getInstance().finish();
+                    JicashCheckoutForm.getInstance().finish();
                     process_upload();
                 }else{
                     chooseImage();
