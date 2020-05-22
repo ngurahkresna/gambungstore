@@ -63,7 +63,11 @@ public class ProductCheckoutAdapter extends RecyclerView.Adapter<ProductCheckout
                     holder.mProductName.setText(productPosition.getName());
                     holder.mProductPrice.setText("Rp "+Integer.toString(productPosition.getPrice())+",-");
                     holder.mStoreName.setText("");
-                    Glide.with(context).load(Client.IMAGE_URL+productPosition.getImages().get(0).getImage_name()).into(holder.mProductImage);
+                    if (productPosition.getImages() != null) {
+                        if (!productPosition.getImages().isEmpty()) {
+                            Glide.with(context).load(Client.IMAGE_URL + productPosition.getImages().get(0).getImage_name()).into(holder.mProductImage);
+                        }
+                    }
                     holder.mMessage.addTextChangedListener(new TextWatcher() {
                         @Override
                         public void beforeTextChanged(CharSequence s, int start, int count, int after) {
