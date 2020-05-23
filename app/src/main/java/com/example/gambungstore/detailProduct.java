@@ -101,6 +101,7 @@ public class detailProduct extends AppCompatActivity {
         mId = getIntent().getStringExtra("product_id");
         getProduct();
         progressbar.endProgressBarGambung();
+
     }
 
     public void setSuggestProduct(List<DataProduct> dataProducts) {
@@ -338,5 +339,10 @@ public class detailProduct extends AppCompatActivity {
         share.putExtra(Intent.EXTRA_TEXT, messages);
 
         startActivity(Intent.createChooser(share, "Share text to..."));
+    }
+
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(detailProduct.this, homeActivity.class));
     }
 }

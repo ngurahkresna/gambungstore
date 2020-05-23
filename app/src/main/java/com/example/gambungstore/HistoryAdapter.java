@@ -83,6 +83,8 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HistoryV
         int total = transactionPosition.getProduct().getPrice() * transactionPosition.getQuantity();
         holder.tvTotal.setText(String.valueOf(total) + ",-");
 
+        holder.tvInvoice.setText("INVOICE : "+String.valueOf(transactionPosition.getCode()));
+
     }
 
     @Override

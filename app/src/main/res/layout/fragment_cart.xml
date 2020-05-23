@@ -9,64 +9,95 @@
         android:id="@+id/cartTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_margin="@dimen/space_double"
         android:text="Cart"
         android:textAlignment="center"
         android:textColor="@color/colorFont"
         android:textSize="@dimen/font_xbig"
-        android:textStyle="bold"
-        android:layout_margin="@dimen/space_double"
-        android:layout_alignParentTop="true"/>
+        android:textStyle="bold" />
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/cartTitle"
-        android:layout_above="@+id/checkoutLinear">
+        android:layout_above="@+id/checkoutLinear"
+        android:layout_below="@id/cartTitle">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="@dimen/space_triple">
+            android:orientation="vertical">
 
-            <ImageView
-                android:id="@+id/cartEmpty"
-                android:layout_width="200dp"
-                android:layout_height="148dp"
-                android:layout_gravity="center"
-                android:layout_marginTop="@dimen/space_xtra"
-                android:background="@drawable/empty_cart"
-                android:visibility="visible"/>
-
-            <TextView
-                android:id="@+id/cartEmptyText"
+            <LinearLayout
+                android:id="@+id/detailText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/space_quadruple"
-                android:layout_marginBottom="@dimen/space_quadruple"
-                android:text="Belum ada produk di keranjang Anda"
-                android:textColor="@color/colorFont"
-                android:textSize="20sp"
-                android:visibility="visible"/>
+                android:orientation="vertical"
+                android:padding="@dimen/space_double">
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/cartRecycleView"
+                <ImageView
+                    android:id="@+id/cartEmpty"
+                    android:layout_width="275dp"
+                    android:layout_height="268dp"
+                    android:layout_gravity="center"
+                    android:background="@drawable/empty_cart_new"
+                    android:visibility="visible" />
+
+                <TextView
+                    android:id="@+id/cartEmptyText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space_quadruple"
+                    android:layout_marginBottom="@dimen/space_double"
+                    android:text="Keranjang mu masih kosong"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorFont"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:visibility="visible" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Ayo mulai cari produk - produk unik  yang hanya ada di Gambung Store. "
+                    android:textAlignment="center" />
+
+                <Button
+                    android:id="@+id/btnProduct"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space_xtra"
+                    android:background="@drawable/button_primary_solid"
+                    android:text="Cari Sekarang"
+                    android:textAllCaps="false"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:visibility="gone"/>
+                android:layout_height="wrap_content">
 
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/cartRecycleView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone" />
+            </LinearLayout>
         </LinearLayout>
-
     </ScrollView>
 
     <LinearLayout
         android:id="@+id/checkoutLinear"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
         android:background="@drawable/footer_background"
         android:orientation="vertical"
         android:padding="@dimen/space_triple"
-        android:layout_alignParentBottom="true">
+        android:visibility="gone">
 
         <LinearLayout
             android:layout_width="match_parent"

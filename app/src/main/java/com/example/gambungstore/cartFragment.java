@@ -52,6 +52,7 @@ public class cartFragment extends Fragment {
     private LinearLayoutManager setLayoutManagerCart;
     private CartAdapter cartAdapter;
     public TextView mTotal;
+    private Button mBtnProduct;
 
     private ProgressBarGambung progressbar;
 
@@ -94,6 +95,14 @@ public class cartFragment extends Fragment {
             }
         });
 
+        mBtnProduct = getView().findViewById(R.id.btnProduct);
+        mBtnProduct.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getContext(), productActivity.class));
+            }
+        });
+
         if (!SharedPreference.getRegisteredToken(getContext()).matches("")) {
             getCartData();
         } else {
@@ -112,7 +121,11 @@ public class cartFragment extends Fragment {
                 if (!response.body().getDataCart().isEmpty() && (getView() != null)) {
                     getView().findViewById(R.id.cartEmpty).setVisibility(View.GONE);
                     getView().findViewById(R.id.cartEmptyText).setVisibility(View.GONE);
+                    getView().findViewById(R.id.detailText).setVisibility(View.GONE);
+                    getView().findViewById(R.id.btnProduct).setVisibility(View.GONE);
                     getView().findViewById(R.id.cartRecycleView).setVisibility(View.VISIBLE);
+                    getView().findViewById(R.id.checkoutLinear).setVisibility(View.VISIBLE);
+
                     viewRecyclerCart(response.body().getDataCart());
 
                     mTotal.setText("Rp "+getTotalHarga(response.body().getDataCart())+",-");
