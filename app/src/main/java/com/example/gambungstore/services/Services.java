@@ -112,6 +112,11 @@ public interface Services {
             @Path("id") String id
     );
 
+    @GET("product")
+    Call<DataProduct> getProductByCode(
+            @Query("code") String code
+    );
+
     @FormUrlEncoded
     @POST("product/search")
     Call<List<DataProduct>> searchProduct(
