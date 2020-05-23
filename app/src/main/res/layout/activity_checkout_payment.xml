@@ -70,7 +70,7 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/logo"
                     android:layout_marginTop="25dp"
-                    android:text="Pengisian Form"
+                    android:text="Upload Bukti Pembayaran"
                     android:textAlignment="center"
                     android:textColor="@color/colorFont"
                     android:textSize="18sp" />
@@ -87,7 +87,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="center"
-                        android:text="Rincian Harga"
+                        android:text="Rincian Pembayaran"
                         android:textColor="@color/colorFont"
                         android:textSize="16sp"
                         android:textStyle="bold" />
@@ -134,7 +134,8 @@
                             android:gravity="center"
                             android:text="Diskon"
                             android:textColor="@color/colorFont"
-                            android:textSize="12sp" />
+                            android:textSize="12sp"
+                            />
 
                         <TextView
                             android:id="@+id/discountPrice"
@@ -144,7 +145,8 @@
                             android:text="Rp 0,-"
                             android:textColor="@color/colorFont"
                             android:textSize="12sp"
-                            android:textStyle="bold" />
+                            android:textStyle="bold"
+                            />
 
                     </LinearLayout>
 
@@ -162,7 +164,8 @@
                             android:gravity="center"
                             android:text="Biaya Ekspedisi"
                             android:textColor="@color/colorFont"
-                            android:textSize="12sp" />
+                            android:textSize="12sp"
+                            />
 
                         <TextView
                             android:id="@+id/expeditionPrice"
@@ -172,7 +175,8 @@
                             android:text="Rp 0,-"
                             android:textColor="@color/colorFont"
                             android:textSize="12sp"
-                            android:textStyle="bold" />
+                            android:textStyle="bold"
+                            />
 
                     </LinearLayout>
 
@@ -182,6 +186,7 @@
                         android:layout_height="1dp"
                         android:layout_below="@id/expeditionDetail"
                         android:layout_marginTop="15dp"
+                        android:layout_marginBottom="8dp"
                         android:background="#3F895E" />
 
                     <LinearLayout
