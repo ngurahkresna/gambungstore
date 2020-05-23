@@ -70,7 +70,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/logo"
         android:layout_marginTop="25dp"
-        android:text="Pengisian Form"
+        android:text="Rincian Transaksi"
         android:textAlignment="center"
         android:textColor="@color/colorFont"
         android:textSize="18sp" />
@@ -80,7 +80,7 @@
         android:layout_marginTop="16dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Rincian Harga"
+        android:text="Rincian Top-Up"
         android:textStyle="bold"
         android:layout_below="@id/subTitle"
         android:textSize="16sp"
@@ -91,7 +91,7 @@
         android:id="@+id/hargaProdukLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Harga Produk"
+        android:text="Nominal Top-Up"
         android:layout_below="@id/rincianHargaLabel"
         android:layout_marginTop="4dp"
         android:layout_alignParentStart="true"
@@ -114,7 +114,9 @@
         android:text="Diskon"
         android:layout_below="@id/hargaProdukLabel"
         android:layout_marginTop="4dp"
-        android:layout_alignParentStart="true"/>
+        android:layout_alignParentStart="true"
+        android:visibility="gone"
+        />
 
     <TextView
         android:layout_width="wrap_content"
@@ -125,7 +127,9 @@
         android:layout_marginTop="4dp"
         android:layout_alignParentEnd="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginEnd="28dp"/>
+        android:layout_marginEnd="28dp"
+        android:visibility="gone"
+        />
 
     <TextView
         android:id="@+id/biayaJasaEkspedisiLabel"
@@ -134,7 +138,9 @@
         android:layout_below="@id/diskonLabel"
         android:text="Biaya Jasa Ekspedisi"
         android:layout_marginTop="4dp"
-        android:layout_alignParentStart="true"/>
+        android:layout_alignParentStart="true"
+        android:visibility="gone"
+        />
 
     <TextView
         android:layout_width="wrap_content"
@@ -145,7 +151,9 @@
         android:layout_centerHorizontal="true"
         android:layout_marginEnd="28dp"
         android:layout_marginTop="4dp"
-        android:textStyle="bold"/>
+        android:textStyle="bold"
+        android:visibility="gone"
+        />
 
     <View
         android:id="@+id/garis1"
@@ -159,7 +167,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/garis1"
-        android:text="Total Harga"
+        android:text="Total Top-Up"
         android:textSize="16sp"
         android:textColor="#000000"
         android:layout_marginTop="4dp"

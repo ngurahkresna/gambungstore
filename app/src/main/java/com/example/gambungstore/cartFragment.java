@@ -175,9 +175,20 @@ public class cartFragment extends Fragment {
         callCheckout.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                progressbar.endProgressBarGambung();
+
+                Log.d(TAG, "onResponse: "+response.code());
+
+                if (response.code() == 406){
+                    Toast.makeText(getContext(), "Salah satu barang ada yang stock habis! Silahkan refresh!", Toast.LENGTH_SHORT).show();
+                    progressbar.endProgressBarGambung();
+                    return;
+                }
+
                 Intent intent = new Intent(getActivity(), CheckoutForm.class);
                 startActivity(intent);
+
+                progressbar.endProgressBarGambung();
+
             }
 
             @Override
@@ -185,6 +196,5 @@ public class cartFragment extends Fragment {
                 Log.d(TAG, "onFailure: "+t.toString());
             }
         });
-
     }
 }

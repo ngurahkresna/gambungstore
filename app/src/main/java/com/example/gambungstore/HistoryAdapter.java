@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -93,7 +94,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HistoryV
         ImageView imgProduk, imgCourier;
         TextView tvTanggal, tvProduk, tvHarga, tvQty, tvStatus, tvInvoice, tvTotal;
         Button btnConfirm, btnCancel, btnSelesai;
-        LinearLayout card;
+        RelativeLayout card;
 
         public HistoryViewHolder(@NonNull View itemView) {
             super(itemView);

@@ -286,6 +286,10 @@ public class detailProduct extends AppCompatActivity {
             Toast.makeText(this, "Barang Sudah Habis!", Toast.LENGTH_SHORT).show();
             progressbar.endProgressBarGambung();
             return;
+        }else if(SharedPreference.getRegisteredId(this) == 0){
+            Toast.makeText(this, "Silahkan login terlebih dahulu!", Toast.LENGTH_SHORT).show();
+            progressbar.endProgressBarGambung();
+            return;
         }
 
         int quantity = Integer.parseInt(String.valueOf(mQuantity.getText()));

@@ -53,12 +53,17 @@ public class jicashHistoryCardAdapter extends RecyclerView.Adapter<jicashHistory
         HistoryJicash jicashPosition = jicashList.get(position);
 
         if (filter.equals("Top Up Ji-Cash")){
-            if (jicashPosition.getTransaction_type().equals("Pembayaran Transaksi")){
+            if (jicashPosition.getTransaction_type().equals("Pembayaran Transaksi") || jicashPosition.getTransaction_type().equals("Refund")){
                 holder.cardView.setVisibility(View.GONE);
                 holder.cardView.getLayoutParams().height = 0;
             }
         }else if(filter.equals("Pemakaian Ji-Cash")){
-            if (jicashPosition.getTransaction_type().equals("Topup")){
+            if (jicashPosition.getTransaction_type().equals("Topup") || jicashPosition.getTransaction_type().equals("Refund")){
+                holder.cardView.setVisibility(View.GONE);
+                holder.cardView.getLayoutParams().height = 0;
+            }
+        }else if(filter.equals("Refund Ji-Cash")){
+            if (jicashPosition.getTransaction_type().equals("Topup") || jicashPosition.getTransaction_type().equals("Pembayaran Transaksi")){
                 holder.cardView.setVisibility(View.GONE);
                 holder.cardView.getLayoutParams().height = 0;
             }
