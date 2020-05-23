@@ -122,6 +122,8 @@ public class detailProduct extends AppCompatActivity {
             public void onResponse(Call<DataProduct> call, Response<DataProduct> response) {
                 DataProduct dataProduct = response.body();
 
+                Log.d("cek respon", String.valueOf(response.raw()));
+
                 for (ProductImage image : dataProduct.getImages()) {
                     mImages.add(image.getImage_name());
                 }
