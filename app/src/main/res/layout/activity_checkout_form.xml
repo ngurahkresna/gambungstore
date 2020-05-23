@@ -411,7 +411,7 @@
                     <Button
                         android:id="@+id/submitButton"
                         android:layout_width="match_parent"
-                        android:layout_height="35dp"
+                        android:layout_height="44dp"
                         android:layout_below="@id/listBtm"
                         android:background="@drawable/button_primary_solid"
                         android:padding="8dp"
@@ -424,7 +424,7 @@
                     <Button
                         android:id="@+id/backButton"
                         android:layout_width="match_parent"
-                        android:layout_height="35dp"
+                        android:layout_height="44dp"
                         android:layout_below="@id/submitButton"
                         android:layout_marginTop="16dp"
                         android:background="?android:attr/selectableItemBackground"

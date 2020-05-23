@@ -19,7 +19,8 @@
                 android:id="@+id/detailImage"
                 android:layout_width="match_parent"
                 android:layout_height="460dp"
-                android:background="@drawable/big_content" />
+                android:background="@drawable/bg_detail_promo"
+                android:src="@drawable/logo_gradasi"/>
 
             <RelativeLayout
                 android:layout_width="match_parent"
