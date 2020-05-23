@@ -81,7 +81,7 @@ public class OnGoingAdapter extends RecyclerView.Adapter<OnGoingAdapter.OnGoingV
             }
         }
 
-        if (transactionPosition.getExpedition().equals("tiki")){
+        if (transactionPosition.getExpedition().equals("")){
             Glide.with(context)
                     .load("http://gambungstore.id/assets/img/expeditions/tiki.png")
                     .into(holder.imgCourier);

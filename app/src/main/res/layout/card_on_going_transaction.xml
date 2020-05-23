@@ -147,7 +147,7 @@
             android:layout_height="17dp"
             android:layout_alignParentEnd="true"
             android:layout_marginEnd="8dp"
-            android:background="@drawable/courier_image"
+            android:background="@drawable/ic_action_name"
             android:scaleType="centerCrop" />
     </RelativeLayout>
 
