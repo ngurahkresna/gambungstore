@@ -84,8 +84,6 @@ public class cartFragment extends Fragment {
                 if (SharedPreference.getRegisteredId(getContext()) != 0){
                     if (listCart.size() != 0){
                         checkout();
-                        Intent intent = new Intent(getActivity(), CheckoutForm.class);
-                        startActivity(intent);
                     }else{
                         Toast.makeText(getContext(), "Anda Belum Menambahkan Cart", Toast.LENGTH_SHORT).show();
                     }
@@ -172,7 +170,17 @@ public class cartFragment extends Fragment {
         callCheckout.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                Log.d(TAG, "onResponse: "+response.body());
+                Log.d(TAG, "onResponse: "+response.code());
+
+                if (response.code() == 406){
+                    Toast.makeText(getContext(), "Salah satu barang ada yang stock habis! Silahkan refresh!", Toast.LENGTH_SHORT).show();
+                    progressbar.endProgressBarGambung();
+                    return;
+                }
+
+                Intent intent = new Intent(getActivity(), CheckoutForm.class);
+                startActivity(intent);
+
                 progressbar.endProgressBarGambung();
             }
 
@@ -181,6 +189,5 @@ public class cartFragment extends Fragment {
                 Log.d(TAG, "onFailure: "+t.toString());
             }
         });
-
     }
 }
