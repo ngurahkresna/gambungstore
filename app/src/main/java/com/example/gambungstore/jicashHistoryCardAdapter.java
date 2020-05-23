@@ -1,6 +1,7 @@
 package com.example.gambungstore;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Build;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -89,6 +90,7 @@ public class jicashHistoryCardAdapter extends RecyclerView.Adapter<jicashHistory
         holder.historyTitle.setText(jicashPosition.getTransaction_type());
         if (jicashPosition.getTransaction_type().equals("Pembayaran Transaksi")){
             holder.historyAmount.setText("-Rp. "+Integer.toString(jicashPosition.getAmount()));
+            holder.historyAmount.setTextColor(Color.parseColor("#D93E3E"));
         }else{
             holder.historyAmount.setText("+Rp. "+Integer.toString(jicashPosition.getAmount()));
         }

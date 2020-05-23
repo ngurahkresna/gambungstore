@@ -72,12 +72,13 @@
     <RelativeLayout
         android:id="@+id/relativeLayoutbalance"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="200dp"
         android:layout_below="@id/linearlayout1"
         android:layout_marginTop="12dp"
-        android:background="@color/colorPrimary"
+        android:background="@drawable/bg_jicash"
         android:padding="20dp"
         >
+
         <TextView
             android:id="@+id/jicashLabel"
             android:layout_width="wrap_content"
