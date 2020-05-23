@@ -42,7 +42,7 @@
                 android:id="@+id/topuplabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Top-up Ji-Cash"
+                android:text="Top-Up Ji-Cash"
                 android:layout_marginTop="4dp"
                 android:textColor="#000000"
                 android:textSize="16sp"

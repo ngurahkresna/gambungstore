@@ -45,6 +45,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
 
+import static com.example.gambungstore.client.Client.PRODUCT_URL;
+
 public class detailProduct extends AppCompatActivity {
     private static final String TAG = "detailProduct";
 
@@ -205,7 +207,7 @@ public class detailProduct extends AppCompatActivity {
         int q = Integer.parseInt(String.valueOf(mQuantity.getText()));
 
         int stock = Integer.parseInt(mAvailableCount.getText().toString());
-        if (stock <= q){
+        if (stock <= q) {
             Toast.makeText(this, "Stok hanya tersedia " + mAvailableCount.getText().toString(), Toast.LENGTH_SHORT).show();
             return;
         }
@@ -278,7 +280,7 @@ public class detailProduct extends AppCompatActivity {
         progressbar.startProgressBarGambung();
 
         int stock = Integer.parseInt(mAvailableCount.getText().toString());
-        if (stock <= 0){
+        if (stock <= 0) {
             Toast.makeText(this, "Barang Sudah Habis!", Toast.LENGTH_SHORT).show();
             progressbar.endProgressBarGambung();
             return;
@@ -295,8 +297,8 @@ public class detailProduct extends AppCompatActivity {
         storeCart.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                Intent intent = new Intent(detailProduct.this,homeActivity.class);
-                intent.putExtra("fragment","cart");
+                Intent intent = new Intent(detailProduct.this, homeActivity.class);
+                intent.putExtra("fragment", "cart");
                 startActivity(intent);
                 finish();
                 Toast.makeText(detailProduct.this, "Berhasil Dimasukan Keranjang", Toast.LENGTH_SHORT).show();
@@ -321,5 +323,18 @@ public class detailProduct extends AppCompatActivity {
         intent.putExtra("store_id", storeId);
         intent.putExtra("store_code", storeCode);
         startActivity(intent);
+    }
+
+    public void shareTextUrl(View view) {
+        Intent share = new Intent(android.content.Intent.ACTION_SEND);
+        share.setType("text/plain");
+        share.addFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
+
+        String messages = "Beli " + mProductTitle.getText() + " dengan harga " + mPrice.getText() + " hanya di Gambung Store. " + PRODUCT_URL + mCode + " \nCek promo untuk dapatkan keuntungan lebih banyak dan temukan produk menarik lainnya di Gambung Store.";
+
+        share.putExtra(Intent.EXTRA_SUBJECT, "Title Of The Post");
+        share.putExtra(Intent.EXTRA_TEXT, messages);
+
+        startActivity(Intent.createChooser(share, "Share text to..."));
     }
 }

@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.gambungstore.client.Client;
 import com.example.gambungstore.models.Profile;
@@ -30,7 +31,7 @@ import retrofit2.http.Url;
 public class homeActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
 
     private static final String TAG = "homeActivity";
-
+    private long backPressedTime;
     private Services service;
 
     protected ProgressBarGambung progressBar;
@@ -173,6 +174,21 @@ public class homeActivity extends AppCompatActivity implements BottomNavigationV
             findViewById(R.id.fragmentHome).setVisibility(View.GONE);
             findViewById(R.id.bottomNavigation).setVisibility(View.GONE);
         }
+
+    }
+    @Override
+    public void onBackPressed() {
+
+        if (backPressedTime + 2000 > System.currentTimeMillis()) {
+            super.onBackPressed();
+            finishAffinity();
+            System.exit(0);
+            return;
+        } else {
+            Toast.makeText(getBaseContext(), "Tekan kembali lagi untuk keluar", Toast.LENGTH_SHORT).show();
+        }
+
+        backPressedTime = System.currentTimeMillis();
 
     }
 

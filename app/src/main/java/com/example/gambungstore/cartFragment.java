@@ -150,6 +150,11 @@ public class cartFragment extends Fragment {
     }
 
     public void checkout(){
+        if (cartAdapter.isEmptyProductStock()) {
+            Toast.makeText(getContext(), "Silakan Hapus Produk yang Habis", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         progressbar.startProgressBarGambung();
 
         List<DataCart> dataCarts = cartAdapter.getDataCart();
@@ -170,6 +175,7 @@ public class cartFragment extends Fragment {
         callCheckout.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+
                 Log.d(TAG, "onResponse: "+response.code());
 
                 if (response.code() == 406){
@@ -182,6 +188,7 @@ public class cartFragment extends Fragment {
                 startActivity(intent);
 
                 progressbar.endProgressBarGambung();
+
             }
 
             @Override

@@ -79,6 +79,24 @@ public class CheckoutPayment extends AppCompatActivity {
         mTotalPrice.setText("Rp "+Integer.toString(getIntent().getIntExtra("grandTotalPrice",0))+",-");
         mExpeditionPrice.setText("Rp "+Integer.toString(getIntent().getIntExtra("expeditionPrice",0))+",-");
 
+        // Menyesuaikan dengan aktivitas JiCashChekoutForm.java
+        if (getIntent().getStringExtra("jicash") != null){
+            TextView topopJicashLabel, priceDetailLabel, nominalTopupLabel, diskonLabel, biayaEkspedisiLabel, totalTopupLabel;
+            topopJicashLabel = findViewById(R.id.subTitle);
+            priceDetailLabel = findViewById(R.id.priceDetail);
+            nominalTopupLabel = findViewById(R.id.productText);
+            diskonLabel = findViewById(R.id.discountTitle);
+            biayaEkspedisiLabel = findViewById(R.id.expeditionText);
+            totalTopupLabel = findViewById(R.id.totalText);
+            topopJicashLabel.setText("Upload Bukti Pembayaran Top-Up");
+            priceDetailLabel.setText("Rincian Top-Up");
+            nominalTopupLabel.setText("Nominal Top-Up");
+            diskonLabel.setVisibility(View.GONE);
+            biayaEkspedisiLabel.setVisibility(View.GONE);
+            mDiscountPrice.setVisibility(View.GONE);
+            mExpeditionPrice.setVisibility(View.GONE);
+            totalTopupLabel.setText("Total Top-Up");
+        }
         long diff = 0;
         long timeall = 86400000;
 
@@ -109,6 +127,8 @@ public class CheckoutPayment extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (isUpload){
+                    TopUpJicash.getInstance().finish();
+                    JicashCheckoutForm.getInstance().finish();
                     process_upload();
                 }else{
                     chooseImage();

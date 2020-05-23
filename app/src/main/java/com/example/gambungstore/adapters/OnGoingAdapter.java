@@ -73,11 +73,15 @@ public class OnGoingAdapter extends RecyclerView.Adapter<OnGoingAdapter.OnGoingV
         holder.tvHarga.setText(String.valueOf(transactionPosition.getProduct().getPrice()));
         holder.tvQty.setText("("+String.valueOf(transactionPosition.getQuantity())+"pcs)");
 
-        Glide.with(context)
-                .load(Client.IMAGE_URL + transactionPosition.getProduct().getImages().get(0).getImage_name())
-                .into(holder.imgProduk);
+        if (transactionPosition.getProduct().getImages() != null) {
+            if (!transactionPosition.getProduct().getImages().isEmpty()) {
+                Glide.with(context)
+                        .load(Client.IMAGE_URL + transactionPosition.getProduct().getImages().get(0).getImage_name())
+                        .into(holder.imgProduk);
+            }
+        }
 
-        if (transactionPosition.getExpedition().equals("tiki")){
+        if (transactionPosition.getExpedition().equals("")){
             Glide.with(context)
                     .load("http://gambungstore.id/assets/img/expeditions/tiki.png")
                     .into(holder.imgCourier);

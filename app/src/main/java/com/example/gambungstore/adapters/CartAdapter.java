@@ -47,6 +47,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
     private ArrayList<Integer> cartIds;
     private ArrayList<Integer> cartQuantities;
     private cartFragment fragment;
+    private boolean isEmptyProductStock = false;
 
     public CartAdapter(List<DataCart> dataCart, Context context, cartFragment fragment) {
         this.dataCart = dataCart;
@@ -80,6 +81,13 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
             }
         }
 
+        if (cartPosition.getProduct().getStock() < 1) {
+            holder.mImageProduct.setAlpha((float) 0.5);
+            holder.mOutOfStockText.setVisibility(View.VISIBLE);
+
+            isEmptyProductStock = true;
+        }
+
         holder.mDeleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -108,6 +116,10 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
         holder.mDecreaseQuantity.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (isEmptyProductStock()) {
+                    return;
+                }
+
                 int q = Integer.parseInt(String.valueOf(holder.mQuantity.getText()));
 
                 if (q == 1) {
@@ -129,6 +141,11 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
             @Override
             public void onClick(View v) {
                 int q = Integer.parseInt(String.valueOf(holder.mQuantity.getText()));
+
+                if (productStock == 0) {
+                    Toast.makeText(v.getContext(), "Stok Habis", Toast.LENGTH_SHORT).show();
+                    return;
+                }
 
                 if (productStock <= q) {
                     Toast.makeText(v.getContext(), "Stok hanya tersedia " + productStock, Toast.LENGTH_SHORT).show();
@@ -157,7 +174,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
 
-        TextView mNameProduct, mProductStock, mPriceProduct, mQuantity;
+        TextView mNameProduct, mProductStock, mPriceProduct, mQuantity, mOutOfStockText;;
         ImageView mImageProduct;
         Button mDeleteButton, mIncreaseQuantity, mDecreaseQuantity;
 
@@ -171,6 +188,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
             mIncreaseQuantity = itemView.findViewById(R.id.increaseQty);
             mDecreaseQuantity = itemView.findViewById(R.id.decreaseQty);
             mQuantity = itemView.findViewById(R.id.quantity);
+            mOutOfStockText = itemView.findViewById(R.id.outOfStockText);
         }
     }
 
@@ -203,5 +221,9 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
             harga += (dataCarts.get(i).getProduct().getPrice() * dataCarts.get(i).getQuantity());
         }
         return Integer.toString(harga);
+    }
+
+    public boolean isEmptyProductStock() {
+        return isEmptyProductStock;
     }
 }

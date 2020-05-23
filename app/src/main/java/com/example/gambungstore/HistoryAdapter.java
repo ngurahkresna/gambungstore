@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -55,9 +56,13 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HistoryV
         holder.tvHarga.setText(String.valueOf(transactionPosition.getProduct().getPrice()));
         holder.tvQty.setText("(" + String.valueOf(transactionPosition.getQuantity()) + "pcs)");
 
-        Glide.with(context)
-                .load(Client.IMAGE_URL + transactionPosition.getProduct().getImages().get(0).getImage_name())
-                .into(holder.imgProduk);
+        if (transactionPosition.getProduct().getImages() != null) {
+            if (!transactionPosition.getProduct().getImages().isEmpty()) {
+                Glide.with(context)
+                        .load(Client.IMAGE_URL + transactionPosition.getProduct().getImages().get(0).getImage_name())
+                        .into(holder.imgProduk);
+            }
+        }
 
         if (transactionPosition.getExpedition().equals("tiki")) {
             Glide.with(context)
@@ -89,7 +94,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HistoryV
         ImageView imgProduk, imgCourier;
         TextView tvTanggal, tvProduk, tvHarga, tvQty, tvStatus, tvInvoice, tvTotal;
         Button btnConfirm, btnCancel, btnSelesai;
-        LinearLayout card;
+        RelativeLayout card;
 
         public HistoryViewHolder(@NonNull View itemView) {
             super(itemView);

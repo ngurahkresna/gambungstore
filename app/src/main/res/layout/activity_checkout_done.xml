@@ -70,7 +70,7 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/logo"
                     android:layout_marginTop="25dp"
-                    android:text="Pengisian Form"
+                    android:text="Bukti Pembayaran Berhasil di Upload"
                     android:textAlignment="center"
                     android:textColor="@color/colorFont"
                     android:textSize="18sp" />
@@ -258,7 +258,7 @@
                     android:layout_below="@id/jiCashDone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Transaksi anda akan segera di proses, Terimakasih telah menggunakan aplikasi kami"
+                    android:text="Transaksi Anda akan segera di proses, Terimakasih telah menggunakan aplikasi kami."
                     android:textAlignment="center"
                     android:textColor="@color/colorFont"
                     android:textSize="16sp"/>
