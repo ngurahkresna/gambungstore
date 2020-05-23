@@ -7,6 +7,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -67,7 +68,7 @@ public class homeFragment extends Fragment{
     private RecyclerView category;
     private LinearLayoutManager setLayoutManagerCategory;
     private CategoryAdapter categoryAdapter;
-    private RelativeLayout relativeLayout;
+    private ConstraintLayout relativeLayout;
     private RecyclerView product;
     private GridLayoutManager setLayoutManagerProduct;
     private ProductAdapter productAdapter;

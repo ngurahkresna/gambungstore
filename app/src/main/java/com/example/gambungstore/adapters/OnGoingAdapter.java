@@ -1,6 +1,8 @@
 package com.example.gambungstore.adapters;
 
 import android.app.AlertDialog;
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -15,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -38,6 +41,8 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static android.content.Context.CLIPBOARD_SERVICE;
+
 public class OnGoingAdapter extends RecyclerView.Adapter<OnGoingAdapter.OnGoingViewHolder> {
     private static final String TAG = "OnGoingAdapter";
     private List<DataTransaction> dataOnGoings;
@@ -51,7 +56,7 @@ public class OnGoingAdapter extends RecyclerView.Adapter<OnGoingAdapter.OnGoingV
     @NonNull
     @Override
     public OnGoingAdapter.OnGoingViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
-        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.card_on_going_transaction,viewGroup, false);
+        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.card_on_going_transaction, viewGroup, false);
         OnGoingAdapter.OnGoingViewHolder mOnGoingViewHolder = new OnGoingAdapter.OnGoingViewHolder(view);
         return mOnGoingViewHolder;
     }
@@ -60,9 +65,9 @@ public class OnGoingAdapter extends RecyclerView.Adapter<OnGoingAdapter.OnGoingV
     public void onBindViewHolder(@NonNull OnGoingAdapter.OnGoingViewHolder holder, int position) {
         final DataTransaction transactionPosition = dataOnGoings.get(position);
 
-        Log.d(TAG, "onBindViewHolder: "+transactionPosition.getDetailTransaction().getHistory().isEmpty());
-        
-        if(!transactionPosition.getDetailTransaction().getHistory().isEmpty()){
+        Log.d(TAG, "onBindViewHolder: " + transactionPosition.getDetailTransaction().getHistory().isEmpty());
+
+        if (!transactionPosition.getDetailTransaction().getHistory().isEmpty()) {
             holder.itemView.setVisibility(View.GONE);
             holder.itemView.setLayoutParams(new RecyclerView.LayoutParams(0, 0));
             return;
@@ -71,7 +76,15 @@ public class OnGoingAdapter extends RecyclerView.Adapter<OnGoingAdapter.OnGoingV
         holder.tvTanggal.setText(transactionPosition.getTanggal().toString());
         holder.tvProduk.setText(transactionPosition.getProduct().getName().toString());
         holder.tvHarga.setText(String.valueOf(transactionPosition.getProduct().getPrice()));
-        holder.tvQty.setText("("+String.valueOf(transactionPosition.getQuantity())+"pcs)");
+        holder.tvQty.setText("(" + String.valueOf(transactionPosition.getQuantity()) + "pcs)");
+        if (transactionPosition.getShipping_no() == null) {
+            holder.tvInvoice.setText("");
+
+        } else {
+            holder.constraintLayout.setVisibility(View.VISIBLE);
+            holder.tvInvoice.setText(String.valueOf(transactionPosition.getShipping_no()));
+
+        }
 
         if (transactionPosition.getProduct().getImages() != null) {
             if (!transactionPosition.getProduct().getImages().isEmpty()) {
@@ -81,24 +94,24 @@ public class OnGoingAdapter extends RecyclerView.Adapter<OnGoingAdapter.OnGoingV
             }
         }
 
-        if (transactionPosition.getExpedition().equals("")){
+        if (transactionPosition.getExpedition().equals("")) {
             Glide.with(context)
                     .load("http://gambungstore.id/assets/img/expeditions/tiki.png")
                     .into(holder.imgCourier);
-        }else if(transactionPosition.getExpedition().equals("jne")){
+        } else if (transactionPosition.getExpedition().equals("jne")) {
             Glide.with(context)
                     .load("http://gambungstore.id/assets/img/expeditions/jne.png")
                     .into(holder.imgCourier);
         }
 
-        int total = transactionPosition.getProduct().getPrice()*transactionPosition.getQuantity();
-        holder.tvTransactionTotal.setText(String.valueOf(total)+",-");
+        int total = transactionPosition.getProduct().getPrice() * transactionPosition.getQuantity();
+        holder.tvTransactionTotal.setText(String.valueOf(total) + ",-");
 
         holder.tvStatus.setText(transactionPosition.getDetailTransaction().getPayment().getUpdated_process().toString().toUpperCase());
 
-        if (transactionPosition.getDetailTransaction().getPayment().getUpdated_process().equals("pembayaran")){
+        if (transactionPosition.getDetailTransaction().getPayment().getUpdated_process().equals("pembayaran")) {
             holder.btnSelesai.setVisibility(View.GONE);
-        }else{
+        } else {
             holder.btnConfirm.setVisibility(View.GONE);
             holder.btnCancel.setVisibility(View.GONE);
         }
@@ -111,18 +124,41 @@ public class OnGoingAdapter extends RecyclerView.Adapter<OnGoingAdapter.OnGoingV
             }
         });
 
+        //btn copy
+        holder.btn_copy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String getCode = holder.tvInvoice.getText().toString();
+                CharSequence text = "Nomor resi " + getCode +" tersalin";
+
+                ClipboardManager clipboard = (ClipboardManager) context.getSystemService(CLIPBOARD_SERVICE);
+
+                String copy = holder.tvInvoice.getText().toString();
+
+                if (!copy.equalsIgnoreCase("")){
+                    ClipData clipdata = ClipData.newPlainText("text_copied", copy);
+                    clipboard.setPrimaryClip(clipdata);
+                }
+
+                int duration = Toast.LENGTH_SHORT;
+
+                Toast toast = Toast.makeText(context, text, duration);
+                toast.show();
+            }
+        });
+
         //btn confirm
         holder.btnConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (transactionPosition.getDetailTransaction().getPayment().getUpdated_process().equals("pembayaran")){
+                if (transactionPosition.getDetailTransaction().getPayment().getUpdated_process().equals("pembayaran")) {
                     Intent intent = new Intent(context, CheckoutPayment.class);
                     intent.putExtra("productPrice", transactionPosition.getDetailTransaction().getTotal_amount());
                     intent.putExtra("discountPrice", transactionPosition.getDetailTransaction().getDiscount_amount());
-                    intent.putExtra("expeditionPrice",transactionPosition.getDetailTransaction().getShipping_charges());
-                    intent.putExtra("grandTotalPrice",transactionPosition.getDetailTransaction().getGrand_total_amount());
-                    intent.putExtra("transaction_code",transactionPosition.getCode());
-                    intent.putExtra("created_at",transactionPosition.getDetailTransaction().getCreated_at());
+                    intent.putExtra("expeditionPrice", transactionPosition.getDetailTransaction().getShipping_charges());
+                    intent.putExtra("grandTotalPrice", transactionPosition.getDetailTransaction().getGrand_total_amount());
+                    intent.putExtra("transaction_code", transactionPosition.getCode());
+                    intent.putExtra("created_at", transactionPosition.getDetailTransaction().getCreated_at());
                     context.startActivity(intent);
                 }
             }
@@ -144,13 +180,15 @@ public class OnGoingAdapter extends RecyclerView.Adapter<OnGoingAdapter.OnGoingV
     }
 
     public class OnGoingViewHolder extends RecyclerView.ViewHolder {
+        ConstraintLayout constraintLayout;
         ImageView imgProduk, imgCourier;
         TextView tvTanggal, tvProduk, tvHarga, tvQty, tvStatus, tvInvoice, tvTransactionTotal;
-        Button btnConfirm, btnCancel, btnSelesai;
+        Button btnConfirm, btnCancel, btnSelesai, btn_copy;
         RelativeLayout card;
 
         public OnGoingViewHolder(@NonNull View itemView) {
             super(itemView);
+            constraintLayout = itemView.findViewById(R.id.relativeLayoutbotomDetail);
             card = itemView.findViewById(R.id.onGoingCard);
             imgProduk = itemView.findViewById(R.id.transactionBackground);
             imgCourier = itemView.findViewById(R.id.imgCourierTransaction);
@@ -164,10 +202,11 @@ public class OnGoingAdapter extends RecyclerView.Adapter<OnGoingAdapter.OnGoingV
             btnConfirm = itemView.findViewById(R.id.confirmButton);
             btnCancel = itemView.findViewById(R.id.cancelButton);
             btnSelesai = itemView.findViewById(R.id.doneButton);
+            btn_copy = itemView.findViewById(R.id.btn_copy);
         }
     }
 
-    private void alertdialog(String transaction_code, String product_code, int position){
+    private void alertdialog(String transaction_code, String product_code, int position) {
         AlertDialog.Builder alert = new AlertDialog.Builder(context);
         alert.setMessage("Uang yang sudah dibayarkan tidak dapat ditarik kembali");
         alert.setTitle("Apakah Anda Yakin ?");
@@ -193,7 +232,7 @@ public class OnGoingAdapter extends RecyclerView.Adapter<OnGoingAdapter.OnGoingV
                         dataOnGoings.remove(position);
                         homeActivity home = (homeActivity) context;
                         Intent intent = new Intent(context, homeActivity.class);
-                        intent.putExtra("fragment","transaction");
+                        intent.putExtra("fragment", "transaction");
                         context.startActivity(intent);
                         home.finish();
                     }
@@ -214,7 +253,7 @@ public class OnGoingAdapter extends RecyclerView.Adapter<OnGoingAdapter.OnGoingV
         alert.show();
     }
 
-    private void alertdialogSelesai(String transaction_code, String product_code, int position){
+    private void alertdialogSelesai(String transaction_code, String product_code, int position) {
         AlertDialog.Builder alert = new AlertDialog.Builder(context);
         alert.setMessage("Dengan menekan tombol selesai, maka anda menyatakan bahwa barang sudah sampai");
         alert.setTitle("Apakah Anda Yakin ?");
@@ -240,7 +279,7 @@ public class OnGoingAdapter extends RecyclerView.Adapter<OnGoingAdapter.OnGoingV
                         dataOnGoings.remove(position);
                         homeActivity home = (homeActivity) context;
                         Intent intent = new Intent(context, homeActivity.class);
-                        intent.putExtra("fragment","transaction");
+                        intent.putExtra("fragment", "transaction");
                         context.startActivity(intent);
                         home.finish();
                     }
@@ -260,4 +299,6 @@ public class OnGoingAdapter extends RecyclerView.Adapter<OnGoingAdapter.OnGoingV
         });
         alert.show();
     }
+
+
 }
