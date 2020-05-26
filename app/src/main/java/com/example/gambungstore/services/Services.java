@@ -194,7 +194,7 @@ public interface Services {
             @Field("username") String username,
             @Field("address") String address,
             @Field("phone") String phone,
-            @Field("store_id[]") ArrayList<Integer> store_id,
+            @Field("store_id[]") ArrayList<String> store_id,
             @Field("expedition[]") ArrayList<String> expedition,
             @Field("total_shipping_charges") int total_shipping_charges,
             @Field("total_product_amount") int total_product_amount,

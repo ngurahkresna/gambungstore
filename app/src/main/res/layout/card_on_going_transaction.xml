@@ -230,6 +230,16 @@
                 android:textAllCaps="false"
                 android:textColor="@color/colorPrimary"
                 android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/expiredInfo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/doneButton"
+                android:layout_marginTop="4dp"
+                android:text="* Penjual Tidak Memproses Pesanan"
+                android:textSize="13sp"
+                android:visibility="gone"/>
         </RelativeLayout>
 
     </com.google.android.material.card.MaterialCardView>

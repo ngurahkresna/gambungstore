@@ -12,6 +12,8 @@ public class Payment {
     private String updated_process;
     @SerializedName("payment_method_id")
     private int payment_method_id;
+    @SerializedName("verified_date")
+    private String verified_date;
 
     public String getStatus_uplaod() {
         return status_uplaod;
@@ -43,6 +45,14 @@ public class Payment {
 
     public void setPayment_method_id(int payment_method_id) {
         this.payment_method_id = payment_method_id;
+    }
+
+    public String getVerified_date() {
+        return verified_date;
+    }
+
+    public void setVerified_date(String verified_date) {
+        this.verified_date = verified_date;
     }
 }
 
