@@ -186,6 +186,11 @@ public class OnGoingAdapter extends RecyclerView.Adapter<OnGoingAdapter.OnGoingV
         });
 
         //btn selesai
+
+        if (holder.tvStatus.getText().equals("VERIFIKASI") || holder.tvStatus.getText().equals("DALAM PROSES")){
+            holder.btnSelesai.setVisibility(View.GONE);
+        }
+
         holder.btnSelesai.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
