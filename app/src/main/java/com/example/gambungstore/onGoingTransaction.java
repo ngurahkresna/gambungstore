@@ -81,7 +81,7 @@ public class onGoingTransaction extends Fragment {
 
                 List<DataTransaction> dataTransactions = new ArrayList<>();
                 for (DataTransaction dataTransaction : response.body().getTransactions()) {
-                    if (!dataTransaction.getShipping_status().equals("OPTFL") && !dataTransaction.getShipping_status().equals("OPTCC") && !dataTransaction.getShipping_status().equals("OPTRC")) {
+                    if (!dataTransaction.getShipping_status().equals("OPTFL") && !dataTransaction.getShipping_status().equals("OPTCC") && !dataTransaction.getShipping_status().equals("OPTRC") && !dataTransaction.getShipping_status().equals("OPTAC")) {
                         dataTransactions.add(dataTransaction);
                     }
                 }
