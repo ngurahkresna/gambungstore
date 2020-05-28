@@ -34,7 +34,11 @@ import com.example.gambungstore.services.Services;
 import com.example.gambungstore.sharedpreference.SharedPreference;
 
 import java.net.ResponseCache;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -65,14 +69,6 @@ public class OnGoingAdapter extends RecyclerView.Adapter<OnGoingAdapter.OnGoingV
     public void onBindViewHolder(@NonNull OnGoingAdapter.OnGoingViewHolder holder, int position) {
         final DataTransaction transactionPosition = dataOnGoings.get(position);
 
-        Log.d(TAG, "onBindViewHolder: " + transactionPosition.getDetailTransaction().getHistory().isEmpty());
-
-        if (!transactionPosition.getDetailTransaction().getHistory().isEmpty()) {
-            holder.itemView.setVisibility(View.GONE);
-            holder.itemView.setLayoutParams(new RecyclerView.LayoutParams(0, 0));
-            return;
-        }
-
         holder.tvTanggal.setText(transactionPosition.getTanggal().toString());
         holder.tvProduk.setText(transactionPosition.getProduct().getName().toString());
         holder.tvHarga.setText(String.valueOf(transactionPosition.getProduct().getPrice()));
@@ -94,13 +90,13 @@ public class OnGoingAdapter extends RecyclerView.Adapter<OnGoingAdapter.OnGoingV
             }
         }
 
-        if (transactionPosition.getExpedition().equals("")) {
-            Glide.with(context)
-                    .load("http://gambungstore.id/assets/img/expeditions/tiki.png")
-                    .into(holder.imgCourier);
-        } else if (transactionPosition.getExpedition().equals("jne")) {
+        if (transactionPosition.getExpedition().equals("jne")) {
             Glide.with(context)
                     .load("http://gambungstore.id/assets/img/expeditions/jne.png")
+                    .into(holder.imgCourier);
+        } else {
+            Glide.with(context)
+                    .load("http://gambungstore.id/assets/img/expeditions/tiki.png")
                     .into(holder.imgCourier);
         }
 
@@ -111,9 +107,34 @@ public class OnGoingAdapter extends RecyclerView.Adapter<OnGoingAdapter.OnGoingV
 
         if (transactionPosition.getDetailTransaction().getPayment().getUpdated_process().equals("pembayaran")) {
             holder.btnSelesai.setVisibility(View.GONE);
+            holder.btnConfirm.setVisibility(View.VISIBLE);
+            holder.btnCancel.setVisibility(View.VISIBLE);
         } else {
             holder.btnConfirm.setVisibility(View.GONE);
             holder.btnCancel.setVisibility(View.GONE);
+            holder.btnSelesai.setVisibility(View.VISIBLE);
+        }
+
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        try {
+            if (transactionPosition.getDetailTransaction().getPayment().getVerified_date() != null) {
+                Date verifiedDate = sdf.parse(transactionPosition.getDetailTransaction().getPayment().getVerified_date());
+                Date today = new Date();
+
+                long diff = TimeUnit.DAYS.convert(today.getTime() - verifiedDate.getTime(), TimeUnit.MILLISECONDS);
+                if(diff >= 1 && transactionPosition.getDetailTransaction().getPayment().getVerified_status().equals("OPTYS")) {
+                    holder.tvExpiredInfo.setVisibility(View.VISIBLE);
+                    holder.btnSelesai.setVisibility(View.GONE);
+                    holder.btnConfirm.setVisibility(View.GONE);
+                    holder.btnCancel.setVisibility(View.GONE);
+
+                    holder.tvStatus.setText("REFUND JICASH");
+                }
+            } else {
+                holder.tvExpiredInfo.setVisibility(View.GONE);
+            }
+        } catch (ParseException e) {
+            e.printStackTrace();
         }
 
         //btn cancel
@@ -182,7 +203,7 @@ public class OnGoingAdapter extends RecyclerView.Adapter<OnGoingAdapter.OnGoingV
     public class OnGoingViewHolder extends RecyclerView.ViewHolder {
         ConstraintLayout constraintLayout;
         ImageView imgProduk, imgCourier;
-        TextView tvTanggal, tvProduk, tvHarga, tvQty, tvStatus, tvInvoice, tvTransactionTotal;
+        TextView tvTanggal, tvProduk, tvHarga, tvQty, tvStatus, tvInvoice, tvTransactionTotal, tvExpiredInfo;
         Button btnConfirm, btnCancel, btnSelesai, btn_copy;
         RelativeLayout card;
 
@@ -199,6 +220,7 @@ public class OnGoingAdapter extends RecyclerView.Adapter<OnGoingAdapter.OnGoingV
             tvStatus = itemView.findViewById(R.id.statusTransaction);
             tvInvoice = itemView.findViewById(R.id.invoiceTransaction);
             tvTransactionTotal = itemView.findViewById(R.id.transactionTotal);
+            tvExpiredInfo = itemView.findViewById(R.id.expiredInfo);
             btnConfirm = itemView.findViewById(R.id.confirmButton);
             btnCancel = itemView.findViewById(R.id.cancelButton);
             btnSelesai = itemView.findViewById(R.id.doneButton);

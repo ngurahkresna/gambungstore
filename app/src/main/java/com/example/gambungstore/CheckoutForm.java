@@ -67,7 +67,7 @@ public class CheckoutForm extends AppCompatActivity {
     public String[] messageArray;
 
     //checkout detail
-    ArrayList<Integer> store_id = new ArrayList<>();
+    ArrayList<String> store_id = new ArrayList<>();
     String[] expeditionCode;
     List<PaymentMethod> paymentMethods;
 
@@ -191,7 +191,7 @@ public class CheckoutForm extends AppCompatActivity {
 
                 //get all data store id
                 for(DataStore store : response.body().getStore()){
-                    store_id.add(store.getId());
+                    store_id.add(store.getCode());
                 }
 
                 //get all product code
