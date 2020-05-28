@@ -69,14 +69,6 @@ public class OnGoingAdapter extends RecyclerView.Adapter<OnGoingAdapter.OnGoingV
     public void onBindViewHolder(@NonNull OnGoingAdapter.OnGoingViewHolder holder, int position) {
         final DataTransaction transactionPosition = dataOnGoings.get(position);
 
-        Log.d(TAG, "onBindViewHolder: " + transactionPosition.getDetailTransaction().getHistory().isEmpty());
-
-        if (!transactionPosition.getDetailTransaction().getHistory().isEmpty()) {
-            holder.itemView.setVisibility(View.GONE);
-            holder.itemView.setLayoutParams(new RecyclerView.LayoutParams(0, 0));
-            return;
-        }
-
         holder.tvTanggal.setText(transactionPosition.getTanggal().toString());
         holder.tvProduk.setText(transactionPosition.getProduct().getName().toString());
         holder.tvHarga.setText(String.valueOf(transactionPosition.getProduct().getPrice()));
@@ -108,22 +100,6 @@ public class OnGoingAdapter extends RecyclerView.Adapter<OnGoingAdapter.OnGoingV
                     .into(holder.imgCourier);
         }
 
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        try {
-            if (transactionPosition.getDetailTransaction().getPayment().getVerified_date() != null) {
-                Date verifiedDate = sdf.parse(transactionPosition.getDetailTransaction().getPayment().getVerified_date());
-                Date today = new Date();
-
-                long diff = TimeUnit.DAYS.convert(today.getTime() - verifiedDate.getTime(), TimeUnit.MILLISECONDS);
-                if(diff >= 1) {
-                    holder.tvExpiredInfo.setVisibility(View.VISIBLE);
-                    holder.btnSelesai.setVisibility(View.GONE);
-                }
-            }
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-
         int total = transactionPosition.getProduct().getPrice() * transactionPosition.getQuantity();
         holder.tvTransactionTotal.setText(String.valueOf(total) + ",-");
 
@@ -131,9 +107,34 @@ public class OnGoingAdapter extends RecyclerView.Adapter<OnGoingAdapter.OnGoingV
 
         if (transactionPosition.getDetailTransaction().getPayment().getUpdated_process().equals("pembayaran")) {
             holder.btnSelesai.setVisibility(View.GONE);
+            holder.btnConfirm.setVisibility(View.VISIBLE);
+            holder.btnCancel.setVisibility(View.VISIBLE);
         } else {
             holder.btnConfirm.setVisibility(View.GONE);
             holder.btnCancel.setVisibility(View.GONE);
+            holder.btnSelesai.setVisibility(View.VISIBLE);
+        }
+
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        try {
+            if (transactionPosition.getDetailTransaction().getPayment().getVerified_date() != null) {
+                Date verifiedDate = sdf.parse(transactionPosition.getDetailTransaction().getPayment().getVerified_date());
+                Date today = new Date();
+
+                long diff = TimeUnit.DAYS.convert(today.getTime() - verifiedDate.getTime(), TimeUnit.MILLISECONDS);
+                if(diff >= 1 && transactionPosition.getDetailTransaction().getPayment().getVerified_status().equals("OPTYS")) {
+                    holder.tvExpiredInfo.setVisibility(View.VISIBLE);
+                    holder.btnSelesai.setVisibility(View.GONE);
+                    holder.btnConfirm.setVisibility(View.GONE);
+                    holder.btnCancel.setVisibility(View.GONE);
+
+                    holder.tvStatus.setText("REFUND JICASH");
+                }
+            } else {
+                holder.tvExpiredInfo.setVisibility(View.GONE);
+            }
+        } catch (ParseException e) {
+            e.printStackTrace();
         }
 
         //btn cancel

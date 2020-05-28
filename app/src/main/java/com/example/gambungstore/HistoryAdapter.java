@@ -45,12 +45,6 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HistoryV
     public void onBindViewHolder(@NonNull HistoryAdapter.HistoryViewHolder holder, int position) {
         DataTransaction transactionPosition = transactionList.get(position);
 
-        if (transactionPosition.getDetailTransaction().getHistory().isEmpty()) {
-            holder.itemView.setVisibility(View.GONE);
-            holder.itemView.setLayoutParams(new RecyclerView.LayoutParams(0, 0));
-            return;
-        }
-
         holder.tvTanggal.setText(transactionPosition.getTanggal().toString());
         holder.tvProduk.setText(transactionPosition.getProduct().getName().toString());
         holder.tvHarga.setText(String.valueOf(transactionPosition.getProduct().getPrice()));

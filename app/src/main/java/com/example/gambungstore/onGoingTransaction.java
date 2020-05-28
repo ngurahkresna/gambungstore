@@ -21,6 +21,7 @@ import com.example.gambungstore.progressbar.ProgressBarGambung;
 import com.example.gambungstore.services.Services;
 import com.example.gambungstore.sharedpreference.SharedPreference;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -77,7 +78,15 @@ public class onGoingTransaction extends Fragment {
             @Override
             public void onResponse(Call<Transaction> call, Response<Transaction> response) {
                 Log.d(TAG, "onResponse: "+response.raw());
-                transactionAdapter(response.body().getTransactions());
+
+                List<DataTransaction> dataTransactions = new ArrayList<>();
+                for (DataTransaction dataTransaction : response.body().getTransactions()) {
+                    if (!dataTransaction.getShipping_status().equals("OPTFL") && !dataTransaction.getShipping_status().equals("OPTCC")) {
+                        dataTransactions.add(dataTransaction);
+                    }
+                }
+
+                transactionAdapter(dataTransactions);
                 progressbar.endProgressBarGambung();
             }
 
