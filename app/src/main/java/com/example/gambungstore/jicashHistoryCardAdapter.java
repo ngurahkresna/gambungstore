@@ -91,7 +91,10 @@ public class jicashHistoryCardAdapter extends RecyclerView.Adapter<jicashHistory
         if (jicashPosition.getTransaction_type().equals("Pembayaran Transaksi")){
             holder.historyAmount.setText("-Rp. "+Integer.toString(jicashPosition.getAmount()));
             holder.historyAmount.setTextColor(Color.parseColor("#D93E3E"));
-        }else{
+        } else if(jicashPosition.getTransaction_type().equals("Refund")){
+            holder.historyAmount.setText("+Rp. "+Integer.toString(jicashPosition.getAmount()));
+        }
+        else{
             holder.historyAmount.setText("+Rp. "+Integer.toString(jicashPosition.getAmount()));
         }
         holder.historyDate.setText(jicashPosition.getDate());

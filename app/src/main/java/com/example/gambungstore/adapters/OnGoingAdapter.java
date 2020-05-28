@@ -75,6 +75,7 @@ public class OnGoingAdapter extends RecyclerView.Adapter<OnGoingAdapter.OnGoingV
         holder.tvQty.setText("(" + String.valueOf(transactionPosition.getQuantity()) + "pcs)");
         if (transactionPosition.getShipping_no() == null) {
             holder.tvInvoice.setText("");
+            holder.constraintLayout.setVisibility(View.GONE);
 
         } else {
             holder.constraintLayout.setVisibility(View.VISIBLE);
