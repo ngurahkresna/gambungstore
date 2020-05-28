@@ -90,7 +90,7 @@ public class historyTransaction extends Fragment {
                 Log.d(TAG, "onResponse: "+response.raw());
                 List<DataTransaction> dataTransactions = new ArrayList<>();
                 for (DataTransaction dataTransaction : response.body().getTransactions()) {
-                    if (dataTransaction.getShipping_status().equals("OPTFL") || dataTransaction.getShipping_status().equals("OPTCC")) {
+                    if (dataTransaction.getShipping_status().equals("OPTFL") || dataTransaction.getShipping_status().equals("OPTCC") || dataTransaction.getShipping_status().equals("OPTRC")) {
                         dataTransactions.add(dataTransaction);
                     }
                 }
