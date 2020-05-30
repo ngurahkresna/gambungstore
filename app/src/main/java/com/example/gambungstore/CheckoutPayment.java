@@ -231,8 +231,10 @@ public class CheckoutPayment extends AppCompatActivity {
                 }
 
                 if (jicash){
-                    TopUpJicash.getInstance().finish();
-                    JicashCheckoutForm.getInstance().finish();
+                    if (getIntent().getStringExtra("updateProofJicash") == null) {
+                        TopUpJicash.getInstance().finish();
+                        JicashCheckoutForm.getInstance().finish();
+                    }
                     uploadProofJicash(bodyJicash,getIntent().getIntExtra("productPrice",0));
                 }else{
                     uploadProof(body);
@@ -294,27 +296,55 @@ public class CheckoutPayment extends AppCompatActivity {
                 RequestBody.create(MediaType.parse("text/plain"), SharedPreference.getRegisteredUsername(this));
 
         Services service = Client.getClient(Client.BASE_URL).create(Services.class);
-        Call<ResponseBody> callUploadProof = service.uploadProofJicash(
-                ammount,
-                image,
-                username
-        );
-        callUploadProof.enqueue(new Callback<ResponseBody>() {
-            @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                Log.d(TAG, "onResponse: "+response.raw());
-                Intent intent = new Intent(CheckoutPayment.this, CheckoutDone.class);
-                intent.putExtra("payment","jicash");
-                startActivity(intent);
-                finish();
-                progressbar.endProgressBarGambung();
-            }
 
-            @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
-                Log.d(TAG, "onFailure: "+t.toString());
-            }
-        });
+        //apakah upload proof atau update proof
+        if (getIntent().getStringExtra("updateProofJicash") != null){
+            RequestBody jicash_id =
+                    RequestBody.create(MediaType.parse("text/plain"), String.valueOf(getIntent().getIntExtra("jicash_id",0)));
+            Call<ResponseBody> callUploadProof = service.updateProofJicash(
+                    jicash_id,
+                    image,
+                    username
+            );
+            callUploadProof.enqueue(new Callback<ResponseBody>() {
+                @Override
+                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                    Log.d(TAG, "onResponse: "+response.raw());
+                    Intent intent = new Intent(CheckoutPayment.this, CheckoutDone.class);
+                    intent.putExtra("payment","jicash");
+                    startActivity(intent);
+                    finish();
+                    progressbar.endProgressBarGambung();
+                }
+
+                @Override
+                public void onFailure(Call<ResponseBody> call, Throwable t) {
+                    Log.d(TAG, "onFailure: "+t.toString());
+                }
+            });
+        }else {
+            Call<ResponseBody> callUploadProof = service.uploadProofJicash(
+                    ammount,
+                    image,
+                    username
+            );
+            callUploadProof.enqueue(new Callback<ResponseBody>() {
+                @Override
+                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                    Log.d(TAG, "onResponse: "+response.raw());
+                    Intent intent = new Intent(CheckoutPayment.this, CheckoutDone.class);
+                    intent.putExtra("payment","jicash");
+                    startActivity(intent);
+                    finish();
+                    progressbar.endProgressBarGambung();
+                }
+
+                @Override
+                public void onFailure(Call<ResponseBody> call, Throwable t) {
+                    Log.d(TAG, "onFailure: "+t.toString());
+                }
+            });
+        }
     }
 
 

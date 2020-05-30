@@ -1,6 +1,7 @@
 package com.example.gambungstore;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.util.Log;
@@ -23,6 +24,8 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.List;
+
+import static java.util.Objects.isNull;
 
 public class jicashHistoryCardAdapter extends RecyclerView.Adapter<jicashHistoryCardAdapter.CardViewViewHolder> {
     private static final String TAG = "jicashHistoryCardAdapte";
@@ -86,8 +89,35 @@ public class jicashHistoryCardAdapter extends RecyclerView.Adapter<jicashHistory
             }
         }
 
+        if (jicashPosition.getTransaction_type().equals("Topup")){
+            Log.d(TAG, "onBindViewHolder: disini");
+            if (jicashPosition.getIsApproved().equals("OPTNO")){
+                Log.d(TAG, "onBindViewHolder: optno"+jicashPosition.getTopup_image());
+                if (isNull(jicashPosition.getTopup_image())){
+                    holder.historyTitle.setText("Topup - Bukti Upload Ditolak");
+                    holder.cardView.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Intent intent = new Intent(context,CheckoutPayment.class);
+                            intent.putExtra("jicash","jicash");
+                            intent.putExtra("productPrice",jicashPosition.getAmount());
+                            intent.putExtra("discountPrice",0);
+                            intent.putExtra("grandTotalPrice",jicashPosition.getAmount());
+                            intent.putExtra("expeditionPrice",0);
+                            intent.putExtra("created_at",jicashPosition.getDate());
+                            intent.putExtra("updateProofJicash","update");
+                            intent.putExtra("jicash_id",jicashPosition.getId());
+                            context.startActivity(intent);
+                        }
+                    });
+                }else{
+                    holder.historyTitle.setText("Topup - Sedang Proses");
+                }
+            }
+        }else{
+            holder.historyTitle.setText(jicashPosition.getTransaction_type());
+        }
 
-        holder.historyTitle.setText(jicashPosition.getTransaction_type());
         if (jicashPosition.getTransaction_type().equals("Pembayaran Transaksi")){
             holder.historyAmount.setText("-Rp. "+Integer.toString(jicashPosition.getAmount()));
             holder.historyAmount.setTextColor(Color.parseColor("#D93E3E"));

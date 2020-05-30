@@ -273,6 +273,14 @@ public interface Services {
             @Part("username") RequestBody username
     );
 
+    @Multipart
+    @POST("jicash/topup")
+    Call<ResponseBody> updateProofJicash(
+            @Part("jicash_id") RequestBody jicash_id,
+            @Part MultipartBody.Part topup_proof,
+            @Part("username") RequestBody username
+    );
+
     @GET("jicash")
     Call<List<Jicash>> getJicash(
         @Query("username") String username

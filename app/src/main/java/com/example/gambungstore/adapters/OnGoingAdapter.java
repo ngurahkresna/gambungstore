@@ -105,7 +105,8 @@ public class OnGoingAdapter extends RecyclerView.Adapter<OnGoingAdapter.OnGoingV
 
         holder.tvStatus.setText(transactionPosition.getDetailTransaction().getPayment().getUpdated_process().toString().toUpperCase());
 
-        if (transactionPosition.getDetailTransaction().getPayment().getUpdated_process().equals("pembayaran")) {
+        if (transactionPosition.getDetailTransaction().getPayment().getUpdated_process().equals("pembayaran")
+            || transactionPosition.getDetailTransaction().getPayment().getUpdated_process().equals("bukti ditolak")) {
             holder.btnSelesai.setVisibility(View.GONE);
             holder.btnConfirm.setVisibility(View.VISIBLE);
             holder.btnCancel.setVisibility(View.VISIBLE);
@@ -172,7 +173,8 @@ public class OnGoingAdapter extends RecyclerView.Adapter<OnGoingAdapter.OnGoingV
         holder.btnConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (transactionPosition.getDetailTransaction().getPayment().getUpdated_process().equals("pembayaran")) {
+                if (transactionPosition.getDetailTransaction().getPayment().getUpdated_process().equals("pembayaran")
+                        || transactionPosition.getDetailTransaction().getPayment().getUpdated_process().equals("bukti ditolak")) {
                     Intent intent = new Intent(context, CheckoutPayment.class);
                     intent.putExtra("productPrice", transactionPosition.getDetailTransaction().getTotal_amount());
                     intent.putExtra("discountPrice", transactionPosition.getDetailTransaction().getDiscount_amount());
