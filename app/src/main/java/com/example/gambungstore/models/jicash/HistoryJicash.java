@@ -12,6 +12,10 @@ public class HistoryJicash {
     private String transaction_type;
     @SerializedName("amount")
     private int amount;
+    @SerializedName("is_topup_approved")
+    private String isApproved;
+    @SerializedName("topup_proof_image")
+    private String topup_image;
     @SerializedName("created_at")
     private String date;
 
@@ -21,6 +25,22 @@ public class HistoryJicash {
         this.transaction_type = transaction_type;
         this.amount = amount;
         this.date = date;
+    }
+
+    public String getIsApproved() {
+        return isApproved;
+    }
+
+    public void setIsApproved(String isApproved) {
+        this.isApproved = isApproved;
+    }
+
+    public String getTopup_image() {
+        return topup_image;
+    }
+
+    public void setTopup_image(String topup_image) {
+        this.topup_image = topup_image;
     }
 
     public int getId() {
