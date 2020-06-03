@@ -72,7 +72,7 @@
     <RelativeLayout
         android:id="@+id/relativeLayoutbalance"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="wrap_content"
         android:layout_below="@id/linearlayout1"
         android:layout_marginTop="12dp"
         android:background="@drawable/bg_jicash"

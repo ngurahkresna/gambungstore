@@ -300,10 +300,6 @@ public class detailProduct extends AppCompatActivity {
         storeCart.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                Intent intent = new Intent(detailProduct.this, homeActivity.class);
-                intent.putExtra("fragment", "cart");
-                startActivity(intent);
-                finish();
                 Toast.makeText(detailProduct.this, "Berhasil Dimasukan Keranjang", Toast.LENGTH_SHORT).show();
                 progressbar.endProgressBarGambung();
             }

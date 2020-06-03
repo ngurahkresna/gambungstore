@@ -4,6 +4,7 @@ import android.content.Context;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -82,6 +83,21 @@ public class ProductCheckoutAdapter extends RecyclerView.Adapter<ProductCheckout
                         @Override
                         public void afterTextChanged(Editable s) {
                             ((CheckoutForm)context).getMessage(s.toString(), pos);
+
+                            if (null != holder.mMessage.getLayout() && holder.mMessage.getLayout().getLineCount() > 5) {
+                                holder.mMessage.getText().delete(holder.mMessage.getText().length() - 1, holder.mMessage.getText().length());
+                            }
+                        }
+                    });
+
+                    holder.mMessage.setOnKeyListener(new View.OnKeyListener() {
+                        @Override
+                        public boolean onKey(View v, int keyCode, KeyEvent event) {
+                            if (holder.mMessage.getText().length() < 1) {
+                                return keyCode != KeyEvent.KEYCODE_DEL;
+                            }
+
+                            return false;
                         }
                     });
                 }
