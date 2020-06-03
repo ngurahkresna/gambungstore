@@ -25,6 +25,8 @@ public class DataTransaction {
     private DetailTransaction detailTransaction;
     @SerializedName("product")
     private DataProduct product;
+    @SerializedName("status")
+    private String status;
 
     public String getExpedition() {
         return expedition;
@@ -104,5 +106,13 @@ public class DataTransaction {
 
     public void setProduct(DataProduct product) {
         this.product = product;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }

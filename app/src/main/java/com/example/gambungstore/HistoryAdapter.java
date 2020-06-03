@@ -68,10 +68,12 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HistoryV
                     .into(holder.imgCourier);
         }
 
-        if (transactionPosition.getDetailTransaction().getHistory().get(0).getStatus().equals("accepted")) {
-            holder.tvStatus.setText("DITERIMA");
-        } else {
-            holder.tvStatus.setText("DITOLAK");
+        if (transactionPosition.getDetailTransaction().getHistory().size() != 0) {
+            if (transactionPosition.getDetailTransaction().getHistory().get(0).getStatus().equals("accepted")) {
+                holder.tvStatus.setText("DITERIMA");
+            } else {
+                holder.tvStatus.setText("DITOLAK");
+            }
         }
 
         int total = transactionPosition.getProduct().getPrice() * transactionPosition.getQuantity();
