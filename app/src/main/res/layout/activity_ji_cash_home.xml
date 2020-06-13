@@ -69,6 +69,7 @@
             android:textAllCaps="false"
             />
     </LinearLayout>
+
     <RelativeLayout
         android:id="@+id/relativeLayoutbalance"
         android:layout_width="match_parent"
@@ -76,8 +77,7 @@
         android:layout_below="@id/linearlayout1"
         android:layout_marginTop="12dp"
         android:background="@drawable/bg_jicash"
-        android:padding="20dp"
-        >
+        android:padding="20dp">
 
         <TextView
             android:id="@+id/jicashLabel"
@@ -85,32 +85,59 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:text="Saldo Ji-Cash Anda :"
-            android:textSize="16sp"
             android:textColor="@color/colorWhite"
-            />
+            android:textSize="16sp" />
+
         <TextView
-            android:layout_marginTop="12dp"
-            android:layout_marginBottom="12dp"
-            android:layout_below="@id/jicashLabel"
-            android:layout_centerHorizontal="true"
             android:id="@+id/jicashBalance"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Loading.."
-            android:textStyle="bold"
-            android:textColor="@color/colorWhite"
-            android:textSize="36sp"/>
-        <Button
-            android:id="@+id/topupjicash"
-            android:layout_below="@id/jicashBalance"
+            android:layout_below="@id/jicashLabel"
             android:layout_centerHorizontal="true"
-            android:layout_width="match_parent"
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="12dp"
+            android:text="Loading.."
+            android:textColor="@color/colorWhite"
+            android:textSize="36sp"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:id="@+id/transaksibuyer"
+            android:layout_width="391dp"
             android:layout_height="wrap_content"
-            android:textSize="20sp"
-            android:textColor="@color/colorPrimary"
-            android:text="Top up Ji-Cash"
-            android:background="@drawable/spinner_border"
-            android:textAllCaps="false"/>
+            android:layout_below="@+id/jicashBalance"
+            android:layout_marginTop="25dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/topupjicash"
+                android:layout_width="172dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/jicashBalance"
+                android:layout_centerHorizontal="true"
+                android:background="@drawable/spinner_border"
+                android:text="Top up Ji-Cash"
+                android:textAllCaps="false"
+                android:textColor="@color/colorPrimary"
+                android:textSize="20sp" />
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/space_triple"></RelativeLayout>
+
+            <Button
+                android:id="@+id/penarikanjicashbuyer"
+                android:layout_width="172dp"
+                android:layout_height="match_parent"
+                android:layout_centerHorizontal="true"
+                android:background="@drawable/spinner_border"
+                android:text="Tarik Ji-Cash"
+                android:textAllCaps="false"
+                android:textColor="@color/colorPrimary"
+                android:textSize="20sp" />
+        </LinearLayout>
     </RelativeLayout>
     <ScrollView
         android:layout_below="@id/relativeLayoutbalance"

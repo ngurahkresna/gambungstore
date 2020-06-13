@@ -15,7 +15,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".jicashCheckoutDone"></activity>
+        <activity android:name=".CheckoutPenarikanBuyerProses"></activity>
+        <activity android:name=".NotifikasiJumlahPenarikanGagal" />
+        <activity android:name=".NotifikasiBerhasil" />
+        <activity android:name=".FormPenarikanBuyer" />
+        <activity android:name=".jicashCheckoutDone" />
         <activity android:name=".jicashCheckoutPayment" />
         <activity
             android:name=".jicashAlert"
@@ -23,8 +27,7 @@
         <activity android:name=".JicashCheckoutForm" />
         <activity android:name=".TopUpJicash" />
         <activity android:name=".jiCashHomeActivity" />
-
-        <activity android:name=".DetailStore"></activity>
+        <activity android:name=".DetailStore" />
         <activity android:name=".Chat" />
         <activity android:name=".detailProduct" />
         <activity android:name=".CheckoutDone" />
@@ -42,6 +45,7 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/filepaths" />
         </provider>
+
         <activity android:name=".detailPromo" />
         <activity android:name=".transaction" />
         <activity android:name=".editProfile" />
@@ -61,12 +65,15 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
-                <data android:scheme="https" android:host="dev.gambungstore.id" />
+
+                <data
+                    android:host="dev.gambungstore.id"
+                    android:scheme="https" />
             </intent-filter>
         </activity>
         <activity android:name=".MainActivity" />
