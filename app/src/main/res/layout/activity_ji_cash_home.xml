@@ -125,7 +125,8 @@
             <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="@dimen/space_triple"></RelativeLayout>
+                android:padding="@dimen/space_triple">
+            </RelativeLayout>
 
             <Button
                 android:id="@+id/penarikanjicashbuyer"
@@ -136,7 +137,8 @@
                 android:text="Tarik Ji-Cash"
                 android:textAllCaps="false"
                 android:textColor="@color/colorPrimary"
-                android:textSize="20sp" />
+                android:textSize="20sp"
+                android:onClick="tarikJicash"/>
         </LinearLayout>
     </RelativeLayout>
     <ScrollView

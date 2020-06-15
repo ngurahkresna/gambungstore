@@ -161,4 +161,9 @@ public class jiCashHomeActivity extends AppCompatActivity implements AdapterView
             }
         }
     }
+
+    public void tarikJicash(View view) {
+        Intent intent = new Intent(jiCashHomeActivity.this, FormPenarikanBuyer.class);
+        startActivity(intent);
+    }
 }
