@@ -76,9 +76,10 @@ public class jiCashHomeActivity extends AppCompatActivity implements AdapterView
 
         backView = findViewById(R.id.backButtonJiCash);
         backView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                onBackPressed();
+            public void onClick(View v) {
+                finish();
+                Intent intent = new Intent(jiCashHomeActivity.this,homeActivity.class);
+                startActivity(intent);
             }
         });
 
