@@ -119,8 +119,7 @@
                 android:text="Konfirmasi"
                 android:textAllCaps="false"
                 android:textColor="@color/colorWhite"
-                android:textStyle="bold"
-                android:onClick="Konfirmasiformbtn"/>
+                android:textStyle="bold" />
             <View
                 android:id="@+id/list"
                 android:layout_width="match_parent"

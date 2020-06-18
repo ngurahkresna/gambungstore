@@ -1,7 +1,9 @@
 package com.example.gambungstore;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -10,6 +12,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.gambungstore.progressbar.ProgressBarGambung;
+
 import java.util.concurrent.TimeUnit;
 
 public class CheckoutPenarikanBuyerProses extends AppCompatActivity {
@@ -17,11 +21,15 @@ public class CheckoutPenarikanBuyerProses extends AppCompatActivity {
     private ImageView mBackArrow;
     private TextView mTime;
     private CountDownTimer timerClass;
+    private ProgressBarGambung progressBarGambung;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_checkout_penarikan_buyer_proses);
+
+        progressBarGambung = new ProgressBarGambung(this);
+        progressBarGambung.startProgressBarGambung();
 
         mTime = findViewById(R.id.time);
         timerClass = new CountDownTimer(60000 * 60 *24, 1000) {
@@ -43,7 +51,7 @@ public class CheckoutPenarikanBuyerProses extends AppCompatActivity {
                 mTime.setText("00:00:00");
                 finish();
             }
-        }.start();
+        }.start() ;
 
         mBackArrow = findViewById(R.id.backArrow);
         mBackArrow.setOnClickListener(new View.OnClickListener() {
@@ -51,8 +59,10 @@ public class CheckoutPenarikanBuyerProses extends AppCompatActivity {
                 finish();
                 Intent intent = new Intent(CheckoutPenarikanBuyerProses.this,FormPenarikanBuyer.class);
                 startActivity(intent);
+                progressBarGambung.startProgressBarGambung();
             }
         });
+        progressBarGambung.endProgressBarGambung();
     }
 
 
@@ -61,12 +71,38 @@ public class CheckoutPenarikanBuyerProses extends AppCompatActivity {
         finish();
         Intent intent = new Intent(CheckoutPenarikanBuyerProses.this,homeActivity.class);
         startActivity(intent);
+        progressBarGambung.startProgressBarGambung();
     }
 
-
     public void btnKonfirmasipenarikan(View view) {
-        Intent intent = new Intent(CheckoutPenarikanBuyerProses.this,NotifikasiBerhasil.class);
-        startActivity(intent);
+        showDialog();
+    }
+
+    public void showDialog(){
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+        // set title
+        alertDialogBuilder.setTitle("Anda Yakin Untuk Mengakhiri Transaksi?");
+        // set pesan
+        alertDialogBuilder
+                .setMessage("Klik Ya Jika Transaksi Selesai!")
+                .setIcon(R.mipmap.ic_launcher)
+                .setCancelable(false)
+                .setPositiveButton("Ya",new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog,int id) {
+                        // pindah activity
+                        Intent intent = new Intent(CheckoutPenarikanBuyerProses.this,NotifikasiBerhasil.class);
+                        startActivity(intent);
+                        progressBarGambung.startProgressBarGambung();
+                    }
+                })
+                .setNegativeButton("Tidak",new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
+        //builder
+        AlertDialog alertDialog = alertDialogBuilder.create();
+        alertDialog.show();
     }
 
 }
