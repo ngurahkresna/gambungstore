@@ -98,15 +98,23 @@
                 android:layout_below="@id/atasnamaField"
                 android:layout_marginTop="@dimen/space">
 
-                <EditText
+                <TextView
                     android:id="@+id/penyediajasa"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/space_double"
+                    android:layout_marginTop="@dimen/space"
+                    android:layout_marginRight="@dimen/space"
                     android:hint="Penyedia Jasa" />
 
-            </com.google.android.material.textfield.TextInputLayout>
+                <Spinner
+                    android:id="@+id/spinnerbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:entries="@array/nama_bank"
+                    android:backgroundTint="@color/colorPrimary"
+                    android:spinnerMode="dialog"/>
 
+            </com.google.android.material.textfield.TextInputLayout>
 
 
             <Button
@@ -133,26 +141,4 @@
 
     </ScrollView>
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/space_triple">
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/historyTransaksi"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-
-            </LinearLayout>
-        </LinearLayout>
-    </ScrollView>
 </LinearLayout>

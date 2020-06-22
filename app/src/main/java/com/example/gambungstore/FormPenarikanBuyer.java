@@ -89,14 +89,13 @@ public class FormPenarikanBuyer extends AppCompatActivity {
             }
         });
         progressBarGambung.endProgressBarGambung();
-        getData();
     }
 
     private void getXml() {
         this.mJumlahjicash = findViewById(R.id.jumlahjicash);
         this.mNomorrekening = findViewById(R.id.nomorrekening);
         this.mAtasnama = findViewById(R.id.atasnama);
-        this.mPenyediajasa = findViewById(R.id.penyediajasa);
+        //this.mPenyediajasa = findViewById(R.id.penyediajasa);
 
     }
 
@@ -108,28 +107,4 @@ public class FormPenarikanBuyer extends AppCompatActivity {
         rvHistory.setAdapter(jicashHistoryCardAdapter);
     }
 
-    private void getData() {
-        Services service = Client.getClient(Client.BASE_URL).create(Services.class);
-        Call<List<Jicash>> callHistory = service.getJicash(
-                SharedPreference.getRegisteredUsername(this)
-        );
-        callHistory.enqueue(new Callback<List<Jicash>>() {
-            @Override
-            public void onResponse(Call<List<Jicash>> call, Response<List<Jicash>> response) {
-                if (response.body().size() != 0) {
-                    historyCardAdapter(response.body().get(0).getHistory());
-                    jicashBalance.setText("Rp. " + response.body().get(0).getBalance() + ",-");
-
-                } else {
-                    jicashBalance.setText("Rp. 0");
-                }
-                progressBarGambung.endProgressBarGambung();
-            }
-
-            @Override
-            public void onFailure(Call<List<Jicash>> call, Throwable t) {
-
-            }
-        });
-    }
 }

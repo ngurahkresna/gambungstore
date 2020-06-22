@@ -10,6 +10,13 @@
         <item>Refund Ji-Cash</item>
     </array>
 
+    <string-array name="nama_bank">
+        <item>BCA</item>
+        <item>Mandiri</item>
+        <item>BJB</item>
+        <item>BNI</item>
+    </string-array>
+
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
