@@ -11,10 +11,133 @@
     </array>
 
     <string-array name="nama_bank">
-        <item>BCA</item>
-        <item>Mandiri</item>
-        <item>BJB</item>
-        <item>BNI</item>
+        <item>Bank Negara Indonesia</item>
+        <item>Bank Rakyat Indonesia</item>
+        <item>Bank Tabungan Negara</item>
+        <item>Bank Mandiri</item>
+        <item>Bank Mutiara (Dahulu dinamakan bank Century)</item>
+        <item>Bank Agroniaga</item>
+        <item>Bank Anda</item>
+        <item>Bank Artha Graha Internasional</item>
+        <item>Bank Bukopin</item>
+        <item>Bank Bumi Arta</item>
+        <item>Bank Capital Indonesia</item>
+        <item>Bank Central Asia</item>
+        <item>Bank CIMB Niaga (Gabungan bank Lippo n bank Niaga)</item>
+        <item>Bank Danamon</item>
+        <item>Bank Ekonomi Raharja</item>
+        <item>Bank Ganesha</item>
+        <item>Bank Hana</item>
+        <item>Bank Himpunan Saudara 1906 (Bandung)</item>
+        <item>Bank ICB Bumiputera</item>
+        <item>Bank ICBC Indonesia</item>
+        <item>Bank Index Selindo</item>
+        <item>Bank Internasional Indonesia Maybank</item>
+        <item>Bank Kesawan</item>
+        <item>Bank Maspion</item>
+        <item>Bank Mayapada</item>
+        <item>Bank Mega</item>
+        <item>Bank Mestika Dharma</item>
+        <item>Bank Metro Express</item>
+        <item>Bank Muamalat Indonesia</item>
+        <item>Bank Nusantara Parahyangan</item>
+        <item>Bank OCBC NISP</item>
+        <item>Bank Permata</item>
+        <item>Bank SBI Indonesia</item>
+        <item>Bank Sinarmas</item>
+        <item>Bank Swadesi</item>
+        <item>Bank Syariah Mandiri</item>
+        <item>Bank Syariah Mega Indonesia</item>
+        <item>Bank Victoria Internasional</item>
+        <item>Bank Pan Indonesia Bank</item>
+        <item>Bank Anglomas Internasional Bank (Surabaya)</item>
+        <item>Bank Andara</item>
+        <item>Bank Artos Indonesia (Bandung)</item>
+        <item>Bank Barclays Indonesia</item>
+        <item>Bank Bisnis Internasional (Bandung)</item>
+        <item>Bank BRI Syariah</item>
+        <item>Bank Central Asia Syariah</item>
+        <item>Bank Dipo International</item>
+        <item>Bank Fama Internasional (Bandung)</item>
+        <item>Bank Harda Internasional</item>
+        <item>Bank Ina Perdana</item>
+        <item>Bank Jasa Jakarta</item>
+        <item>Bank Kesejahteraan Ekonomi</item>
+        <item>Bank Liman International</item>
+        <item>Bank Mayora</item>
+        <item>Bank ANZ Panin Bank</item>
+        <item>Bank Agris</item>
+        <item>Bank Commonwealth</item>
+        <item>Bank BNP Paribas Indonesia</item>
+        <item>Bank DBS Indonesia</item>
+        <item>Bank KEB Indonesia</item>
+        <item>Bank Maybank Syariah Indonesia</item>
+        <item>Bank Mizuho Indonesia</item>
+        <item>Bank UOB Buana</item>
+        <item>Bank Rabobank Internasional Indonesia</item>
+        <item>Bank Resona Perdania</item>
+        <item>Bank Windu Kentjana Internasional</item>
+        <item>Bank Woori Indonesia</item>
+        <item>Bank Chinatrust Indonesia</item>
+        <item>Bank Sumitomo Mitsui Indonesia</item>
+        <item>Bank UFJ Indonesia</item>
+        <item>Bank Mitraniaga</item>
+        <item>Bank Multi Arta Sentosa</item>
+        <item>Bank Nationalnobu</item>
+        <item>Bank Pundi Indonesia</item>
+        <item>Bank Purba Danarta (Semarang)</item>
+        <item>Bank Royal Indonesia</item>
+        <item>Bank Sinar Harapan Bali</item>
+        <item>Bank STMIK Binamulia (Palu)</item>
+        <item>Bank Syariah Bukopin</item>
+        <item>Bank Tabungan Pensiunan Nasional (Bandung)</item>
+        <item>Bank Victoria Syariah</item>
+        <item>Bank Yudha Bhakti</item>
+        <item>Bank Centratama Nasional Bank (Surabaya)</item>
+        <item>Bank Pan Indonesia Bank Syariah</item>
+        <item>Bank Prima Master Bank</item>
+        <item>Bank Jambi (Jambi)</item>
+        <item>Bank Kalsel (Banjarmasin)</item>
+        <item>Bank Kaltim (Samarinda)</item>
+        <item>Bank Sultra (Kendari)</item>
+        <item>Bank BPD DIY (Yogyakarta)</item>
+        <item>Bank Nagari (Padang)</item>
+        <item>Bank DKI (Jakarta)</item>
+        <item>Bank Lampung (Bandar Lampung)</item>
+        <item>Bank Kalteng (Palangka Raya)</item>
+        <item>Bank BPD Aceh (Banda Aceh)</item>
+        <item>Bank Sulsel (Makassar)</item>
+        <item>Bank BJB (Bandung)</item>
+        <item>Bank Kalbar (Pontianak)</item>
+        <item>Bank Maluku (Ambon)</item>
+        <item>Bank Bengkulu (Kota Bengkulu)</item>
+        <item>Bank Jateng (Semarang)</item>
+        <item>Bank Jatim (Surabaya)</item>
+        <item>Bank NTB (Mataram)</item>
+        <item>Bank NTT (Kupang)</item>
+        <item>Bank Sulteng (Palu)</item>
+        <item>Bank Sulut (Manado)</item>
+        <item>Bank BPD Bali (Denpasar)</item>
+        <item>Bank Papua (Jayapura)</item>
+        <item>Bank Riau Kepri (Pekanbaru)</item>
+        <item>Bank Sumsel Babel (Palembang)</item>
+        <item>Bank Sumut (Medan)</item>
+        <item>Bank BNI Syariah</item>
+        <item>Bank BRI Syariah</item>
+        <item>Bank Maybank Syariah Indonesia</item>
+        <item>Bank Mega Syariah Indonesia</item>
+        <item>Bank Muamalat Indonesia</item>
+        <item>Bank Syariah Bukopin</item>
+        <item>Bank Syariah Mandiri</item>
+        <item>Bank Victoria Syariah</item>
+        <item>Bank Pan Indonesia Bank Syariah</item>
+        <item>Bank CIMB Niaga Syariah</item>
+        <item>Bank OCBC NISP Syariah</item>
+        <item>Bank Danamon Syariah</item>
+        <item>Bank Riau Kepri Syariah</item>
+        <item>Bank BCA Syariah</item>
+        <item>Bank BJB Syariah</item>
+        <item>Bank Permata Syariah</item>
     </string-array>
 
 
