@@ -70,7 +70,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/space_double"
-                    android:hint="Nomor Rekening" />
+                    android:hint="Nomor Rekening"
+                    android:inputType="number"/>
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -98,7 +99,7 @@
                 android:layout_below="@id/atasnamaField"
                 android:layout_marginTop="@dimen/space">
 
-                <TextView
+                <EditText
                     android:id="@+id/penyediajasa"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -106,13 +107,22 @@
                     android:layout_marginRight="@dimen/space"
                     android:hint="Penyedia Jasa" />
 
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/penyediajasaFieldspinner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/penyediajasaField"
+                android:layout_marginTop="@dimen/space">
+
                 <Spinner
-                    android:id="@+id/spinnerbar"
                     android:layout_width="match_parent"
-                    android:layout_height="48dp"
-                    android:entries="@array/nama_bank"
-                    android:backgroundTint="@color/colorPrimary"
-                    android:spinnerMode="dialog"/>
+                    android:layout_height="wrap_content"
+                    android:id="@+id/spinnerbar"
+                    android:entries="@array/nama_bank">
+                </Spinner>
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -121,7 +131,7 @@
                 android:id="@+id/buttonKonfirmasiFormPenarikan"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/penyediajasaField"
+                android:layout_below="@+id/penyediajasaFieldspinner"
                 android:layout_marginTop="@dimen/space_triple"
                 android:background="@drawable/button_primary_solid"
                 android:text="Konfirmasi"

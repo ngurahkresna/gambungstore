@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -45,6 +46,8 @@ public class FormPenarikanBuyer extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_form_penarikan_buyer);
+
+        Spinner spinner = findViewById(R.id.spinnerbar);
 
         jicashBalance = findViewById(R.id.jicashBalance);
 
@@ -95,7 +98,7 @@ public class FormPenarikanBuyer extends AppCompatActivity {
         this.mJumlahjicash = findViewById(R.id.jumlahjicash);
         this.mNomorrekening = findViewById(R.id.nomorrekening);
         this.mAtasnama = findViewById(R.id.atasnama);
-        //this.mPenyediajasa = findViewById(R.id.penyediajasa);
+        this.mPenyediajasa = findViewById(R.id.penyediajasa);
 
     }
 
