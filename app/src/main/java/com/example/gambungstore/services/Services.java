@@ -285,4 +285,10 @@ public interface Services {
     Call<List<Jicash>> getJicash(
         @Query("username") String username
     );
+
+    //1111111111111111111111111111111111111111
+    @POST("jicash/tarik")
+    Call<ResponseBody> updateProofJicash(
+            @Part("amount") RequestBody ammount
+    );
 }
