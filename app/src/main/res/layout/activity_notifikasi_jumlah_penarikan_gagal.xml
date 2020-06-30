@@ -39,14 +39,15 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-    </RelativeLayout>
+        android:layout_height="wrap_content"
+        android:padding="@dimen/space_double">
+
 
     <TextView
         android:id="@+id/notifikasi"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text=" \n \n Saldo Anda Tidak Cukup\n Mohon Periksa Kembali\n\n"
+        android:text=" \n \n Saldo Anda Tidak Cukup\n Mohon Periksa Kembali"
         android:textAlignment="center"
         android:textColor="@color/colorPrimary"
         android:textSize="20sp"
@@ -85,5 +86,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         android:onClick="btnKembali"/>
-
+</RelativeLayout>
 </LinearLayout>

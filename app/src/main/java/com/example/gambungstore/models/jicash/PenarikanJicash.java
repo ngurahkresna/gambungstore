@@ -32,4 +32,28 @@ public class PenarikanJicash {
     public void setId(int id) {
         this.id = id;
     }
+
+    public int getJi_cash_id() {
+        return ji_cash_id;
+    }
+
+    public void setJi_cash_id(int ji_cash_id) {
+        this.ji_cash_id = ji_cash_id;
+    }
+
+    public int getAmount() {
+        return amount;
+    }
+
+    public void setAmount(int amount) {
+        this.amount = amount;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
 }

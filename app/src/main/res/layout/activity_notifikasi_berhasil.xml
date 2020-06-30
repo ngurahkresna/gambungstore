@@ -38,14 +38,15 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:padding="@dimen/space_double">
 
 
         <TextView
             android:id="@+id/notifikasi"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text=" \n \n  Terimakasih Telah Mempercayai Kami\n\n\n"
+            android:text=" \n \n  Terimakasih Telah Mempercayai Kami"
             android:textAlignment="center"
             android:textColor="@color/colorPrimary"
             android:textSize="20sp"
