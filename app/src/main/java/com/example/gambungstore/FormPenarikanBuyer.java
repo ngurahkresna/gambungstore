@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -85,7 +86,17 @@ public class FormPenarikanBuyer extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "Pastikan Penyedia Jasa Field Terisi", Toast.LENGTH_SHORT).show();
                     return;
                 } else {
-                    Intent intent = new Intent(FormPenarikanBuyer.this, CheckoutPenarikanBuyerProses.class);
+                    Intent intent = new Intent(getApplicationContext(), CheckoutPenarikanBuyerProses.class);
+                    //Membuat obyek bundle
+                    Bundle b = new Bundle();
+
+                    //Menyisipkan tipe data String ke dalam obyek bundle
+                    b.putString("noreq", mNomorrekening.getText().toString());
+
+                    //Menambahkan bundle intent
+                    intent.putExtras(b);
+
+                    //memulai Activity kedua
                     startActivity(intent);
                     progressBarGambung.startProgressBarGambung();
                 }

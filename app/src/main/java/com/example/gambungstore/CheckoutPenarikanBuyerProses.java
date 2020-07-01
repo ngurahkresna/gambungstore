@@ -31,6 +31,14 @@ public class CheckoutPenarikanBuyerProses extends AppCompatActivity {
         progressBarGambung = new ProgressBarGambung(this);
         progressBarGambung.startProgressBarGambung();
 
+        Bundle b = getIntent().getExtras();
+        //membuat obyek dari widget textview
+        TextView noreq = (TextView) findViewById(R.id.noreqValue);
+
+        //menset nilai dari widget textview
+        noreq.setText(b.getCharSequence("noreq"));
+
+
         mTime = findViewById(R.id.time);
         timerClass = new CountDownTimer(60000 * 60 *24, 1000) {
             @Override
