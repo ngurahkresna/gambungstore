@@ -119,15 +119,17 @@ public class homeFragment extends Fragment{
         jicashBalance = view.findViewById(R.id.jicashBalance);
         relativeLayout = view.findViewById(R.id.relativeLayoutJicash);
 
-        if (isLogin()) {
-            getJicash();
-        }else{
-            jicashBalance.setText("Login Untuk Melihat Jicash");
-            service4 = true;
-            if(service1 && service2 && service3 && service4){
-                progressBar.endProgressBarGambung();
-            }
-        }
+//        if (isLogin()) {
+//            getJicash();
+//        }else{
+//            jicashBalance.setText("Login Untuk Melihat Jicash");
+//            service4 = true;
+//            if(service1 && service2 && service3 && service4){
+//                progressBar.endProgressBarGambung();
+//            }
+//        }
+        progressBar.endProgressBarGambung();
+
         getCategory();
         getProduct();
         getPromo();

@@ -11,4 +11,10 @@
     <color name="colorLightBrown">#FBF7F3</color>
     <color name="colorBrown">#654E47</color>
     <color name="colorRed">#D93E3E</color>
+
+    <color name="normalText">#494848</color>
+    <color name="lightGray">#8C8C8C</color>
+    <color name="otherButton">#9B9B9B</color>
+    <color name="black">#000000</color>
+    <color name="white">#FFFFFF</color>
 </resources>

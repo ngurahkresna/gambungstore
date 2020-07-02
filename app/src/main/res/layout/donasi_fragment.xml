@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainDonasi">
+    tools:context=".donasiFragment">
 
     <RelativeLayout
         android:id="@+id/upperBar"
@@ -33,7 +33,6 @@
                 android:id="@+id/mainBeriDonasi"
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
-                android:onClick="beriDonasi"
                 android:layout_marginRight="6dp"
                 android:background="@drawable/button_primary"
                 android:text="Berikan donasi"
@@ -46,7 +45,6 @@
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
                 android:text="Detail donasi"
-                android:onClick="detailDonasi"
                 android:layout_marginLeft="6dp"
                 android:background="@drawable/button_secondary"
                 android:textAllCaps="false"

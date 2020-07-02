@@ -104,7 +104,9 @@ public class homeActivity extends AppCompatActivity implements BottomNavigationV
             case R.id.chat_menu:
                 fragment = new chatFragment();
                 break;
-
+            case R.id.donasi_menu:
+                fragment = new donasiFragment();
+                break;
         }
         return loadFragment(fragment);
     }

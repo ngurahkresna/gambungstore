@@ -17,6 +17,9 @@
         android:id="@+id/chat_menu"
         android:title=""
         android:icon="@drawable/icon_chat"/>
-
+    <item
+        android:id="@+id/donasi_menu"
+        android:title=""
+        android:icon="@drawable/placeholder_logo"/>
 
 </menu>
