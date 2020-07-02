@@ -92,6 +92,7 @@ public class FormPenarikanBuyer extends AppCompatActivity {
 
                     //Menyisipkan tipe data String ke dalam obyek bundle
                     b.putString("noreq", mNomorrekening.getText().toString());
+                    b.putString("atasnama", mAtasnama.getText().toString());
 
                     //Menambahkan bundle intent
                     intent.putExtras(b);
@@ -113,12 +114,6 @@ public class FormPenarikanBuyer extends AppCompatActivity {
 
     }
 
-    public void historyCardAdapter(List<HistoryJicash> jicashList) {
-        rvHistory = findViewById(R.id.jicashHistoyRecyclerView);
-        linearLayoutManager = new LinearLayoutManager(this, RecyclerView.VERTICAL, false);
-        rvHistory.setLayoutManager(linearLayoutManager);
-        jicashHistoryCardAdapter jicashHistoryCardAdapter = new jicashHistoryCardAdapter(this, jicashList, this.filter, this.from_date, this.until_date);
-        rvHistory.setAdapter(jicashHistoryCardAdapter);
-    }
+
 
 }

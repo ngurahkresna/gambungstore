@@ -34,9 +34,11 @@ public class CheckoutPenarikanBuyerProses extends AppCompatActivity {
         Bundle b = getIntent().getExtras();
         //membuat obyek dari widget textview
         TextView noreq = (TextView) findViewById(R.id.noreqValue);
+        TextView atasnama = (TextView) findViewById(R.id.atasnamaValue);
 
         //menset nilai dari widget textview
         noreq.setText(b.getCharSequence("noreq"));
+        atasnama.setText(b.getCharSequence("atasnama"));
 
 
         mTime = findViewById(R.id.time);
