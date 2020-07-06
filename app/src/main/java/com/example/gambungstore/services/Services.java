@@ -1,5 +1,6 @@
 package com.example.gambungstore.services;
 
+import com.example.gambungstore.models.BankAccount;
 import com.example.gambungstore.models.Login;
 import com.example.gambungstore.models.Profile;
 import com.example.gambungstore.models.RajaOngkir;
@@ -285,4 +286,7 @@ public interface Services {
     Call<List<Jicash>> getJicash(
         @Query("username") String username
     );
+
+    @GET("bank-account/active")
+    Call<BankAccount> getBankAccountActive();
 }
