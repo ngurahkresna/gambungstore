@@ -21,6 +21,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.gambungstore.client.Client;
+import com.example.gambungstore.models.BankAccount;
 import com.example.gambungstore.progressbar.ProgressBarGambung;
 import com.example.gambungstore.services.Services;
 import com.example.gambungstore.sharedpreference.SharedPreference;
@@ -47,7 +48,7 @@ import retrofit2.Response;
 public class CheckoutPayment extends AppCompatActivity {
     private static final String TAG = "CheckoutPayment";
     
-    TextView mDiscountPrice,mProductPrice, mTotalPrice,mExpeditionPrice;
+    TextView mDiscountPrice,mProductPrice, mTotalPrice,mExpeditionPrice, mAccountNo, mAccountName, mBankName;
     Button mSubmitButtom,mBackButton;
     TextView mTime;
 
@@ -73,11 +74,16 @@ public class CheckoutPayment extends AppCompatActivity {
         mBackButton = findViewById(R.id.backButton);
         mTime = findViewById(R.id.time);
         mImageProof = findViewById(R.id.image_proof);
+        mAccountNo = findViewById(R.id.account_no);
+        mAccountName = findViewById(R.id.account_name);
+        mBankName = findViewById(R.id.bank_name);
 
         mProductPrice.setText("Rp "+Integer.toString(getIntent().getIntExtra("productPrice",0))+",-");
         mDiscountPrice.setText("Rp "+Integer.toString(getIntent().getIntExtra("discountPrice",0))+",-");
         mTotalPrice.setText("Rp "+Integer.toString(getIntent().getIntExtra("grandTotalPrice",0))+",-");
         mExpeditionPrice.setText("Rp "+Integer.toString(getIntent().getIntExtra("expeditionPrice",0))+",-");
+
+        getBankAccount();
 
         // Menyesuaikan dengan aktivitas JiCashChekoutForm.java
         if (getIntent().getStringExtra("jicash") != null){
@@ -347,5 +353,23 @@ public class CheckoutPayment extends AppCompatActivity {
         }
     }
 
+    private void getBankAccount() {
+        Services service = Client.getClient(Client.BASE_URL).create(Services.class);
 
+        Call<BankAccount> bankAccountCall = service.getBankAccountActive();
+        bankAccountCall.enqueue(new Callback<BankAccount>() {
+            @Override
+            public void onResponse(@NonNull Call<BankAccount> call, @NonNull Response<BankAccount> response) {
+                BankAccount bankAccount = response.body();
+                mAccountNo.setText(bankAccount.getAccountNo());
+                mAccountName.setText(bankAccount.getAccountName());
+                mBankName.setText(bankAccount.getBank().getBankName());
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<BankAccount> call, @NonNull Throwable t) {
+                Log.d(TAG, "onFailure: "+t.toString());
+            }
+        });
+    }
 }

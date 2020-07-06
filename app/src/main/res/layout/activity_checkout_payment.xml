@@ -293,6 +293,7 @@
 
 
                         <TextView
+                            android:id="@+id/account_no"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp"
@@ -304,6 +305,7 @@
 
 
                         <TextView
+                            android:id="@+id/bank_name"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="Bank BJB"
@@ -322,6 +324,7 @@
                             android:textSize="12sp" />
 
                         <TextView
+                            android:id="@+id/account_name"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="5dp"
