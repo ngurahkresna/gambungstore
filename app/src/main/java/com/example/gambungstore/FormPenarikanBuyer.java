@@ -36,6 +36,7 @@ public class FormPenarikanBuyer extends AppCompatActivity {
     RecyclerView rvHistory;
     LinearLayoutManager linearLayoutManager;
     TextView jicashBalance;
+    Spinner spinBank;
 
     String filter = "Semua";
     String from_date = null, until_date = null;
@@ -48,7 +49,7 @@ public class FormPenarikanBuyer extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_form_penarikan_buyer);
 
-        Spinner spinner = findViewById(R.id.spinnerbar);
+        Spinner spinBank = findViewById(R.id.spinnerbar);
 
         jicashBalance = findViewById(R.id.jicashBalance);
 
@@ -91,6 +92,7 @@ public class FormPenarikanBuyer extends AppCompatActivity {
                     Bundle b = new Bundle();
 
                     //Menyisipkan tipe data String ke dalam obyek bundle
+                    b.putString("jicash", mJumlahjicash.getText().toString());
                     b.putString("noreq", mNomorrekening.getText().toString());
                     b.putString("atasnama", mAtasnama.getText().toString());
 
