@@ -5,8 +5,12 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -28,7 +32,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class FormPenarikanBuyer extends AppCompatActivity {
+public class FormPenarikanBuyer extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     private EditText mJumlahjicash, mNomorrekening, mAtasnama, mPenyediajasa;
     private ImageView mBackArrow;
@@ -49,7 +53,18 @@ public class FormPenarikanBuyer extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_form_penarikan_buyer);
 
-        Spinner spinBank = findViewById(R.id.spinnerbar);
+        Spinner spinBank = findViewById(R.id.spinnerbar1);
+        if (spinBank != null) {
+            spinBank.setOnItemSelectedListener(this);
+        }
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                R.array.nama_bank, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource
+                (android.R.layout.simple_spinner_dropdown_item);
+
+        if (spinBank != null) {
+            spinBank.setAdapter(adapter);
+        }
 
         jicashBalance = findViewById(R.id.jicashBalance);
 
@@ -117,5 +132,20 @@ public class FormPenarikanBuyer extends AppCompatActivity {
     }
 
 
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        ((TextView) parent.getChildAt(0)).setTextColor(Color.parseColor("#388A6B"));
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                R.array.nama_bank, android.R.layout.simple_spinner_item);
+    }
 
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+
+    }
+
+    @Override
+    public void onPointerCaptureChanged(boolean hasCapture) {
+
+    }
 }

@@ -8,7 +8,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -32,12 +34,13 @@ public class CheckoutPenarikanBuyerProses extends AppCompatActivity {
         progressBarGambung.startProgressBarGambung();
 
         Bundle b = getIntent().getExtras();
-        //membuat obyek dari widget textview
+
         TextView jicash = (TextView) findViewById(R.id.jicashValue);
         TextView noreq = (TextView) findViewById(R.id.noreqValue);
         TextView atasnama = (TextView) findViewById(R.id.atasnamaValue);
+        Spinner penyediajasa = (Spinner) findViewById(R.id.spinnerbar1);
 
-        //menset nilai dari widget textview
+
         jicash.setText(b.getCharSequence("jicash"));
         noreq.setText(b.getCharSequence("noreq"));
         atasnama.setText(b.getCharSequence("atasnama"));

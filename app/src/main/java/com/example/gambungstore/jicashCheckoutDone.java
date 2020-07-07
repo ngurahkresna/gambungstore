@@ -10,7 +10,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-public class jicashCheckoutDone extends AppCompatActivity {
+public class  jicashCheckoutDone extends AppCompatActivity {
     Button backButton, detailButton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {

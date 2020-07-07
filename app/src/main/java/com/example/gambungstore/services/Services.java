@@ -10,6 +10,7 @@ import com.example.gambungstore.models.checkout.Checkout;
 import com.example.gambungstore.models.category.DataCategory;
 import com.example.gambungstore.models.jicash.HistoryJicash;
 import com.example.gambungstore.models.jicash.Jicash;
+import com.example.gambungstore.models.jicash.PenarikanJicash;
 import com.example.gambungstore.models.product.DataProduct;
 import com.example.gambungstore.models.product.Product;
 import com.example.gambungstore.models.promo.DataPromo;
@@ -286,9 +287,13 @@ public interface Services {
         @Query("username") String username
     );
 
-    //1111111111111111111111111111111111111111
+    //1
+    @FormUrlEncoded
     @POST("jicash/tarik")
-    Call<ResponseBody> updateProofJicash(
-            @Part("amount") RequestBody ammount
+    Call<List<PenarikanJicash>> penarikanJicash(
+            @Field("jumlah_jicash") int jumlah_jicash,
+            @Field("no_rekening") int no_rekening,
+            @Field("atas_nama") String atas_nama,
+            @Field("penyedia_jasa") String penyedia_jasa
     );
 }

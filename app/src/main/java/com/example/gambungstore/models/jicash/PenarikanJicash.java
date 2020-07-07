@@ -2,28 +2,21 @@ package com.example.gambungstore.models.jicash;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.List;
+
 public class PenarikanJicash {
 
     @SerializedName("id")
     private int id;
-    @SerializedName("ji_cash_id")
-    private int ji_cash_id;
-    @SerializedName("transaction_type")
-    private String transaction_type;
-    @SerializedName("amount")
-    private int amount;
-    @SerializedName("penarikan_approved")
-    private String isApproved;
-    @SerializedName("created_at")
-    private String date;
+    @SerializedName("jumlah_jicash")
+    private int jumlah_jicash;
+    @SerializedName("no_rekening")
+    private int no_rekening;
+    @SerializedName("atas_nama")
+    private String atas_nama;
+    @SerializedName("penyedia_jasa")
+    private String penyedia_jasa;
 
-    public PenarikanJicash(int id, int ji_cash_id, String transaction_type, int amount, String date) {
-        this.id = id;
-        this.ji_cash_id = ji_cash_id;
-        this.transaction_type = transaction_type;
-        this.amount = amount;
-        this.date = date;
-    }
 
     public int getId() {
         return id;
@@ -33,27 +26,35 @@ public class PenarikanJicash {
         this.id = id;
     }
 
-    public int getJi_cash_id() {
-        return ji_cash_id;
+    public int getJumlah_jicash() {
+        return jumlah_jicash;
     }
 
-    public void setJi_cash_id(int ji_cash_id) {
-        this.ji_cash_id = ji_cash_id;
+    public void setJumlah_jicash(int jumlah_jicash) {
+        this.jumlah_jicash = jumlah_jicash;
     }
 
-    public int getAmount() {
-        return amount;
+    public int getNo_rekening() {
+        return no_rekening;
     }
 
-    public void setAmount(int amount) {
-        this.amount = amount;
+    public void setNo_rekening(int no_rekening) {
+        this.no_rekening = no_rekening;
     }
 
-    public String getDate() {
-        return date;
+    public String getAtas_nama() {
+        return atas_nama;
     }
 
-    public void setDate(String date) {
-        this.date = date;
+    public void setAtas_nama(String atas_nama) {
+        this.atas_nama = atas_nama;
+    }
+
+    public String getPenyedia_jasa() {
+        return penyedia_jasa;
+    }
+
+    public void setPenyedia_jasa(String penyedia_jasa) {
+        this.penyedia_jasa = penyedia_jasa;
     }
 }
