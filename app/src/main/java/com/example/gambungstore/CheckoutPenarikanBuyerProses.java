@@ -38,12 +38,15 @@ public class CheckoutPenarikanBuyerProses extends AppCompatActivity {
         TextView jicash = (TextView) findViewById(R.id.jicashValue);
         TextView noreq = (TextView) findViewById(R.id.noreqValue);
         TextView atasnama = (TextView) findViewById(R.id.atasnamaValue);
-        Spinner penyediajasa = (Spinner) findViewById(R.id.spinnerbar1);
+        TextView penyediajasa = (TextView) findViewById(R.id.penyediajasa);
+        Spinner penyediajasa1 = (Spinner) findViewById(R.id.spinnerbar1);
 
 
         jicash.setText(b.getCharSequence("jicash"));
         noreq.setText(b.getCharSequence("noreq"));
         atasnama.setText(b.getCharSequence("atasnama"));
+        penyediajasa.setText(b.getCharSequence("penyediajasa"));
+
 
 
         mTime = findViewById(R.id.time);

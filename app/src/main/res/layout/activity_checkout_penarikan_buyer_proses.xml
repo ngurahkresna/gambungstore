@@ -48,7 +48,7 @@
                     android:layout_below="@+id/title"
                     android:layout_marginTop="25dp"
                     android:gravity="center"
-                    android:text="Berikut Waktu proses penarikan\npastikan data anda benar sebelum mengakhiri transaksi"
+                    android:text="Berikut Waktu proses penarikan\npastikan data anda benar sebelum mengakhiri transaksi\ntransaksi akan diproses dalam rentang waktu\n24 jam"
                     android:orientation="horizontal">
                 </TextView>
 
@@ -133,7 +133,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp"
-                            android:text=""
+                            android:text="00"
                             android:textAlignment="center"
                             android:textColor="@color/colorFont"
                             android:textSize="18sp"
@@ -155,7 +155,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp"
-                            android:text=""
+                            android:text="00"
                             android:textAlignment="center"
                             android:textColor="@color/colorFont"
                             android:textSize="18sp"
@@ -172,10 +172,11 @@
                             android:gravity="center_horizontal" />
 
                         <TextView
+                            android:id="@+id/penyediajasa"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="5dp"
-                            android:text="BJB / Bank Jabar"
+                            android:text="aaa"
                             android:textAlignment="center"
                             android:textColor="@color/colorFont"
                             android:textSize="16sp"
@@ -196,7 +197,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="5dp"
-                            android:text=""
+                            android:text="aaaaaaaaaaaa"
                             android:textAlignment="center"
                             android:textColor="@color/colorFont"
                             android:textSize="18sp"

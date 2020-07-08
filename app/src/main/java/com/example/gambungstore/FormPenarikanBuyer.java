@@ -110,6 +110,7 @@ public class FormPenarikanBuyer extends AppCompatActivity implements AdapterView
                     b.putString("jicash", mJumlahjicash.getText().toString());
                     b.putString("noreq", mNomorrekening.getText().toString());
                     b.putString("atasnama", mAtasnama.getText().toString());
+                    b.putString("penyediajasa", mPenyediajasa.getText().toString());
 
                     //Menambahkan bundle intent
                     intent.putExtras(b);
