@@ -102,7 +102,8 @@ public class editProfile extends AppCompatActivity implements DatePickerFragment
 
             @Override
             public void onFailure(Call<Profile> call, Throwable t) {
-                Log.d(TAG, "onFailure: "+t.toString());
+                Toast.makeText(editProfile.this, "terjadi kesalahan, silahkan coba lagi", Toast.LENGTH_SHORT).show();
+                progressBarGambung.endProgressBarGambung();
             }
         });
     }
@@ -143,7 +144,8 @@ public class editProfile extends AppCompatActivity implements DatePickerFragment
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
-                Log.d(TAG, "onFailure: "+t.toString());
+                Toast.makeText(editProfile.this, "terjadi kesalahan, silahkan coba lagi", Toast.LENGTH_SHORT).show();
+                progressBarGambung.endProgressBarGambung();
             }
         });
     }
@@ -195,7 +197,8 @@ public class editProfile extends AppCompatActivity implements DatePickerFragment
 
             @Override
             public void onFailure(Call<RajaOngkir> call, Throwable t) {
-                Log.d(TAG, "onFailure: "+t);
+                Toast.makeText(editProfile.this, "terjadi kesalahan, silahkan coba lagi", Toast.LENGTH_SHORT).show();
+                progressBarGambung.endProgressBarGambung();
             }
         });
     }

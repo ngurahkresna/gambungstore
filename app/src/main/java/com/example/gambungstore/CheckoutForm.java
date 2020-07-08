@@ -404,7 +404,8 @@ public class CheckoutForm extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<DetailTransaction> call, Throwable t) {
-                Log.d(TAG, "onFailure: "+t.toString());
+                Toast.makeText(CheckoutForm.this, "terjadi kesalahan, silahkan coba lagi", Toast.LENGTH_SHORT).show();
+                progressbar.endProgressBarGambung();
             }
         });
     }
@@ -460,7 +461,8 @@ public class CheckoutForm extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<List<Jicash>> call, Throwable t) {
-
+                Toast.makeText(CheckoutForm.this, "terjadi kesalahan, silahkan coba lagi", Toast.LENGTH_SHORT).show();
+                progressbar.endProgressBarGambung();
             }
         });
     }

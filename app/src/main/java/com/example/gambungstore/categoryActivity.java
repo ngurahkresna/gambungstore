@@ -101,7 +101,7 @@ public class categoryActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<Category> call, Throwable t) {
-                Log.d(TAG, "onFailure: "+t.toString());
+                Toast.makeText(categoryActivity.this, "terjadi kesalahan, silahkan coba lagi", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -124,7 +124,7 @@ public class categoryActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<List<DataCategory>> call, Throwable t) {
-                Log.d(TAG, "onFailure: "+t.toString());
+                Toast.makeText(categoryActivity.this, "terjadi kesalahan, silahkan coba lagi", Toast.LENGTH_SHORT).show();
             }
         });
 

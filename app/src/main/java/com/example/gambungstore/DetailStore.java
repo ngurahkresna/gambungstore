@@ -122,7 +122,8 @@ public class DetailStore extends AppCompatActivity {
 
             @Override
             public void onFailure(@NonNull Call<Store> call, @NonNull Throwable t) {
-                Log.e(TAG, t.getMessage());
+                Toast.makeText(DetailStore.this, "terjadi kesalahan, silahkan coba lagi", Toast.LENGTH_SHORT).show();
+                progressbar.endProgressBarGambung();
             }
         });
     }
@@ -171,7 +172,8 @@ public class DetailStore extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<Product> call, Throwable t) {
-                Log.d(TAG, "onFailure: " + t.toString());
+                Toast.makeText(DetailStore.this, "terjadi kesalahan, silahkan coba lagi", Toast.LENGTH_SHORT).show();
+                progressbar.endProgressBarGambung();
             }
         });
     }

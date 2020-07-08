@@ -14,6 +14,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.gambungstore.client.Client;
 import com.example.gambungstore.models.transaction.DataTransaction;
@@ -30,14 +31,6 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link onGoingTransaction.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link onGoingTransaction#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class historyTransaction extends Fragment {
     private static final String TAG = "historyTransaction";
     RecyclerView recyclerView;
@@ -101,7 +94,8 @@ public class historyTransaction extends Fragment {
 
             @Override
             public void onFailure(Call<Transaction> call, Throwable t) {
-                Log.d(TAG, "onFailure: "+t.toString());
+                Toast.makeText(getContext(), "terjadi kesalahan, silahkan coba lagi", Toast.LENGTH_SHORT).show();
+                progressbar.endProgressBarGambung();
             }
         });
     }

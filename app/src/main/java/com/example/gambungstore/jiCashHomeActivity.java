@@ -16,6 +16,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.gambungstore.client.Client;
 import com.example.gambungstore.models.jicash.HistoryJicash;
@@ -122,7 +123,8 @@ public class jiCashHomeActivity extends AppCompatActivity implements AdapterView
 
             @Override
             public void onFailure(Call<List<Jicash>> call, Throwable t) {
-
+                Toast.makeText(jiCashHomeActivity.this, "terjadi kesalahan, silahkan coba lagi", Toast.LENGTH_SHORT).show();
+                progressBar.endProgressBarGambung();
             }
         });
     }

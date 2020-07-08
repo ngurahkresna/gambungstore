@@ -117,7 +117,7 @@ public class productActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<Product> call, Throwable t) {
-                Log.d(TAG, "onFailure: "+t.toString());
+                Toast.makeText(productActivity.this, "terjadi kesalahan, silahkan coba lagi", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -138,7 +138,7 @@ public class productActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<List<DataProduct>> call, Throwable t) {
-                Log.d(TAG, "onFailure: "+t.toString());
+                Toast.makeText(productActivity.this, "terjadi kesalahan, silahkan coba lagi", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -164,7 +164,7 @@ public class productActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<List<DataProduct>> call, Throwable t) {
-                Log.d(TAG, "onFailure: "+t.toString());
+                Toast.makeText(productActivity.this, "terjadi kesalahan, silahkan coba lagi", Toast.LENGTH_SHORT).show();
             }
         });
     }

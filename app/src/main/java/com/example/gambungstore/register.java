@@ -117,7 +117,7 @@ public class register extends AppCompatActivity implements DatePickerFragment.Th
 
                 @Override
                 public void onFailure(Call<ResponseBody> call, Throwable t) {
-                    Log.d(TAG, "onFailure: " + t.toString());
+                    Toast.makeText(register.this, "terjadi kesalahan, silahkan coba lagi", Toast.LENGTH_SHORT).show();
                 }
             });
         }
@@ -205,7 +205,7 @@ public class register extends AppCompatActivity implements DatePickerFragment.Th
 
             @Override
             public void onFailure(Call<RajaOngkir> call, Throwable t) {
-                Log.d(TAG, "onFailure: "+t);
+                Toast.makeText(register.this, "terjadi kesalahan, silahkan coba lagi", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -224,7 +224,7 @@ public class register extends AppCompatActivity implements DatePickerFragment.Th
 
             @Override
             public void onFailure(Call<List<Profile>> call, Throwable t) {
-                Log.d(TAG, "onFailure: " + t);
+                Toast.makeText(register.this, "terjadi kesalahan, silahkan coba lagi", Toast.LENGTH_SHORT).show();
             }
         });
     }

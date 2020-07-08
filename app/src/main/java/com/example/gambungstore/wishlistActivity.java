@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import com.example.gambungstore.adapters.ProductAdapter;
 import com.example.gambungstore.client.Client;
@@ -63,7 +64,7 @@ public class wishlistActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<Wishlist> call, Throwable t) {
-                Log.d(TAG, "onFailure: "+t.toString());
+                Toast.makeText(wishlistActivity.this, "terjadi kesalahan, silahkan coba lagi", Toast.LENGTH_SHORT).show();
             }
         });
     }

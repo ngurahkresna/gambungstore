@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.gambungstore.adapters.OnGoingAdapter;
 import com.example.gambungstore.client.Client;
@@ -92,7 +93,8 @@ public class onGoingTransaction extends Fragment {
 
             @Override
             public void onFailure(Call<Transaction> call, Throwable t) {
-                Log.d(TAG, "onFailure: "+t.toString());
+                Toast.makeText(getContext(), "terjadi kesalahan, silahkan coba lagi", Toast.LENGTH_SHORT).show();
+                progressbar.endProgressBarGambung();
             }
         });
     }

@@ -268,7 +268,8 @@ public class OnGoingAdapter extends RecyclerView.Adapter<OnGoingAdapter.OnGoingV
 
                     @Override
                     public void onFailure(Call<ResponseBody> call, Throwable t) {
-                        Toast.makeText(context, t.toString(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context, "terjadi kesalahan, silahkan coba lagi", Toast.LENGTH_SHORT).show();
+                        progressbar.endProgressBarGambung();
                     }
                 });
             }
@@ -315,7 +316,8 @@ public class OnGoingAdapter extends RecyclerView.Adapter<OnGoingAdapter.OnGoingV
 
                     @Override
                     public void onFailure(Call<ResponseBody> call, Throwable t) {
-                        Toast.makeText(context, t.toString(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context, "terjadi kesalahan, silahkan coba lagi", Toast.LENGTH_SHORT).show();
+                        progressbar.endProgressBarGambung();
                     }
                 });
             }

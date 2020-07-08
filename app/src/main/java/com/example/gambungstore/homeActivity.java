@@ -134,7 +134,7 @@ public class homeActivity extends AppCompatActivity implements BottomNavigationV
 
             @Override
             public void onFailure(Call<Profile> call, Throwable t) {
-                Log.d(TAG, "onFailure: " + t.toString());
+                Toast.makeText(homeActivity.this, "terjadi kesalahan, silahkan coba lagi", Toast.LENGTH_SHORT).show();
             }
         });
     }

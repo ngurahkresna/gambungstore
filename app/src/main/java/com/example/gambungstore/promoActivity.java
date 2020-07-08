@@ -103,7 +103,7 @@ public class promoActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<Promo> call, Throwable t) {
-                Log.d(TAG, "onFailure: "+t.toString());
+                Toast.makeText(promoActivity.this, "terjadi kesalahan, silahkan coba lagi", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -126,7 +126,7 @@ public class promoActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<List<DataPromo>> call, Throwable t) {
-                Log.d(TAG, "onFailure: "+t.toString());
+                Toast.makeText(promoActivity.this, "terjadi kesalahan, silahkan coba lagi", Toast.LENGTH_SHORT).show();
             }
         });
 

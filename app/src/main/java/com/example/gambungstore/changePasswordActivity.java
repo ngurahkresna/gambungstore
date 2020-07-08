@@ -81,7 +81,7 @@ public class changePasswordActivity extends AppCompatActivity {
 
                 @Override
                 public void onFailure(Call<ResponseBody> call, Throwable t) {
-                    Log.d(TAG, "onFailure: "+t.toString());
+                    Toast.makeText(changePasswordActivity.this, "terjadi kesalahan, silahkan coba lagi", Toast.LENGTH_SHORT).show();
                 }
             });
 
@@ -106,7 +106,7 @@ public class changePasswordActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
-                Log.d(TAG, "onFailure: "+t.toString());
+                Toast.makeText(changePasswordActivity.this, "terjadi kesalahan, silahkan coba lagi", Toast.LENGTH_SHORT).show();
             }
         });
     }

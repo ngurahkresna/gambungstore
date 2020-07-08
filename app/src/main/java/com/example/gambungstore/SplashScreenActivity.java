@@ -10,6 +10,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.example.gambungstore.client.Client;
 import com.example.gambungstore.models.product.DataProduct;
@@ -68,7 +69,7 @@ public class SplashScreenActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<DataProduct> call, Throwable t) {
-                Log.d(TAG, "onFailure: " + t.toString());
+                Toast.makeText(SplashScreenActivity.this, "terjadi kesalahan, silahkan coba lagi", Toast.LENGTH_SHORT).show();
             }
         });
     }

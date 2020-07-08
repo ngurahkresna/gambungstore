@@ -284,7 +284,7 @@ public class CheckoutPayment extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
-                Log.d(TAG, "onFailure: "+t.toString());
+                Toast.makeText(CheckoutPayment.this, "terjadi kesalahan, silahkan coba lagi", Toast.LENGTH_SHORT).show();
                 progressbar.endProgressBarGambung();
             }
         });
@@ -325,7 +325,8 @@ public class CheckoutPayment extends AppCompatActivity {
 
                 @Override
                 public void onFailure(Call<ResponseBody> call, Throwable t) {
-                    Log.d(TAG, "onFailure: "+t.toString());
+                    Toast.makeText(CheckoutPayment.this, "terjadi kesalahan, silahkan coba lagi", Toast.LENGTH_SHORT).show();
+                    progressbar.endProgressBarGambung();
                 }
             });
         }else {
@@ -347,7 +348,8 @@ public class CheckoutPayment extends AppCompatActivity {
 
                 @Override
                 public void onFailure(Call<ResponseBody> call, Throwable t) {
-                    Log.d(TAG, "onFailure: "+t.toString());
+                    Toast.makeText(CheckoutPayment.this, "terjadi kesalahan, silahkan coba lagi", Toast.LENGTH_SHORT).show();
+                    progressbar.endProgressBarGambung();
                 }
             });
         }
@@ -368,7 +370,8 @@ public class CheckoutPayment extends AppCompatActivity {
 
             @Override
             public void onFailure(@NonNull Call<BankAccount> call, @NonNull Throwable t) {
-                Log.d(TAG, "onFailure: "+t.toString());
+                Toast.makeText(CheckoutPayment.this, "terjadi kesalahan, silahkan coba lagi", Toast.LENGTH_SHORT).show();
+                progressbar.endProgressBarGambung();
             }
         });
     }

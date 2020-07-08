@@ -264,7 +264,8 @@ public class homeFragment extends Fragment{
 
             @Override
             public void onFailure(Call<Category> call, Throwable t) {
-                Log.d(TAG, "onFailure: "+t.toString());
+                Toast.makeText(getContext(), "terjadi kesalahan, silahkan coba lagi", Toast.LENGTH_SHORT).show();
+                progressBar.endProgressBarGambung();
             }
         });
     }
@@ -280,7 +281,8 @@ public class homeFragment extends Fragment{
 
             @Override
             public void onFailure(Call<Product> call, Throwable t) {
-                Log.d(TAG, "onFailure: "+t.toString());
+                Toast.makeText(getContext(), "terjadi kesalahan, silahkan coba lagi", Toast.LENGTH_SHORT).show();
+                progressBar.endProgressBarGambung();
             }
         });
     }
@@ -296,7 +298,8 @@ public class homeFragment extends Fragment{
 
             @Override
             public void onFailure(Call<Promo> call, Throwable t) {
-                Log.d(TAG, "onFailure: "+t.toString());
+                Toast.makeText(getContext(), "terjadi kesalahan, silahkan coba lagi", Toast.LENGTH_SHORT).show();
+                progressBar.endProgressBarGambung();
             }
         });
     }
@@ -323,7 +326,8 @@ public class homeFragment extends Fragment{
 
             @Override
             public void onFailure(Call<List<Jicash>> call, Throwable t) {
-                Log.d(TAG, "onFailure: "+t.toString());
+                Toast.makeText(getContext(), "terjadi kesalahan, silahkan coba lagi", Toast.LENGTH_SHORT).show();
+                progressBar.endProgressBarGambung();
             }
         });
     }

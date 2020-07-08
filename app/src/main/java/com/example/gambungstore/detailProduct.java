@@ -150,7 +150,8 @@ public class detailProduct extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<DataProduct> call, Throwable t) {
-                Log.d(TAG, "onFailure: " + t.toString());
+                Toast.makeText(detailProduct.this, "terjadi kesalahan, silahkan coba lagi", Toast.LENGTH_SHORT).show();
+                progressbar.endProgressBarGambung();
             }
         });
 
@@ -164,7 +165,8 @@ public class detailProduct extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<Product> call, Throwable t) {
-                Log.d(TAG, "onFailure: " + t.toString());
+                Toast.makeText(detailProduct.this, "terjadi kesalahan, silahkan coba lagi", Toast.LENGTH_SHORT).show();
+                progressbar.endProgressBarGambung();
             }
         });
     }
@@ -191,7 +193,8 @@ public class detailProduct extends AppCompatActivity {
 
                 @Override
                 public void onFailure(Call<Wishlist> call, Throwable t) {
-                    Log.d(TAG, "onFailure: " + t.toString());
+                    Toast.makeText(detailProduct.this, "terjadi kesalahan, silahkan coba lagi", Toast.LENGTH_SHORT).show();
+                    progressbar.endProgressBarGambung();
                 }
             });
         }
@@ -258,7 +261,8 @@ public class detailProduct extends AppCompatActivity {
 
                     @Override
                     public void onFailure(Call<ResponseBody> call, Throwable t) {
-                        Log.d(TAG, "onFailure: " + t.toString());
+                        Toast.makeText(detailProduct.this, "terjadi kesalahan, silahkan coba lagi", Toast.LENGTH_SHORT).show();
+                        progressbar.endProgressBarGambung();
                     }
                 });
             } else {
@@ -272,7 +276,8 @@ public class detailProduct extends AppCompatActivity {
 
                     @Override
                     public void onFailure(Call<ResponseBody> call, Throwable t) {
-                        Log.d(TAG, "onFailure: " + t.toString());
+                        Toast.makeText(detailProduct.this, "terjadi kesalahan, silahkan coba lagi", Toast.LENGTH_SHORT).show();
+                        progressbar.endProgressBarGambung();
                     }
                 });
             }
@@ -306,7 +311,8 @@ public class detailProduct extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
-                Log.d(TAG, "onFailure: " + t.toString());
+                Toast.makeText(detailProduct.this, "terjadi kesalahan, silahkan coba lagi", Toast.LENGTH_SHORT).show();
+                progressbar.endProgressBarGambung();
             }
         });
     }

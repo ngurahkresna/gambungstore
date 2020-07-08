@@ -106,7 +106,8 @@ public class login extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<Login> call, Throwable t) {
-                Log.d(TAG, "onFailure: "+t.toString());
+                Toast.makeText(login.this, "terjadi kesalahan, silahkan coba lagi", Toast.LENGTH_SHORT).show();
+                progressbar.endProgressBarGambung();
             }
         });
         
