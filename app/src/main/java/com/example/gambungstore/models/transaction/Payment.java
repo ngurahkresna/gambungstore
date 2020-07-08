@@ -14,6 +14,24 @@ public class Payment {
     private int payment_method_id;
     @SerializedName("verified_date")
     private String verified_date;
+    @SerializedName("account_number")
+    private String account_number;
+    @SerializedName("account_name")
+    private String account_name;
+    @SerializedName("account_bank")
+    private String account_bank;
+
+    public String getAccount_number() {
+        return account_number;
+    }
+
+    public String getAccount_name() {
+        return account_name;
+    }
+
+    public String getAccount_bank() {
+        return account_bank;
+    }
 
     public String getStatus_uplaod() {
         return status_uplaod;
