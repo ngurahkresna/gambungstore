@@ -291,16 +291,17 @@ public interface Services {
     //1
     @FormUrlEncoded
     @POST("jicash/withdrawal")
-    Call<List<PenarikanJicash>> penarikanJicash(
-            @Field("jumlah_jicash") int jumlah_jicash,
-            @Field("no_rekening") int no_rekening,
-            @Field("atas_nama") String atas_nama,
-            @Field("penyedia_jasa") String penyedia_jasa,
+    Call<ResponseBody> uploadPenarikanJicash(
             //
-            @Field("username") String username,
-            @Field("amount") int amount,
-            @Field("account_no") int account_no,
-            @Field("account_name") String account_name,
-            @Field("bank_code") int bank_code
+            @Field("jumlah_jicash") String jumlah_jicash,
+            @Field("no_rekening") String no_rekening,
+            @Field("atas_nama") String atas_nama,
+            @Field("penyedia_jasa") String penyedia_jasa//,
+            //
+            //@Field("username") String username,
+            //@Field("amount") int amount,
+            //@Field("account_no") int account_no,
+            //@Field("account_name") String account_name,
+            //@Field("bank_code") int bank_code
     );
 }

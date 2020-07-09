@@ -7,23 +7,35 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.gambungstore.client.Client;
 import com.example.gambungstore.progressbar.ProgressBarGambung;
+import com.example.gambungstore.services.Services;
 
 import java.util.concurrent.TimeUnit;
 
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class CheckoutPenarikanBuyerProses extends AppCompatActivity {
+
+    private static final String TAG = "CheckoutPenarikanBuyer";
 
     private ImageView mBackArrow;
     private TextView mTime;
     private CountDownTimer timerClass;
     private ProgressBarGambung progressBarGambung;
+    private TextView mJicashValue, mNoreqValue, mAtasnamaValue, mPenyediajasaValue;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,10 +47,10 @@ public class CheckoutPenarikanBuyerProses extends AppCompatActivity {
 
         Bundle b = getIntent().getExtras();
 
-        TextView jicash = (TextView) findViewById(R.id.jicashValue);
-        TextView noreq = (TextView) findViewById(R.id.noreqValue);
-        TextView atasnama = (TextView) findViewById(R.id.atasnamaValue);
-        TextView penyediajasa = (TextView) findViewById(R.id.penyediajasa);
+        TextView jicash = (TextView) findViewById(R.id.JicashValue);
+        TextView noreq = (TextView) findViewById(R.id.NoreqValue);
+        TextView atasnama = (TextView) findViewById(R.id.AtasnamaValue);
+        TextView penyediajasa = (TextView) findViewById(R.id.PenyediajasaValue);
         Spinner penyediajasa1 = (Spinner) findViewById(R.id.spinnerbar1);
 
 
@@ -83,8 +95,6 @@ public class CheckoutPenarikanBuyerProses extends AppCompatActivity {
         progressBarGambung.endProgressBarGambung();
     }
 
-
-
     public void btnHome(View view) {
         finish();
         Intent intent = new Intent(CheckoutPenarikanBuyerProses.this,homeActivity.class);
@@ -123,4 +133,32 @@ public class CheckoutPenarikanBuyerProses extends AppCompatActivity {
         alertDialog.show();
     }
 
+    private void getXml() {
+        this.mJicashValue = findViewById(R.id.JicashValue);
+        this.mNoreqValue = findViewById(R.id.NoreqValue);
+        this.mAtasnamaValue = findViewById(R.id.AtasnamaValue);
+        this.mPenyediajasaValue = findViewById(R.id.PenyediajasaValue);}
+
+    public void uploadPenarikanJicash(){
+        Services service = Client.getClient(Client.BASE_URL).create(Services.class);
+        Call<ResponseBody> uploadPenarikanJicash = service.uploadPenarikanJicash(
+                this.mJicashValue.getText().toString(),
+                this.mNoreqValue.getText().toString(),
+                this.mAtasnamaValue.getText().toString(),
+                this.mPenyediajasaValue.getText().toString()
+        );
+        uploadPenarikanJicash.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                Toast.makeText(getApplicationContext(), "Bissmillah", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                Log.d(TAG, "onFailure: " + t.toString());
+                Toast.makeText(getApplicationContext(), "Bissmillah", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+}
 }

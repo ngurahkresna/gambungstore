@@ -22,17 +22,22 @@ import android.widget.Toast;
 import com.example.gambungstore.client.Client;
 import com.example.gambungstore.models.jicash.HistoryJicash;
 import com.example.gambungstore.models.jicash.Jicash;
+import com.example.gambungstore.models.jicash.PenarikanJicash;
 import com.example.gambungstore.progressbar.ProgressBarGambung;
 import com.example.gambungstore.services.Services;
 import com.example.gambungstore.sharedpreference.SharedPreference;
 
 import java.util.List;
 
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import retrofit2.http.Field;
 
 public class FormPenarikanBuyer extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+
+    private static final String TAG = "FormPenarikanBuyer";
 
     private EditText mJumlahjicash, mNomorrekening, mAtasnama, mPenyediajasa;
     private ImageView mBackArrow;
@@ -103,6 +108,7 @@ public class FormPenarikanBuyer extends AppCompatActivity implements AdapterView
                     return;
                 } else {
                     Intent intent = new Intent(getApplicationContext(), CheckoutPenarikanBuyerProses.class);
+                    uploadPenarikanJicash();
                     //Membuat obyek bundle
                     Bundle b = new Bundle();
 
@@ -130,6 +136,26 @@ public class FormPenarikanBuyer extends AppCompatActivity implements AdapterView
         this.mAtasnama = findViewById(R.id.atasnama);
         this.mPenyediajasa = findViewById(R.id.penyediajasa);
 
+    }
+    public void uploadPenarikanJicash(){
+        Services service = Client.getClient(Client.BASE_URL).create(Services.class);
+        Call<ResponseBody> uploadPenarikanJicash = service.uploadPenarikanJicash(
+                this.mJumlahjicash.getText().toString(),
+                this.mNomorrekening.getText().toString(),
+                this.mAtasnama.getText().toString(),
+                this.mPenyediajasa.getText().toString()
+        );
+        uploadPenarikanJicash.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                Toast.makeText(getApplicationContext(), "Bissmillah", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                Log.d(TAG, "onFailure: " + t.toString());
+            }
+        });
     }
 
 
