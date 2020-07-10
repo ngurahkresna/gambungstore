@@ -1,5 +1,6 @@
 package com.example.gambungstore.services;
 
+import com.example.gambungstore.models.Bank;
 import com.example.gambungstore.models.Login;
 import com.example.gambungstore.models.Profile;
 import com.example.gambungstore.models.RajaOngkir;
@@ -10,7 +11,6 @@ import com.example.gambungstore.models.checkout.Checkout;
 import com.example.gambungstore.models.category.DataCategory;
 import com.example.gambungstore.models.jicash.HistoryJicash;
 import com.example.gambungstore.models.jicash.Jicash;
-import com.example.gambungstore.models.jicash.PenarikanJicash;
 import com.example.gambungstore.models.product.DataProduct;
 import com.example.gambungstore.models.product.Product;
 import com.example.gambungstore.models.promo.DataPromo;
@@ -293,15 +293,20 @@ public interface Services {
     @POST("jicash/withdrawal")
     Call<ResponseBody> uploadPenarikanJicash(
             //
-            @Field("jumlah_jicash") String jumlah_jicash,
-            @Field("no_rekening") String no_rekening,
-            @Field("atas_nama") String atas_nama,
-            @Field("penyedia_jasa") String penyedia_jasa//,
+            //@Field("jumlah_jicash") String jumlah_jicash,
+            //@Field("no_rekening") String no_rekening,
+            //@Field("atas_nama") String atas_nama,
+            //@Field("penyedia_jasa") String penyedia_jasa,
             //
-            //@Field("username") String username,
-            //@Field("amount") int amount,
-            //@Field("account_no") int account_no,
-            //@Field("account_name") String account_name,
-            //@Field("bank_code") int bank_code
+            //int
+            @Field("username") String username,
+            //int
+            @Field("account_name") String account_name,
+            @Field("bank_code") String bank_code
+            //username dan account number belom
     );
+
+    @GET("bank")
+    Call<Bank> getBank();
+
 }

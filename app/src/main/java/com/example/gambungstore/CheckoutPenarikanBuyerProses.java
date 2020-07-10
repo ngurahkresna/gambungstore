@@ -139,26 +139,26 @@ public class CheckoutPenarikanBuyerProses extends AppCompatActivity {
         this.mAtasnamaValue = findViewById(R.id.AtasnamaValue);
         this.mPenyediajasaValue = findViewById(R.id.PenyediajasaValue);}
 
-    public void uploadPenarikanJicash(){
-        Services service = Client.getClient(Client.BASE_URL).create(Services.class);
-        Call<ResponseBody> uploadPenarikanJicash = service.uploadPenarikanJicash(
-                this.mJicashValue.getText().toString(),
-                this.mNoreqValue.getText().toString(),
-                this.mAtasnamaValue.getText().toString(),
-                this.mPenyediajasaValue.getText().toString()
-        );
-        uploadPenarikanJicash.enqueue(new Callback<ResponseBody>() {
-            @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                Toast.makeText(getApplicationContext(), "Bissmillah", Toast.LENGTH_SHORT).show();
-            }
+    //public void uploadPenarikanJicash(){
+        //Services service = Client.getClient(Client.BASE_URL).create(Services.class);
+        //Call<ResponseBody> uploadPenarikanJicash = service.uploadPenarikanJicash(
+                //this.mJicashValue.getText().toString(),
+                //this.mNoreqValue.getText().toString(),
+                //this.mAtasnamaValue.getText().toString(),
+                //this.mPenyediajasaValue.getText().toString()
+        //);
+        //uploadPenarikanJicash.enqueue(new Callback<ResponseBody>() {
+            //@Override
+            //public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                //Toast.makeText(getApplicationContext(), "Bissmillah", Toast.LENGTH_SHORT).show();
+            //}
 
-            @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
-                Log.d(TAG, "onFailure: " + t.toString());
-                Toast.makeText(getApplicationContext(), "Bissmillah", Toast.LENGTH_SHORT).show();
-            }
-        });
+            //@Override
+            //public void onFailure(Call<ResponseBody> call, Throwable t) {
+                //Log.d(TAG, "onFailure: " + t.toString());
+                //Toast.makeText(getApplicationContext(), "Bissmillah", Toast.LENGTH_SHORT).show();
+            //}
+        //});
 
 }
-}
+//}

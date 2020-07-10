@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.Service;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -20,6 +21,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.gambungstore.client.Client;
+import com.example.gambungstore.models.Bank;
 import com.example.gambungstore.models.jicash.HistoryJicash;
 import com.example.gambungstore.models.jicash.Jicash;
 import com.example.gambungstore.models.jicash.PenarikanJicash;
@@ -39,7 +41,7 @@ public class FormPenarikanBuyer extends AppCompatActivity implements AdapterView
 
     private static final String TAG = "FormPenarikanBuyer";
 
-    private EditText mJumlahjicash, mNomorrekening, mAtasnama, mPenyediajasa;
+    private EditText amount, mNomorrekening, account_name, bank_code;
     private ImageView mBackArrow;
     private Button mButtonKonfirmasiFormPenarikan;
     RecyclerView rvHistory;
@@ -91,7 +93,7 @@ public class FormPenarikanBuyer extends AppCompatActivity implements AdapterView
         mButtonKonfirmasiFormPenarikan = findViewById(R.id.buttonKonfirmasiFormPenarikan);
         mButtonKonfirmasiFormPenarikan.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                if (mJumlahjicash.getText().toString().isEmpty()) {
+                if (amount.getText().toString().isEmpty()) {
                     Toast.makeText(getApplicationContext(), "Pastikan Jumlah Jicash Field Terisi", Toast.LENGTH_SHORT).show();
                     return;
                 }
@@ -99,11 +101,11 @@ public class FormPenarikanBuyer extends AppCompatActivity implements AdapterView
                     Toast.makeText(getApplicationContext(), "Pastikan Nomor Rekening Field Terisi", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                if (mAtasnama.getText().toString().isEmpty()) {
+                if (account_name.getText().toString().isEmpty()) {
                     Toast.makeText(getApplicationContext(), "Pastikan Atas Nama Field Terisi", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                if (mPenyediajasa.getText().toString().isEmpty()) {
+                if (bank_code.getText().toString().isEmpty()) {
                     Toast.makeText(getApplicationContext(), "Pastikan Penyedia Jasa Field Terisi", Toast.LENGTH_SHORT).show();
                     return;
                 } else {
@@ -113,10 +115,10 @@ public class FormPenarikanBuyer extends AppCompatActivity implements AdapterView
                     Bundle b = new Bundle();
 
                     //Menyisipkan tipe data String ke dalam obyek bundle
-                    b.putString("jicash", mJumlahjicash.getText().toString());
+                    b.putString("jicash", amount.getText().toString());
                     b.putString("noreq", mNomorrekening.getText().toString());
-                    b.putString("atasnama", mAtasnama.getText().toString());
-                    b.putString("penyediajasa", mPenyediajasa.getText().toString());
+                    b.putString("atasnama", account_name.getText().toString());
+                    b.putString("penyediajasa", bank_code.getText().toString());
 
                     //Menambahkan bundle intent
                     intent.putExtras(b);
@@ -131,29 +133,49 @@ public class FormPenarikanBuyer extends AppCompatActivity implements AdapterView
     }
 
     private void getXml() {
-        this.mJumlahjicash = findViewById(R.id.jumlahjicash);
+        this.amount = findViewById(R.id.jumlahjicash);
         this.mNomorrekening = findViewById(R.id.nomorrekening);
-        this.mAtasnama = findViewById(R.id.atasnama);
-        this.mPenyediajasa = findViewById(R.id.penyediajasa);
-
+        this.account_name = findViewById(R.id.atasnama);
+        this.bank_code = findViewById(R.id.penyediajasa);
     }
+
     public void uploadPenarikanJicash(){
         Services service = Client.getClient(Client.BASE_URL).create(Services.class);
         Call<ResponseBody> uploadPenarikanJicash = service.uploadPenarikanJicash(
-                this.mJumlahjicash.getText().toString(),
-                this.mNomorrekening.getText().toString(),
-                this.mAtasnama.getText().toString(),
-                this.mPenyediajasa.getText().toString()
+                //disini belom
+                this.amount.getText().toString(),
+                this.account_name.getText().toString(),
+                this.bank_code.getText().toString()
+                //ussername sama account number belom
         );
         uploadPenarikanJicash.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 Toast.makeText(getApplicationContext(), "Bissmillah", Toast.LENGTH_SHORT).show();
+                Log.d(String.valueOf(FormPenarikanBuyer.this), "onResponse: " +response.raw());
             }
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
                 Log.d(TAG, "onFailure: " + t.toString());
+            }
+        });
+    }
+
+    public void getBank(){
+        Services service = Client.getClient(Client.BASE_URL).create(Services.class);
+        Call<Bank> callBank = service.getBank();
+        callBank.enqueue(new Callback<Bank>() {
+            @Override
+            public void onResponse(Call<Bank> call, Response<Bank> response) {
+                //belom bisa
+                List<Bank> callBank =response.body().getBank();
+
+            }
+
+            @Override
+            public void onFailure(Call<Bank> call, Throwable t) {
+
             }
         });
     }
@@ -164,6 +186,7 @@ public class FormPenarikanBuyer extends AppCompatActivity implements AdapterView
         ((TextView) parent.getChildAt(0)).setTextColor(Color.parseColor("#388A6B"));
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
                 R.array.nama_bank, android.R.layout.simple_spinner_item);
+
     }
 
     @Override
