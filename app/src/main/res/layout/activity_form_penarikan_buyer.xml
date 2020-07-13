@@ -108,7 +108,7 @@
                     android:layout_marginTop="@dimen/space"
                     android:layout_marginRight="@dimen/space"
                     android:hint="Kode Penyedia Jasa dari daftar dibawah"
-                    android:inputType="number"/>
+                    android:onClick="showBank"/>
 
 
             </com.google.android.material.textfield.TextInputLayout>

@@ -298,13 +298,13 @@ public interface Services {
             //@Field("atas_nama") String atas_nama,
             //@Field("penyedia_jasa") String penyedia_jasa,
             //
-            //int
             @Field("username") String username,
-            //int
+            @Field("account_no") int account_no,
+
             @Field("account_name") String account_name,
-            @Field("bank_code") String bank_code
+            @Field("bank_code") String bank_code,
             //username dan account number belom
-    );
+            String id_bank);
 
     @GET("bank")
     Call<Bank> getBank();
