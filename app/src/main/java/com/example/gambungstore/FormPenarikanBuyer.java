@@ -25,6 +25,7 @@ import com.example.gambungstore.models.Bank;
 import com.example.gambungstore.models.ResultBank;
 import com.example.gambungstore.progressbar.ProgressBarGambung;
 import com.example.gambungstore.services.Services;
+import com.example.gambungstore.sharedpreference.SharedPreference;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -150,31 +151,31 @@ public class FormPenarikanBuyer extends AppCompatActivity implements AdapterView
         Services service = Client.getClient(Client.BASE_URL).create(Services.class);
         //Call<ResponseBody> uploadPenarikanJicash = service.uploadPenarikanJicash(
                 //disini belom
-               // this.amount.getText().toString(),
-               // this.account_name.getText().toString(),
-              //  this.bank_code.getText().toString(),
-               // this.id_bank
+          //     this.amount.getText().toString(),
+            //   this.account_name.getText().toString(),
+              // this.mPenyediajasa.getText().toString(),
+               //this.id_bank
 
 
                 //ussername sama account number belom
         //);
         //uploadPenarikanJicash.enqueue(new Callback<ResponseBody>() {
-            //@Override
+          //  @Override
             //public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
               //  Toast.makeText(getApplicationContext(), "Bissmillah", Toast.LENGTH_SHORT).show();
-             //   Log.d(String.valueOf(FormPenarikanBuyer.this), "onResponse: " +response.raw());
-           // }
+                //Log.d(String.valueOf(FormPenarikanBuyer.this), "onResponse: " +response.raw());
+            //}
 
-           // @Override
+            //@Override
             //public void onFailure(Call<ResponseBody> call, Throwable t) {
-            //    Log.d(TAG, "onFailure: " + t.toString());
+              //  Log.d(TAG, "onFailure: " + t.toString());
             //}
         //});
     }
 
     public void getBank(){
         Services service = Client.getClient(Client.BASE_URL).create(Services.class);
-        Call<Bank> dataBank = service.getBank();
+        Call<Bank> dataBank = service.getBank(SharedPreference.getRegisteredName(this));
         dataBank.enqueue(new Callback<Bank>() {
             @Override
             public void onResponse(Call<Bank> call, Response<Bank> response) {

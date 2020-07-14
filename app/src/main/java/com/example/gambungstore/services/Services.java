@@ -300,7 +300,7 @@ public interface Services {
             //
             @Field("username") String username,
             @Field("account_no") int account_no,
-
+            @Field("ammount") int ammount,
             @Field("account_name") String account_name,
             @Field("bank_code") String bank_code,
             //username dan account number belom
