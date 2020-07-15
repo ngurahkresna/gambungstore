@@ -11,6 +11,7 @@ import com.example.gambungstore.models.checkout.Checkout;
 import com.example.gambungstore.models.category.DataCategory;
 import com.example.gambungstore.models.jicash.HistoryJicash;
 import com.example.gambungstore.models.jicash.Jicash;
+import com.example.gambungstore.models.jicash.PenarikanJicash;
 import com.example.gambungstore.models.product.DataProduct;
 import com.example.gambungstore.models.product.Product;
 import com.example.gambungstore.models.promo.DataPromo;
@@ -300,11 +301,11 @@ public interface Services {
             //
             @Field("username") String username,
             @Field("account_no") int account_no,
-            @Field("ammount") int ammount,
+            @Field("amount") int amount,
             @Field("account_name") String account_name,
             @Field("bank_code") String bank_code,
             //username dan account number belom
-            String id_bank);
+            String id);
 
     @GET("bank")
     Call<Bank> getBank();

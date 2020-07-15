@@ -5,8 +5,8 @@ import com.google.gson.annotations.SerializedName;
 import java.util.Date;
 
 public class ResultBank {
-    @SerializedName("id_bank")
-    private int id_bank;
+    @SerializedName("id")
+    private int id;
     @SerializedName("bank_code")
     private int bank_code;
     @SerializedName("bank_name")
@@ -16,12 +16,12 @@ public class ResultBank {
     @SerializedName("update_at")
     private Date update_at;
 
-    public int getId_bank() {
-        return id_bank;
+    public int getId() {
+        return id;
     }
 
-    public void setId_bank(int id_bank) {
-        this.id_bank = id_bank;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public int getBank_code() {

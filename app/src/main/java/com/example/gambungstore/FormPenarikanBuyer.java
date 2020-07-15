@@ -46,7 +46,7 @@ public class FormPenarikanBuyer extends AppCompatActivity implements AdapterView
     LinearLayoutManager linearLayoutManager;
     TextView jicashBalance;
     Spinner spinBank;
-    private String id_bank;
+    private String id;
     private String bank_code;
     private String created_at;
     private String update_at;
@@ -118,7 +118,7 @@ public class FormPenarikanBuyer extends AppCompatActivity implements AdapterView
                     return;
                 } else {
                     Intent intent = new Intent(getApplicationContext(), CheckoutPenarikanBuyerProses.class);
-                    uploadPenarikanJicash();
+                    //uploadPenarikanJicash();
                     //Membuat obyek bundle
                     Bundle b = new Bundle();
 
@@ -147,42 +147,42 @@ public class FormPenarikanBuyer extends AppCompatActivity implements AdapterView
         this.mPenyediajasa = findViewById(R.id.penyediajasa);
     }
 
-    public void uploadPenarikanJicash(){
-        Services service = Client.getClient(Client.BASE_URL).create(Services.class);
-        //Call<ResponseBody> uploadPenarikanJicash = service.uploadPenarikanJicash(
+    //public void uploadPenarikanJicash(String username , int amount, int account_no, String account_name, int bank_code){
+        //Services service = Client.getClient(Client.BASE_URL).create(Services.class);
+       // Call<ResponseBody> uploadPenarikanJicash = service.uploadPenarikanJicash(
                 //disini belom
-          //     this.amount.getText().toString(),
+               //this.amount.getText().toString(),
+              // this.mNomorrekening.getText().toString(),
             //   this.account_name.getText().toString(),
-              // this.mPenyediajasa.getText().toString(),
-               //this.id_bank
+          //     this.mPenyediajasa.getText().toString()
 
 
                 //ussername sama account number belom
         //);
         //uploadPenarikanJicash.enqueue(new Callback<ResponseBody>() {
-          //  @Override
+            //@Override
             //public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-              //  Toast.makeText(getApplicationContext(), "Bissmillah", Toast.LENGTH_SHORT).show();
-                //Log.d(String.valueOf(FormPenarikanBuyer.this), "onResponse: " +response.raw());
-            //}
+               // Toast.makeText(getApplicationContext(), "Bissmillah", Toast.LENGTH_SHORT).show();
+             //   Log.d(String.valueOf(FormPenarikanBuyer.this), "onResponse: " +response.raw());
+          //  }
 
             //@Override
             //public void onFailure(Call<ResponseBody> call, Throwable t) {
-              //  Log.d(TAG, "onFailure: " + t.toString());
-            //}
+            //    Log.d(TAG, "onFailure: " + t.toString());
+          //  }
         //});
-    }
+    //}
 
     public void getBank(){
         Services service = Client.getClient(Client.BASE_URL).create(Services.class);
-        Call<Bank> dataBank = service.getBank(SharedPreference.getRegisteredName(this));
+        Call<Bank> dataBank = service.getBank();
         dataBank.enqueue(new Callback<Bank>() {
             @Override
             public void onResponse(Call<Bank> call, Response<Bank> response) {
                 Bank BankName = response.body();
                 for (ResultBank rs : BankName.getBanks().getResultBanks()){
                     SpinnerNameBank.add(rs.getBank_name());
-                    SpinnerIdBank.add(rs.getId_bank());
+                    SpinnerIdBank.add(rs.getId());
                     SpinnerCodeBank.add(rs.getBank_code());
                     SpinnerCreatedBank.add(rs.getCreated_at());
                     SpinnerUpdatedBank.add(rs.getUpdate_at());
@@ -201,7 +201,7 @@ public class FormPenarikanBuyer extends AppCompatActivity implements AdapterView
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 mPenyediajasa.setText(SpinnerNameBank.get(which));
-                id_bank = String.valueOf(SpinnerIdBank.get(which));
+                id = String.valueOf(SpinnerIdBank.get(which));
                 bank_code = String.valueOf(SpinnerCodeBank.get(which));
                 created_at = String.valueOf(SpinnerCreatedBank.get(which));
                 update_at = String.valueOf(SpinnerUpdatedBank.get(which));
