@@ -107,7 +107,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/space"
                     android:layout_marginRight="@dimen/space"
-                    android:hint="Kode Penyedia Jasa dari daftar dibawah"
+                    android:hint="Klik untuk memilih Bank Penyedia Jasa"
                     android:onClick="showBank"/>
 
 

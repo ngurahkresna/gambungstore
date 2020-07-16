@@ -118,7 +118,7 @@ public class FormPenarikanBuyer extends AppCompatActivity implements AdapterView
                     return;
                 } else {
                     Intent intent = new Intent(getApplicationContext(), CheckoutPenarikanBuyerProses.class);
-                    //uploadPenarikanJicash();
+                    uploadPenarikanJicash();
                     //Membuat obyek bundle
                     Bundle b = new Bundle();
 
@@ -140,6 +140,10 @@ public class FormPenarikanBuyer extends AppCompatActivity implements AdapterView
         progressBarGambung.endProgressBarGambung();
     }
 
+    private void uploadPenarikanJicash() {
+
+    }
+
     private void getXml() {
         this.amount = findViewById(R.id.jumlahjicash);
         this.mNomorrekening = findViewById(R.id.nomorrekening);
@@ -147,31 +151,32 @@ public class FormPenarikanBuyer extends AppCompatActivity implements AdapterView
         this.mPenyediajasa = findViewById(R.id.penyediajasa);
     }
 
-    //public void uploadPenarikanJicash(String username , int amount, int account_no, String account_name, int bank_code){
-        //Services service = Client.getClient(Client.BASE_URL).create(Services.class);
-       // Call<ResponseBody> uploadPenarikanJicash = service.uploadPenarikanJicash(
+    public void uploadPenarikanJicash(String username , int amount, int account_no, String account_name, int bank_code){
+        Services service = Client.getClient(Client.BASE_URL).create(Services.class);
+        Call<ResponseBody> uploadPenarikanJicash = service.uploadPenarikanJicash(
                 //disini belom
-               //this.amount.getText().toString(),
-              // this.mNomorrekening.getText().toString(),
-            //   this.account_name.getText().toString(),
-          //     this.mPenyediajasa.getText().toString()
+               username,
+                amount,
+                account_no,
+                account_name,
+                bank_code
 
 
                 //ussername sama account number belom
-        //);
-        //uploadPenarikanJicash.enqueue(new Callback<ResponseBody>() {
-            //@Override
-            //public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-               // Toast.makeText(getApplicationContext(), "Bissmillah", Toast.LENGTH_SHORT).show();
-             //   Log.d(String.valueOf(FormPenarikanBuyer.this), "onResponse: " +response.raw());
-          //  }
+        );
+        uploadPenarikanJicash.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                Toast.makeText(getApplicationContext(), "Bissmillah", Toast.LENGTH_SHORT).show();
+                Log.d(String.valueOf(FormPenarikanBuyer.this), "onResponse: " +response.raw());
+            }
 
-            //@Override
-            //public void onFailure(Call<ResponseBody> call, Throwable t) {
-            //    Log.d(TAG, "onFailure: " + t.toString());
-          //  }
-        //});
-    //}
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                Log.d(TAG, "onFailure: " + t.toString());
+            }
+        });
+    }
 
     public void getBank(){
         Services service = Client.getClient(Client.BASE_URL).create(Services.class);
