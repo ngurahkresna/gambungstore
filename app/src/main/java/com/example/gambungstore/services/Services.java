@@ -296,10 +296,10 @@ public interface Services {
     @POST("jicash/withdrawal")
     Call<ResponseBody> uploadPenarikanJicash(
             //
-            @Field("jumlah_jicash") String jumlah_jicash,
-            @Field("no_rekening") String no_rekening,
-            @Field("atas_nama") String atas_nama,
-            @Field("penyedia_jasa") String penyedia_jasa,
+            //@Field("jumlah_jicash") String jumlah_jicash,
+            //@Field("no_rekening") String no_rekening,
+            //@Field("atas_nama") String atas_nama,
+            //@Field("penyedia_jasa") String penyedia_jasa,
             //
             @Field("username") String username,
             @Field("account_no") int account_no,
@@ -311,7 +311,8 @@ public interface Services {
 
     //ini get bank
     @GET("bank")
-    Call<Bank> getBank();
+    Call<List<Bank>> getBank();
+    //
 
     Call<ResponseBody> uploadPenarikanJicash(String username, int amount, int account_no, String account_name, int bank_code);
 }

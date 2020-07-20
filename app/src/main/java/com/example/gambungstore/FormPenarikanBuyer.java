@@ -23,12 +23,14 @@ import android.widget.Toast;
 import com.example.gambungstore.client.Client;
 import com.example.gambungstore.models.Bank;
 import com.example.gambungstore.models.ResultBank;
+import com.example.gambungstore.models.jicash.Jicash;
 import com.example.gambungstore.progressbar.ProgressBarGambung;
 import com.example.gambungstore.services.Services;
 import com.example.gambungstore.sharedpreference.SharedPreference;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -138,6 +140,7 @@ public class FormPenarikanBuyer extends AppCompatActivity implements AdapterView
             }
         });
         progressBarGambung.endProgressBarGambung();
+        getData();
     }
 
     private void uploadPenarikanJicash() {
@@ -180,21 +183,24 @@ public class FormPenarikanBuyer extends AppCompatActivity implements AdapterView
 
     public void getBank(){
         Services service = Client.getClient(Client.BASE_URL).create(Services.class);
-        Call<Bank> dataBank = service.getBank();
-        dataBank.enqueue(new Callback<Bank>() {
+        Call<List<Bank>> callBank = service.getBank();
+        callBank.enqueue(new Callback<List<Bank>>() {
             @Override
-            public void onResponse(Call<Bank> call, Response<Bank> response) {
-                Bank BankName = response.body();
-                for (ResultBank rs : BankName.getBanks().getResultBanks()){
-                    SpinnerNameBank.add(rs.getBank_name());
-                    SpinnerIdBank.add(rs.getId());
-                    SpinnerCodeBank.add(rs.getBank_code());
-                    SpinnerCreatedBank.add(rs.getCreated_at());
-                    SpinnerUpdatedBank.add(rs.getUpdate_at());
-                }
+            public void onResponse(Call<List<Bank>> call, Response<List<Bank>> response) {
+                //disini error terus
+                List<Bank> Bankname = response.body();
+                //for (ResultBank rs : Bankname.getBanks().getResultBanks()){
+                  //  SpinnerNameBank.add(rs.getBank_name());
+                    //SpinnerIdBank.add(rs.getId());
+                    //SpinnerCodeBank.add(rs.getBank_code());
+                    //SpinnerCreatedBank.add(rs.getCreated_at());
+                    //SpinnerUpdatedBank.add(rs.getUpdate_at());
+                //}
+
             }
+
             @Override
-            public void onFailure(Call<Bank> call, Throwable t) {
+            public void onFailure(Call<List<Bank>> call, Throwable t) {
                 Log.d(TAG, "onFailure: " + t.toString());
             }
         });
@@ -214,6 +220,28 @@ public class FormPenarikanBuyer extends AppCompatActivity implements AdapterView
         });
         AlertDialog dialog = builder.create();
         dialog.show();
+    }
+
+    private void getData() {
+        Services service = Client.getClient(Client.BASE_URL).create(Services.class);
+        Call<List<Jicash>> callHistory = service.getJicash(
+                SharedPreference.getRegisteredUsername(this)
+        );
+        callHistory.enqueue(new Callback<List<Jicash>>() {
+            @Override
+            public void onResponse(Call<List<Jicash>> call, Response<List<Jicash>> response) {
+                if (response.body().size() != 0) {
+                    jicashBalance.setText("Rp. " + response.body().get(0).getBalance() + ",-");
+                } else {
+                    jicashBalance.setText("Rp. 0");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Jicash>> call, Throwable t) {
+                Log.d(TAG, "onFailure: " + t.toString());
+            }
+        });
     }
 
 
