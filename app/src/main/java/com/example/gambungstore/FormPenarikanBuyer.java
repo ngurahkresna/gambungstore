@@ -189,13 +189,14 @@ public class FormPenarikanBuyer extends AppCompatActivity implements AdapterView
             public void onResponse(Call<List<Bank>> call, Response<List<Bank>> response) {
                 //disini error terus
                 List<Bank> Bankname = response.body();
-                //for (ResultBank rs : Bankname.getBanks().getResultBanks()){
-                  //  SpinnerNameBank.add(rs.getBank_name());
-                    //SpinnerIdBank.add(rs.getId());
-                    //SpinnerCodeBank.add(rs.getBank_code());
-                    //SpinnerCreatedBank.add(rs.getCreated_at());
-                    //SpinnerUpdatedBank.add(rs.getUpdate_at());
-                //}
+                for (ResultBank rs : Bankname.getBanks().getResultBanks()){
+                    SpinnerNameBank.add(rs.getBank_name());
+                    SpinnerIdBank.add(rs.getId());
+                    SpinnerCodeBank.add(rs.getBank_code());
+                    SpinnerCreatedBank.add(rs.getCreated_at());
+                    SpinnerUpdatedBank.add(rs.getUpdate_at());
+                }
+
 
             }
 
