@@ -4,6 +4,7 @@ import com.example.gambungstore.models.Bank;
 import com.example.gambungstore.models.Login;
 import com.example.gambungstore.models.Profile;
 import com.example.gambungstore.models.RajaOngkir;
+import com.example.gambungstore.models.ResultBank;
 import com.example.gambungstore.models.Store;
 import com.example.gambungstore.models.cart.Cart;
 import com.example.gambungstore.models.category.Category;
@@ -311,7 +312,7 @@ public interface Services {
 
     //ini get bank
     @GET("bank")
-    Call<List<Bank>> getBank();
+    Call<List<ResultBank>> getBank();
     //
 
     Call<ResponseBody> uploadPenarikanJicash(String username, int amount, int account_no, String account_name, int bank_code);

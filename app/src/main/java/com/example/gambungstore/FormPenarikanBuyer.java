@@ -88,7 +88,6 @@ public class FormPenarikanBuyer extends AppCompatActivity implements AdapterView
         progressBarGambung.startProgressBarGambung();
 
         this.getXml();
-        this.getBank();
 
         mBackArrow = findViewById(R.id.backArrow);
         mBackArrow.setOnClickListener(new View.OnClickListener() {
@@ -141,6 +140,7 @@ public class FormPenarikanBuyer extends AppCompatActivity implements AdapterView
         });
         progressBarGambung.endProgressBarGambung();
         getData();
+        getBank();
     }
 
     private void uploadPenarikanJicash() {
@@ -164,7 +164,6 @@ public class FormPenarikanBuyer extends AppCompatActivity implements AdapterView
                 account_name,
                 bank_code
 
-
                 //ussername sama account number belom
         );
         uploadPenarikanJicash.enqueue(new Callback<ResponseBody>() {
@@ -183,25 +182,26 @@ public class FormPenarikanBuyer extends AppCompatActivity implements AdapterView
 
     public void getBank(){
         Services service = Client.getClient(Client.BASE_URL).create(Services.class);
-        Call<List<Bank>> callBank = service.getBank();
-        callBank.enqueue(new Callback<List<Bank>>() {
+        Call<List<ResultBank>> callBank = service.getBank();
+        callBank.enqueue(new Callback<List<ResultBank>>() {
             @Override
-            public void onResponse(Call<List<Bank>> call, Response<List<Bank>> response) {
+            public void onResponse(Call<List<ResultBank>> call, Response<List<ResultBank>> response) {
                 //disini error terus
-                List<Bank> Bankname = response.body();
-                for (ResultBank rs : Bankname.getBanks().getResultBanks()){
+                List<ResultBank> Bankname = response.body();
+                for (ResultBank rs : Bankname){
                     SpinnerNameBank.add(rs.getBank_name());
                     SpinnerIdBank.add(rs.getId());
                     SpinnerCodeBank.add(rs.getBank_code());
                     SpinnerCreatedBank.add(rs.getCreated_at());
                     SpinnerUpdatedBank.add(rs.getUpdate_at());
-                }
+                    Log.d(TAG, "onResponse: " + rs.getBank_name());
+             }
 
 
             }
 
             @Override
-            public void onFailure(Call<List<Bank>> call, Throwable t) {
+            public void onFailure(Call<List<ResultBank>> call, Throwable t) {
                 Log.d(TAG, "onFailure: " + t.toString());
             }
         });
@@ -225,9 +225,7 @@ public class FormPenarikanBuyer extends AppCompatActivity implements AdapterView
 
     private void getData() {
         Services service = Client.getClient(Client.BASE_URL).create(Services.class);
-        Call<List<Jicash>> callHistory = service.getJicash(
-                SharedPreference.getRegisteredUsername(this)
-        );
+        Call<List<Jicash>> callHistory = service.getJicash(SharedPreference.getRegisteredUsername(this));
         callHistory.enqueue(new Callback<List<Jicash>>() {
             @Override
             public void onResponse(Call<List<Jicash>> call, Response<List<Jicash>> response) {
