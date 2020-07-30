@@ -285,4 +285,22 @@ public interface Services {
     Call<List<Jicash>> getJicash(
         @Query("username") String username
     );
+
+    @FormUrlEncoded
+    @POST("crowdfunding/donation")
+    Call<ResponseBody> postDonation(
+        @Field("username") String username,
+        @Field("payment_method_id") int payment_method,
+        @Field("amount") int amount
+    );
+
+    @FormUrlEncoded
+    @POST("crowdfunding/payment")
+    Call<ResponseBody> postPayment(
+        @Field("donation_id") int donation_id,
+        @Field("account_number") String account_number,
+        @Field("account_name") String account_name,
+        @Field("account_bank") String account_bank,
+        @Field("proof_img") String proof_img
+    );
 }

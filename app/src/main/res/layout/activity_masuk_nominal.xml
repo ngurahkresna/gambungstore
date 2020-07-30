@@ -122,16 +122,32 @@
         android:layout_marginStart="24dp" />
 
 
-    <EditText
-        android:id="@+id/TextNominal"
+    <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:ems="12"
         android:gravity="center"
-        android:hint="Rp 0,00"
-        android:inputType="number"
         android:layout_gravity="center"
-        android:layout_marginBottom="32dp"/>
+        android:layout_marginBottom="32dp">
+        <TextView
+            android:id="@+id/rp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Rp"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:textSize="16sp"/>
+        <EditText
+            android:id="@+id/TextNominal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="12"
+            android:gravity="center"
+            android:textSize="16sp"
+            android:hint="Masukkan nominal"
+            android:inputType="number"
+            android:layout_gravity="center"
+            android:layout_toEndOf="@+id/rp"/>
+    </RelativeLayout>
 
     <Button
         android:id="@+id/button"

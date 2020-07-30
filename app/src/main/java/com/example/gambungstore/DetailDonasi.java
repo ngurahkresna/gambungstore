@@ -22,7 +22,8 @@ public class DetailDonasi extends AppCompatActivity {
         setContentView(R.layout.activity_detail_donasi);
         listLaporan = new ArrayList<>();
         for(int i = 0; i < 6; i++){
-            listLaporan.add(new LaporanDonasi(R.drawable.placeholder_logo, "Pak Dede Yusuf","Pembelian traktor","Rp 10.000.000"));
+            listLaporan.add(new LaporanDonasi("Pembelian traktor", R.drawable.placeholder_logo, "Pak Dede Yusuf",
+                    "Membutuhkan dana untuk meningkatkan produksi dengan menambah mesin produksi",2020000000, 20000000,2000000000));
         }
 
         recyclerView = findViewById(R.id.laporanDon);

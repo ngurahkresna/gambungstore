@@ -3,7 +3,7 @@ package com.example.gambungstore.client;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class Client {
+public class    Client {
 
     public static final String BASE_URL = "https://dev.gambungstore.id/api/";
     public static final String IMAGE_URL = "https://dev.gambungstore.id/assets/img/products";
