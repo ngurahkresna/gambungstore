@@ -163,7 +163,6 @@ public class FormPenarikanBuyer extends AppCompatActivity implements AdapterView
                 account_no,
                 account_name,
                 bank_code
-
                 //ussername sama account number belom
         );
         uploadPenarikanJicash.enqueue(new Callback<ResponseBody>() {
@@ -189,15 +188,13 @@ public class FormPenarikanBuyer extends AppCompatActivity implements AdapterView
                 //disini error terus
                 List<ResultBank> Bankname = response.body();
                 for (ResultBank rs : Bankname){
-                    SpinnerNameBank.add(rs.getBank_name());
                     SpinnerIdBank.add(rs.getId());
                     SpinnerCodeBank.add(rs.getBank_code());
+                    SpinnerNameBank.add(rs.getBank_name());
                     SpinnerCreatedBank.add(rs.getCreated_at());
                     SpinnerUpdatedBank.add(rs.getUpdate_at());
                     Log.d(TAG, "onResponse: " + rs.getBank_name());
              }
-
-
             }
 
             @Override
