@@ -15,9 +15,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.example.gambungstore.adapters.BeritaAdapter;
 import com.example.gambungstore.models.BeritaDonasi;
+import com.example.gambungstore.sharedpreference.SharedPreference;
 
 import java.util.ArrayList;
 
@@ -42,8 +44,14 @@ public class donasiFragment extends Fragment {
 
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getContext(), MasukNominal.class);
-                startActivity(intent);
+                if(!SharedPreference.getRegisteredToken(getContext()).matches(""))
+                {
+                    Intent intent = new Intent(getContext(), MasukNominal.class);
+                    startActivity(intent);
+                } else
+                {
+                    Toast.makeText(getContext(),"Anda perlu login terlebih dahulu",Toast.LENGTH_SHORT);
+                }
             }
         });
         detaildonasi.setOnClickListener(new View.OnClickListener() {

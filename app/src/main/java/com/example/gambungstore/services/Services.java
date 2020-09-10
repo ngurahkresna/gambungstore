@@ -1,5 +1,6 @@
 package com.example.gambungstore.services;
 
+import com.example.gambungstore.models.Bank;
 import com.example.gambungstore.models.Login;
 import com.example.gambungstore.models.Profile;
 import com.example.gambungstore.models.RajaOngkir;
@@ -289,6 +290,7 @@ public interface Services {
     @FormUrlEncoded
     @POST("crowdfunding/donation")
     Call<ResponseBody> postDonation(
+        @Field("crowdfunding_id") int crowdfunding_id,
         @Field("username") String username,
         @Field("payment_method_id") int payment_method,
         @Field("amount") int amount
@@ -303,4 +305,7 @@ public interface Services {
         @Field("account_bank") String account_bank,
         @Field("proof_img") String proof_img
     );
+
+    @GET("bank")
+    Call<List<Bank>> getAllBanks();
 }

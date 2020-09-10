@@ -93,7 +93,27 @@
             android:textAllCaps="false"
             android:layout_toEndOf="@id/textfile"/>
 
+        <EditText
+            android:id="@+id/norekdonasi"
+            android:layout_width="280dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/buttonfile"
+            android:hint="Nomor Rekening Anda"
+            android:layout_centerHorizontal="true"/>
+        <EditText
+            android:id="@+id/namarekdonasi"
+            android:layout_width="280dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/norekdonasi"
+            android:hint="Nama Pemilik Rekening"
+            android:layout_centerHorizontal="true"/>
 
+        <Spinner
+            android:id="@+id/spinnerBank"
+            android:layout_width="120dp"
+            android:layout_height="40dp"
+            android:layout_below="@id/namarekdonasi"
+            android:layout_centerHorizontal="true"/>
     </RelativeLayout>
 
     <Button

@@ -256,7 +256,6 @@ public class CheckoutForm extends AppCompatActivity {
                         refreshRincianHarga();
                         alertDialogNotif("Voucher Tidak Ditemukan");
                     }
-
                 }
 
                 @Override

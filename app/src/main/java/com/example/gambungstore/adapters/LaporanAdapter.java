@@ -16,7 +16,10 @@ import com.example.gambungstore.BottomSheetFragmentLaporan;
 import com.example.gambungstore.R;
 import com.example.gambungstore.models.LaporanDonasi;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
+
+import java.text.NumberFormat;
 import java.util.List;
+import java.util.Locale;
 
 public class LaporanAdapter extends RecyclerView.Adapter<LaporanAdapter.ViewHolder> {
     Context context;
@@ -38,12 +41,13 @@ public class LaporanAdapter extends RecyclerView.Adapter<LaporanAdapter.ViewHold
     @Override
     public void onBindViewHolder(@NonNull LaporanAdapter.ViewHolder holder, int position) {
         LaporanDonasi laporanDonasi = laporan.get(position);
+        NumberFormat format = NumberFormat.getCurrencyInstance(new Locale("in","ID"));
+        FragmentManager manager = ((AppCompatActivity)context).getSupportFragmentManager();
         ImageView profpic = holder.profpic;
         TextView penerima = holder.penerima;
         TextView deskripsi = holder.deskripsi;
         TextView jumlah =  holder.jumlah;
         Bundle bundle = new Bundle();
-        FragmentManager manager = ((AppCompatActivity)context).getSupportFragmentManager();
 
         bundle.putString("judul",laporanDonasi.getJudulLaporan());
         bundle.putInt("img",laporanDonasi.getUserImage());
@@ -56,7 +60,7 @@ public class LaporanAdapter extends RecyclerView.Adapter<LaporanAdapter.ViewHold
         profpic.setImageResource(laporanDonasi.getUserImage());
         penerima.setText(laporanDonasi.getUsernamePenerima());
         deskripsi.setText(laporanDonasi.getJudulLaporan());
-        jumlah.setText(laporanDonasi.getPenarikan_donasi()+"");
+        jumlah.setText(format.format(laporanDonasi.getPenarikan_donasi()));
         holder.newDialog.setArguments(bundle);
 
         holder.card.setOnClickListener(new View.OnClickListener() {

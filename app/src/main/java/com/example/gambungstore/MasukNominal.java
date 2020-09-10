@@ -14,10 +14,19 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.gambungstore.client.Client;
+import com.example.gambungstore.services.Services;
+import com.example.gambungstore.sharedpreference.SharedPreference;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 import java.text.NumberFormat;
 import java.util.Locale;
+
+import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class MasukNominal extends AppCompatActivity {
 
@@ -58,13 +67,10 @@ public class MasukNominal extends AppCompatActivity {
     }
 
     public void beriDonasi(View view) {
-        try {
-            nomin = Integer.parseInt(nominal.getText().toString());
-        }catch(Exception e){
-            Log.d("nominal",e.getMessage());
-        }
+//        String value = nominal.getText().toString();
+//        nomin = Integer.parseInt(value);
 
-        if(nomin >= 10000 && nominal.getText().length() <= 3)
+        if(nomin >= 10000 && nominal.getText().length() >= 3)
         {
             dialog.show();
             nominRupiah = format.format(nomin);
@@ -74,6 +80,10 @@ public class MasukNominal extends AppCompatActivity {
         }
         else if(nominal.getText().length() <= 3){
             Toast.makeText(MasukNominal.this,"Masukkan nominal terlebih dahulu",Toast.LENGTH_SHORT).show();
+        }
+        else{
+            Toast.makeText(MasukNominal.this,"Error tidak diketahui: "+nomin+", "+nominal.getText().length()
+                    ,Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -114,10 +124,32 @@ public class MasukNominal extends AppCompatActivity {
         }
         else
         {
-            Intent intent = new Intent(this, TransferDonasi.class);
-            intent.putExtra("nominalpembayaran",nomin);
-            intent.putExtra("nominaldalamrp",nominRupiah);
-            startActivity(intent);
+            Services service = Client.getClient(Client.BASE_URL).create(Services.class);
+            String username = SharedPreference.getRegisteredUsername(this);
+
+            Call<ResponseBody> donasi = service.postDonation(
+                    1,
+                    username,
+                    2,
+                    nomin
+            );
+            donasi.enqueue(new Callback<ResponseBody>() {
+                @Override
+                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                    Log.d("Koneksi Donasi","onResponse: "+response.raw());
+                    Intent intent = new Intent(MasukNominal.this, TransferDonasi.class);
+                    intent.putExtra("nominalpembayaran",nomin);
+                    intent.putExtra("nominaldalamrp",nominRupiah);
+                    startActivity(intent);
+                    finish();
+                }
+
+                @Override
+                public void onFailure(Call<ResponseBody> call, Throwable t) {
+                    Log.d("Koneksi Donasi","onFailure: "+t.toString());
+                    Toast.makeText(MasukNominal.this,"Gagal koneksi ke database",Toast.LENGTH_SHORT).show();
+                }
+            });
         }
     }
 
