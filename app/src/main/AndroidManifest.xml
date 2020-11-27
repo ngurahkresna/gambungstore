@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.example.gambungstore">
+    package="com.gambungstore.buyer">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -15,22 +15,22 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".jicashCheckoutDone"></activity>
-        <activity android:name=".jicashCheckoutPayment" />
+        <activity android:name="com.gambungstore.buyer.jicashCheckoutDone"></activity>
+        <activity android:name="com.gambungstore.buyer.jicashCheckoutPayment" />
         <activity
-            android:name=".jicashAlert"
+            android:name="com.gambungstore.buyer.jicashAlert"
             android:theme="@style/AppTheme.DialogPop" />
-        <activity android:name=".JicashCheckoutForm" />
-        <activity android:name=".TopUpJicash" />
-        <activity android:name=".jiCashHomeActivity" />
+        <activity android:name="com.gambungstore.buyer.JicashCheckoutForm" />
+        <activity android:name="com.gambungstore.buyer.TopUpJicash" />
+        <activity android:name="com.gambungstore.buyer.jiCashHomeActivity" />
 
-        <activity android:name=".DetailStore"></activity>
-        <activity android:name=".Chat" />
-        <activity android:name=".detailProduct" />
-        <activity android:name=".CheckoutDone" />
-        <activity android:name=".CheckoutPayment" />
-        <activity android:name=".CheckoutForm" />
-        <activity android:name=".periodeActivity" />
+        <activity android:name="com.gambungstore.buyer.DetailStore"></activity>
+        <activity android:name="com.gambungstore.buyer.Chat" />
+        <activity android:name="com.gambungstore.buyer.detailProduct" />
+        <activity android:name="com.gambungstore.buyer.CheckoutDone" />
+        <activity android:name="com.gambungstore.buyer.CheckoutPayment" />
+        <activity android:name="com.gambungstore.buyer.CheckoutForm" />
+        <activity android:name="com.gambungstore.buyer.periodeActivity" />
 
         <provider
             android:name="androidx.core.content.FileProvider"
@@ -42,20 +42,20 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/filepaths" />
         </provider>
-        <activity android:name=".detailPromo" />
-        <activity android:name=".transaction" />
-        <activity android:name=".editProfile" />
-        <activity android:name=".changePasswordActivity" />
-        <activity android:name=".wishlistActivity" />
-        <activity android:name=".SearchActivity" />
-        <activity android:name=".productActivity" />
-        <activity android:name=".categoryActivity" />
-        <activity android:name=".promoActivity" />
-        <activity android:name=".register" />
-        <activity android:name=".login" />
-        <activity android:name=".authOption" />
-        <activity android:name=".homeActivity" />
-        <activity android:name=".SplashScreenActivity">
+        <activity android:name="com.gambungstore.buyer.detailPromo" />
+        <activity android:name="com.gambungstore.buyer.transaction" />
+        <activity android:name="com.gambungstore.buyer.editProfile" />
+        <activity android:name="com.gambungstore.buyer.changePasswordActivity" />
+        <activity android:name="com.gambungstore.buyer.wishlistActivity" />
+        <activity android:name="com.gambungstore.buyer.SearchActivity" />
+        <activity android:name="com.gambungstore.buyer.productActivity" />
+        <activity android:name="com.gambungstore.buyer.categoryActivity" />
+        <activity android:name="com.gambungstore.buyer.promoActivity" />
+        <activity android:name="com.gambungstore.buyer.register" />
+        <activity android:name="com.gambungstore.buyer.login" />
+        <activity android:name="com.gambungstore.buyer.authOption" />
+        <activity android:name="com.gambungstore.buyer.homeActivity" />
+        <activity android:name="com.gambungstore.buyer.SplashScreenActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -69,7 +69,7 @@
                 <data android:scheme="https" android:host="dev.gambungstore.id" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity" />
+        <activity android:name="com.gambungstore.buyer.MainActivity" />
     </application>
 
 </manifest>
