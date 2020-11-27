@@ -5,9 +5,9 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class Client {
 
-    public static final String BASE_URL = "https://dev.gambungstore.id/api/";
-    public static final String IMAGE_URL = "https://dev.gambungstore.id/assets/img/products";
-    public static final String PRODUCT_URL = "https://dev.gambungstore.id/detail-produk/";
+    public static final String BASE_URL = "https://gambungstore.id/api/";
+    public static final String IMAGE_URL = "https://gambungstore.id/assets/img/products";
+    public static final String PRODUCT_URL = "https://gambungstore.id/detail-produk/";
 
     private static Retrofit retrofit;
     public static Retrofit getClient(String url) {
