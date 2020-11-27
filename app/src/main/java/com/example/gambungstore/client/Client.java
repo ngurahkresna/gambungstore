@@ -13,7 +13,7 @@ public class Client {
     public static Retrofit getClient(String url) {
         retrofit = new Retrofit.Builder()
                 .baseUrl(url)
-                .addConverterFactory(GsonConverterFactory.create())g
+                .addConverterFactory(GsonConverterFactory.create())
                 .build();
         return retrofit;
     }
