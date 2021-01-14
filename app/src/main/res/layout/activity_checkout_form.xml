@@ -194,11 +194,10 @@
                             android:layout_width="108dp"
                             android:layout_height="35dp"
                             android:background="@drawable/button_primary_solid"
-                            android:gravity="end"
+                            android:gravity="center"
                             android:onClick="paymentMethod"
                             android:padding="8dp"
                             android:text="Cek Voucher"
-                            android:textAlignment="center"
                             android:textAllCaps="false"
                             android:textColor="@color/colorWhite" />
 
@@ -251,11 +250,10 @@
                             android:layout_width="108dp"
                             android:layout_height="35dp"
                             android:background="@drawable/button_primary_solid"
-                            android:gravity="end"
+                            android:gravity="center"
                             android:onClick="paymentMethod"
                             android:padding="8dp"
                             android:text="Pilih"
-                            android:textAlignment="center"
                             android:textAllCaps="false"
                             android:textColor="@color/colorWhite" />
                     </LinearLayout>

@@ -54,7 +54,7 @@
                         android:layout_gravity="center_vertical"
                         android:layout_marginLeft="@dimen/space"
                         android:text="Login/Register"
-                        android:textAlignment="textEnd"
+                        android:gravity="end"
                         android:textColor="@color/colorWhite"
                         android:textSize="16sp"
                         android:textStyle="bold" />
@@ -179,7 +179,6 @@
                         android:layout_centerVertical="true"
                         android:clickable="true"
                         android:focusable="true"
-                        android:onClick="jicashHome"
                         android:text="Info"
                         android:textColor="@color/colorPrimary"
                         android:textSize="16sp"
@@ -215,7 +214,7 @@
                     android:layout_gravity="center_vertical"
                     android:layout_marginLeft="@dimen/space"
                     android:text="Semua Promo"
-                    android:textAlignment="textEnd"
+                    android:gravity="end"
                     android:textColor="@color/colorFont"
                     android:textSize="12sp"
                     android:textStyle="normal" />
@@ -252,7 +251,7 @@
                     android:layout_gravity="center_vertical"
                     android:layout_marginLeft="@dimen/space"
                     android:text="Semua Kategori"
-                    android:textAlignment="textEnd"
+                    android:gravity="end"
                     android:textColor="@color/colorFont"
                     android:textSize="12sp"
                     android:textStyle="normal" />
@@ -290,7 +289,7 @@
                     android:layout_gravity="center_vertical"
                     android:layout_marginLeft="@dimen/space"
                     android:text="Semua Produk"
-                    android:textAlignment="textEnd"
+                    android:gravity="end"
                     android:textColor="@color/colorFont"
                     android:textSize="12sp"
                     android:textStyle="normal" />

@@ -82,7 +82,6 @@ public class DetailStore extends AppCompatActivity {
         searchHint.setOnEditorActionListener(new EditText.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                ;
                 searchProduct(searchHint.getText().toString());
                 return true;
             }

@@ -40,10 +40,10 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HistoryV
     public void onBindViewHolder(@NonNull HistoryAdapter.HistoryViewHolder holder, int position) {
         DataTransaction transactionPosition = transactionList.get(position);
 
-        holder.tvTanggal.setText(transactionPosition.getTanggal().toString());
-        holder.tvProduk.setText(transactionPosition.getProduct().getName().toString());
+        holder.tvTanggal.setText(transactionPosition.getTanggal());
+        holder.tvProduk.setText(transactionPosition.getProduct().getName());
         holder.tvHarga.setText(String.valueOf(transactionPosition.getProduct().getPrice()));
-        holder.tvQty.setText("(" + String.valueOf(transactionPosition.getQuantity()) + "pcs)");
+        holder.tvQty.setText("(" + transactionPosition.getQuantity() + "pcs)");
 
         if (transactionPosition.getProduct().getImages() != null) {
             if (!transactionPosition.getProduct().getImages().isEmpty()) {
@@ -72,9 +72,9 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HistoryV
         }
 
         int total = transactionPosition.getProduct().getPrice() * transactionPosition.getQuantity();
-        holder.tvTotal.setText(String.valueOf(total) + ",-");
+        holder.tvTotal.setText(total + ",-");
 
-        holder.tvInvoice.setText("INVOICE : "+String.valueOf(transactionPosition.getCode()));
+        holder.tvInvoice.setText("INVOICE : "+ transactionPosition.getCode());
 
     }
 

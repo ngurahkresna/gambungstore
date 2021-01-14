@@ -65,7 +65,7 @@ public class promoActivity extends AppCompatActivity {
         searchHint = findViewById(R.id.searchHint);
         searchHint.setOnEditorActionListener(new EditText.OnEditorActionListener() {
             @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {;
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 searchPromo(searchHint.getText().toString());
                 return true;
             }

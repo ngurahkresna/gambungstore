@@ -63,7 +63,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
         DataCart cartPosition = dataCart.get(position);
 
         int productStock = cartPosition.getProduct().getStock();
-        holder.mNameProduct.setText(cartPosition.getProduct().getName().toString());
+        holder.mNameProduct.setText(cartPosition.getProduct().getName());
         holder.mPriceProduct.setText("Harga : Rp " + cartPosition.getProduct().getPrice() + ",-");
         holder.mProductStock.setText("Tersisa " + productStock + " pcs");
         holder.mQuantity.setText(String.valueOf(cartPosition.getQuantity()));
@@ -168,7 +168,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
 
-        TextView mNameProduct, mProductStock, mPriceProduct, mQuantity, mOutOfStockText;;
+        TextView mNameProduct, mProductStock, mPriceProduct, mQuantity, mOutOfStockText;
         ImageView mImageProduct;
         Button mDeleteButton, mIncreaseQuantity, mDecreaseQuantity;
 

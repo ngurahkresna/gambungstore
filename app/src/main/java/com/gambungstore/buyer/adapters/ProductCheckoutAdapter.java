@@ -59,7 +59,7 @@ public class ProductCheckoutAdapter extends RecyclerView.Adapter<ProductCheckout
             for (int i = 0; i < productPosition.getCarts().size(); i++){
                 if (productPosition.getCarts().get(i).getUsername().equals(SharedPreference.getRegisteredUsername(context))){
                     holder.mProductName.setText(productPosition.getName());
-                    holder.mProductPrice.setText("Rp "+Integer.toString(productPosition.getPrice())+",-");
+                    holder.mProductPrice.setText("Rp "+ productPosition.getPrice() +",-");
                     holder.mStoreName.setText("");
                     if (productPosition.getImages() != null) {
                         if (!productPosition.getImages().isEmpty()) {

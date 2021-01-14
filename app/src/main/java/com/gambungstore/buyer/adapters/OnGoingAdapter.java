@@ -64,10 +64,10 @@ public class OnGoingAdapter extends RecyclerView.Adapter<OnGoingAdapter.OnGoingV
     public void onBindViewHolder(@NonNull OnGoingAdapter.OnGoingViewHolder holder, int position) {
         final DataTransaction transactionPosition = dataOnGoings.get(position);
 
-        holder.tvTanggal.setText(transactionPosition.getTanggal().toString());
-        holder.tvProduk.setText(transactionPosition.getProduct().getName().toString());
+        holder.tvTanggal.setText(transactionPosition.getTanggal());
+        holder.tvProduk.setText(transactionPosition.getProduct().getName());
         holder.tvHarga.setText(String.valueOf(transactionPosition.getProduct().getPrice()));
-        holder.tvQty.setText("(" + String.valueOf(transactionPosition.getQuantity()) + "pcs)");
+        holder.tvQty.setText("(" + transactionPosition.getQuantity() + "pcs)");
         if (transactionPosition.getShipping_no() == null) {
             holder.tvInvoice.setText("");
 
@@ -96,7 +96,7 @@ public class OnGoingAdapter extends RecyclerView.Adapter<OnGoingAdapter.OnGoingV
         }
 
         int total = transactionPosition.getProduct().getPrice() * transactionPosition.getQuantity();
-        holder.tvTransactionTotal.setText(String.valueOf(total) + ",-");
+        holder.tvTransactionTotal.setText(total + ",-");
 
         if (transactionPosition.getStatus() != null) {
             holder.tvStatus.setText(transactionPosition.getStatus().toUpperCase());

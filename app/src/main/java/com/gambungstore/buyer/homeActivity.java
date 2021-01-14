@@ -105,11 +105,7 @@ public class homeActivity extends AppCompatActivity implements BottomNavigationV
     }
 
     private boolean isLogin() {
-        if (SharedPreference.getRegisteredToken(this).matches("")) {
-            return false;
-        } else {
-            return true;
-        }
+        return !SharedPreference.getRegisteredToken(this).matches("");
     }
 
     private void getProfile() {

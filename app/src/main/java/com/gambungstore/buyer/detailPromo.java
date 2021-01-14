@@ -33,9 +33,9 @@ public class detailPromo extends AppCompatActivity {
         DataPromo promo = getIntent().getExtras().getParcelable("promo");
         mCodePromo.setText(promo.getCode());
         if (promo.getType().equals("VCRCB")){
-            mDetailPromo.setText("Voucher cashback sebesar "+Integer.toString(promo.getPercentage())+"%");
+            mDetailPromo.setText("Voucher cashback sebesar "+ promo.getPercentage() +"%");
         }else{
-            mDetailPromo.setText("Voucher discount sebesar "+Integer.toString(promo.getPercentage())+"%");
+            mDetailPromo.setText("Voucher discount sebesar "+ promo.getPercentage() +"%");
         }
 
         mSyaratPromo.setText(promo.getTerms());

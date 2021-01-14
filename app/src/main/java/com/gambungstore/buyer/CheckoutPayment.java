@@ -72,10 +72,10 @@ public class CheckoutPayment extends AppCompatActivity {
         mAccountName = findViewById(R.id.account_name);
         mBankName = findViewById(R.id.bank_name);
 
-        mProductPrice.setText("Rp "+Integer.toString(getIntent().getIntExtra("productPrice",0))+",-");
-        mDiscountPrice.setText("Rp "+Integer.toString(getIntent().getIntExtra("discountPrice",0))+",-");
-        mTotalPrice.setText("Rp "+Integer.toString(getIntent().getIntExtra("grandTotalPrice",0))+",-");
-        mExpeditionPrice.setText("Rp "+Integer.toString(getIntent().getIntExtra("expeditionPrice",0))+",-");
+        mProductPrice.setText("Rp "+ getIntent().getIntExtra("productPrice", 0) +",-");
+        mDiscountPrice.setText("Rp "+ getIntent().getIntExtra("discountPrice", 0) +",-");
+        mTotalPrice.setText("Rp "+ getIntent().getIntExtra("grandTotalPrice", 0) +",-");
+        mExpeditionPrice.setText("Rp "+ getIntent().getIntExtra("expeditionPrice", 0) +",-");
 
         getBankAccount();
 
@@ -147,7 +147,7 @@ public class CheckoutPayment extends AppCompatActivity {
                 if (diff == 0){
                     mTime.setText("00:00:00");
                 }else{
-                    mTime.setText(Integer.toString(hours)+":"+Integer.toString(minutes)+":"+Integer.toString(seconds));
+                    mTime.setText(hours +":"+ minutes +":"+ seconds);
                 }
 
             }

@@ -55,9 +55,9 @@ public class changePasswordActivity extends AppCompatActivity {
         String newPass = this.mNewPassword.getText().toString();
         String confirmPass = this.mConfirmPassword.getText().toString();
 
-        Log.d("pass", String.valueOf(pass));
-        Log.d("newPass", String.valueOf(newPass));
-        Log.d("confirmPass", String.valueOf(confirmPass));
+        Log.d("pass", pass);
+        Log.d("newPass", newPass);
+        Log.d("confirmPass", confirmPass);
 
         if (!newPass.equals(confirmPass)) {
             Toast.makeText(changePasswordActivity.this, "Konfirmasi password tidak sesuai", Toast.LENGTH_SHORT).show();

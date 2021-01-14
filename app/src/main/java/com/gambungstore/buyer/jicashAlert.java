@@ -51,7 +51,7 @@ public class jicashAlert extends AppCompatActivity {
         intent.putExtra("expeditionPrice",0);
         intent.putExtra("grandTotalPrice",ammount);
         intent.putExtra("transaction_code", 0);
-        intent.putExtra("created_at",formatter.format(today).toString());
+        intent.putExtra("created_at", formatter.format(today));
         intent.putExtra("jicash", "jicash");
         startActivity(intent);
         finish();

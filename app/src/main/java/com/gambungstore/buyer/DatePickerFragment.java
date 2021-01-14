@@ -16,7 +16,7 @@ public class DatePickerFragment extends DialogFragment implements DatePickerDial
     TheListener listener;
 
     public interface TheListener {
-        public void returnDate(String date);
+        void returnDate(String date);
     }
 
     public void onDateSet(DatePicker view, int year, int month, int day) {

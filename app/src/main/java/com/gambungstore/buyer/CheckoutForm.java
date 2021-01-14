@@ -175,9 +175,9 @@ public class CheckoutForm extends AppCompatActivity {
             @Override
             public void onResponse(Call<Checkout> call, Response<Checkout> response) {
                 Log.d(TAG, "onResponse: "+response.raw());
-                mAddress.setText(response.body().getUser().getAddress().toString());
-                mPhone.setText(response.body().getUser().getPhone().toString());
-                mProductPrice.setText("Rp "+Integer.toString(response.body().getPrice())+",-");
+                mAddress.setText(response.body().getUser().getAddress());
+                mPhone.setText(response.body().getUser().getPhone());
+                mProductPrice.setText("Rp "+ response.body().getPrice() +",-");
                 productPrice = response.body().getPrice();
                 checkoutAdapter(response.body().getStore());
 
@@ -277,14 +277,14 @@ public class CheckoutForm extends AppCompatActivity {
     public void refreshRincianHarga(){
         if (voucherType.equals("cashback")){
             grandTotalPrice = productPrice + expeditionPrice;
-            mDiscountPrice.setText("Rp "+Integer.toString(voucherPrice)+",- ("+voucherType.toUpperCase()+")");
+            mDiscountPrice.setText("Rp "+ voucherPrice +",- ("+voucherType.toUpperCase()+")");
         }else{
             grandTotalPrice = productPrice - voucherPrice + expeditionPrice;
-            mDiscountPrice.setText("Rp "+Integer.toString(voucherPrice)+",-");
+            mDiscountPrice.setText("Rp "+ voucherPrice +",-");
         }
 
-        mTotalPrice.setText("Rp "+Integer.toString(grandTotalPrice)+",-");
-        mExpeditionPrice.setText("Rp "+Integer.toString(expeditionPrice)+",-");
+        mTotalPrice.setText("Rp "+ grandTotalPrice +",-");
+        mExpeditionPrice.setText("Rp "+ expeditionPrice +",-");
     }
 
     private void defaultVoucher(){

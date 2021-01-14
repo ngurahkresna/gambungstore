@@ -38,7 +38,7 @@ public class PromoAdapterMatchParent extends RecyclerView.Adapter<PromoAdapterMa
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         final DataPromo positionDataPromo = dataPromo.get(position);
-        holder.mPromoTitle.setText(positionDataPromo.getCode().toString());
+        holder.mPromoTitle.setText(positionDataPromo.getCode());
         holder.mPromoCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

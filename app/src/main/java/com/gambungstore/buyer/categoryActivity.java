@@ -57,7 +57,7 @@ public class categoryActivity extends AppCompatActivity {
 
         searchHint.setOnEditorActionListener(new EditText.OnEditorActionListener() {
             @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {;
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 searchCategory(searchHint.getText().toString());
                 return true;
             }

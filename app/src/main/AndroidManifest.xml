@@ -43,7 +43,6 @@
                 android:resource="@xml/filepaths" />
         </provider>
         <activity android:name="com.gambungstore.buyer.detailPromo" />
-        <activity android:name="com.gambungstore.buyer.transaction" />
         <activity android:name="com.gambungstore.buyer.editProfile" />
         <activity android:name="com.gambungstore.buyer.changePasswordActivity" />
         <activity android:name="com.gambungstore.buyer.wishlistActivity" />

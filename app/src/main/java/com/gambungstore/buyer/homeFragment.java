@@ -192,11 +192,7 @@ public class homeFragment extends Fragment{
     }
 
     private boolean isLogin(){
-        if (SharedPreference.getRegisteredToken(getContext()).matches("")){
-            return false;
-        }else{
-            return true;
-        }
+        return !SharedPreference.getRegisteredToken(getContext()).matches("");
     }
 
     public void onViewPromo(List<DataPromo> dataPromos) {
@@ -307,7 +303,7 @@ public class homeFragment extends Fragment{
             @Override
             public void onResponse(Call<List<Jicash>> call, Response<List<Jicash>> response) {
                 if (response.body().size() != 0) {
-                    jicashBalance.setText("Rp. " + response.body().get(0).getBalance().toString() + ",-");
+                    jicashBalance.setText("Rp. " + response.body().get(0).getBalance() + ",-");
                 }
                 else {
                     jicashBalance.setText("Rp. 0");

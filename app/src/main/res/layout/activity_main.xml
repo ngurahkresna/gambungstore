@@ -53,7 +53,7 @@
                         android:layout_gravity="center_vertical"
                         android:layout_marginLeft="@dimen/space"
                         android:text="Login/Register"
-                        android:textAlignment="textEnd"
+                        android:gravity="end"
                         android:textColor="@color/colorWhite"
                         android:textSize="16sp"
                         android:textStyle="bold" />

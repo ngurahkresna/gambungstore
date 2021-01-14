@@ -227,7 +227,6 @@
                                 android:onClick="paymentMethod"
                                 android:padding="8dp"
                                 android:text="Upload"
-                                android:textAlignment="center"
                                 android:textAllCaps="false"
                                 android:textColor="@color/colorWhite" />
                         </RelativeLayout>

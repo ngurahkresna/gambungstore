@@ -130,7 +130,7 @@ public class detailProduct extends AppCompatActivity {
                 mStoreName.setText(dataProduct.getStore().getName());
                 mStoreLocation.setText(dataProduct.getStore().getCity());
                 mDescription.setText(dataProduct.getDescription());
-                mPrice.setText("Rp " + String.valueOf(dataProduct.getPrice()) + ",- ");
+                mPrice.setText("Rp " + dataProduct.getPrice() + ",- ");
 
                 carouselView.setImageListener(imageListener);
                 carouselView.setPageCount(mImages.size());
